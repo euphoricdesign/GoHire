@@ -1,7 +1,7 @@
-import UserCard from "./userCard";
+import UserCard from "../userCard/userCard";
 import { IUser } from "@/types";
 
-const UserCards = ({ users }: { users: IUser[] }) => {
+const UsersCards = ({ users }: { users: IUser[] }) => {
   return (
     <div className="flex justify-center items-center flex-wrap m-2">
       {users.map((user) => {
@@ -11,4 +11,4 @@ const UserCards = ({ users }: { users: IUser[] }) => {
   );
 };
 
-export default UserCards;
+export default UsersCards;
