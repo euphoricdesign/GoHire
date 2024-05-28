@@ -1,9 +1,13 @@
-import Image from "next/image";
+'use client'
+
+import React from "react";
+import Carousel from "./componets/Carousel";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     
-    </main>
+    <div>
+    <h1>HOME</h1>
+    <Carousel />
+</div>
   );
 }
