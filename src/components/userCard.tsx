@@ -17,7 +17,7 @@ const UserCard = ({ id, name, city, description, skills }: IUser) => {
         <div className="flex justify-end px-5 mt-2">
           <Image
             className="rounded-full p-2 border-2 border-slate-400"
-            src={"/images/perfilTest.png"}
+            src={""}
             alt="perfil"
             width={200}
             height={200}
@@ -56,14 +56,12 @@ const UserCard = ({ id, name, city, description, skills }: IUser) => {
           </button>
         </div>
       </div>
-      <div className="bg-indigo-700 text-left px-4 py-2 font-bold rounded-b-md h-28 w-full text-slate-100 ">
-        <h6 className="">Skills</h6>
-        <div className="overflow-auto h-[4.5rem]">
-          <ul className="list-none m-0 p-0 text-sm">
+      <div className="bg-indigo-700  px-4 py-2 font-bold rounded-b-md h-28 w-full text-slate-100 ">
+        <h6 className="text-center">Skills</h6>
+        <div className="overflow-auto h-[5rem]">
+          <ul className="list-none m-0 p-0 text-sm flex flex-wrap">
             {skills.map((skill, index) => (
-              <li
-                key={index}
-                className="border border-slate-300 rounded-sm inline-block m-1 p-[2px]">
+              <li key={index} className="border border-slate-300 rounded-lg inline-block m-1 p-1">
                 {skill}
               </li>
             ))}
