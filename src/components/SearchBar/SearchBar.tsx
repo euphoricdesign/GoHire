@@ -14,7 +14,7 @@ const SearchBar = () => {
           <input className='py-[0.6rem] px-4 focus:outline-none' type="text" placeholder='Location' />
        </div>
        <div>
-        <button className='mb-0 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#5049E5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 '>Post a job</button>
+        <button className='mb-0 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#5049E5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 '>Buscar</button>
        </div>
     </form>
   )
