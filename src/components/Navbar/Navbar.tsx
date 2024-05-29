@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import './Navbar.css'
+import '../../utils/Navbar.css'
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { '--i'?: number };
