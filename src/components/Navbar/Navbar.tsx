@@ -16,8 +16,9 @@ const Navbar: React.FC = () => {
             <i id="close-icon" className="icon">&#10005;</i>
           </label> 
           <nav className="navbar">
-            <a className='text-sm' href="#" style={{ '--i': 0 }} {...({} as AnchorProps)}>Home</a>
-            <a className='text-sm' href="#" style={{ '--i': 1 }} {...({} as AnchorProps)}>Jobs</a>
+            <a className='text-sm' href="/" style={{ '--i': 0 }} {...({} as AnchorProps)}>Home</a>
+            <a className='text-sm' href="/users" style={{ '--i': 1 }} {...({} as AnchorProps)}>Users</a>
+            <a className='text-sm' href="/jobs" style={{ '--i': 3 }} {...({} as AnchorProps)}>Jobs</a>
             <a className='text-sm' href="#" style={{ '--i': 2 }} {...({} as AnchorProps)}>Blog</a>
             <a className='text-sm' href="#" style={{ '--i': 3 }} {...({} as AnchorProps)}>Contact</a>
           </nav>
