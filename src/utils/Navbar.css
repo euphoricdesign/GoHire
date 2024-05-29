@@ -17,9 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: hsla(0, 0%, 100%, 0.8);
-  background: hsla(0, 0%, 100%, 0.88);
-  backdrop-filter: blur(12px);
+  transition: all 300ms ease-in-out;
   z-index: -1;
 }
 
@@ -33,6 +31,12 @@
 
 .navbar {
   transform-style: preserve-3d;
+}
+
+.header.scrolled::before {
+  transition: all 500ms ease-in-out;
+  background-color: white;
+  backdrop-filter: none;
 }
 
 .navbar a {
@@ -69,7 +73,7 @@
 
 @media (max-width: 992px) {
   .header {
-    /* padding: 1.3rem 5%; */
+    padding: 1.3rem 5%;
   }
 }
 
