@@ -2,11 +2,12 @@
 
 import React from "react";
 import Carousel from "../components/Carousel/Carousel";
+import Home from "@/components/Home/Home";
 
-export default function Home() {
+export default function MainPage() {
   return (
-    <div>
-      <h1>HOME</h1>
+    <div className="relative">
+      <Home />
       <Carousel />
     </div>
   );
