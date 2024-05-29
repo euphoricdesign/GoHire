@@ -1,6 +1,16 @@
 import React from 'react';
 
-const CardJobs: React.FC = () => {
+interface User {
+  name: string;
+  jobTitle: string;
+  description: string;
+  bio: string;
+  publishedDate: string;
+  readingTime: string;
+  imageUrl: string;
+}
+
+const UserCard: React.FC<User> = ({ name, jobTitle, description, bio, publishedDate, readingTime, imageUrl }) => {
   return (
     <a
       href="#"
@@ -13,16 +23,16 @@ const CardJobs: React.FC = () => {
       <div className="sm:flex sm:justify-between sm:gap-4">
         <div>
           <h3 className="text-lg font-bold text-gray-900 sm:text-xl">
-            Building a SaaS product as a software developer
+            {description}
           </h3>
 
-          <p className="mt-1 text-xs font-medium text-gray-600">By John Doe</p>
+          <p className="mt-1 text-xs font-medium text-gray-600">By {name}</p>
         </div>
 
         <div className="hidden sm:block sm:shrink-0">
           <img
-            alt=""
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+            alt={jobTitle}
+            src={imageUrl}
             className="size-16 rounded-lg object-cover shadow-sm"
           />
         </div>
@@ -30,24 +40,23 @@ const CardJobs: React.FC = () => {
 
       <div className="mt-4">
         <p className="text-pretty text-sm text-gray-500">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. At velit illum provident a, ipsa
-          maiores deleniti consectetur nobis et eaque.
+          {bio}
         </p>
       </div>
 
       <dl className="mt-6 flex gap-4 sm:gap-6">
         <div className="flex flex-col-reverse">
           <dt className="text-sm font-medium text-gray-600">Published</dt>
-          <dd className="text-xs text-gray-500">31st June, 2021</dd>
+          <dd className="text-xs text-gray-500">{publishedDate}</dd>
         </div>
 
         <div className="flex flex-col-reverse">
           <dt className="text-sm font-medium text-gray-600">Reading time</dt>
-          <dd className="text-xs text-gray-500">3 minute</dd>
+          <dd className="text-xs text-gray-500">{readingTime}</dd>
         </div>
       </dl>
     </a>
   );
 }
 
-export default CardJobs;
+export default UserCard;
