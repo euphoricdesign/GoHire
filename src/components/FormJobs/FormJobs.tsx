@@ -45,17 +45,7 @@ const FormJobs: React.FC = () => {
                         <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
                             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                                <div>
-                                    <label htmlFor="name"></label>
-                                    <input
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Name"
-                                        type="text"
-                                        id="name"
-                                        {...register("name", { required: "El nombre es obligatorio." })}
-                                    />
-                                    {errors.name && <span>{errors.name.message}</span>}
-                                </div>
+                               
                                 <div>
                                     <label htmlFor="jobTitle"></label>
                                     <input
@@ -78,17 +68,7 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
-                                <div>
-                                    <label htmlFor="bio"></label>
-                                    <textarea
-                                        className="w-full rounded-lg focus:border-custom-focus p-3 text-sm"
-                                        placeholder="Bio"
-                                        id="bio"
-                                        rows={4}
-                                        {...register("bio", { required: "La biografía es obligatoria." })}
-                                    ></textarea>
-                                    {errors.bio && <span>{errors.bio.message}</span>}
-                                </div>
+                               
                                 <div>
                                     <label htmlFor="publishedDate"></label>
                                     <input
@@ -111,17 +91,7 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.readingTime && <span>{errors.readingTime.message}</span>}
                                 </div>
-                                {/* <div>
-                                    <label htmlFor="imageUrl"></label>
-                                    <input
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Image URL"
-                                        type="text"
-                                        id="imageUrl"
-                                        {...register("imageUrl", { required: "La URL de la imagen es obligatoria." })}
-                                    />
-                                    {errors.imageUrl && <span>{errors.imageUrl.message}</span>}
-                                </div> */}
+                                
                                 <div className="mt-4">
                                     <button
                                         type="submit"
