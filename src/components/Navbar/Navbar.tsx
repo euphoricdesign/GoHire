@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className={`header py-4 px-10 ${scrollPosition > 0 ? "scrolled" : ""}`}>
+    <header className={`header py-4 px-[124px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
       <div className="flex items-center">
         <a href="#" className="logo mr-10">
           Logo
