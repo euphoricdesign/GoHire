@@ -16,7 +16,11 @@ const config: Config = {
       },
       boxShadow: {
         'custom': '0px 0px 30px 0px rgba(98, 91, 229, 0.15)',
-      }
+      },
+      colors: {
+        'custom-purple': '#4537D4',
+        'custom-focus': '#383A8F',
+      },
     },
   },
   plugins: [],
