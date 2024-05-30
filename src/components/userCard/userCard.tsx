@@ -4,74 +4,105 @@ import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { IUser } from "@/types";
 
-const UserCard = ({ profileImg, name, lastName, country, city, description, skills }: IUser) => {
+interface TruncateTextParams {
+  text: string;
+  maxLength: number;
+}
+
+const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return text.slice(0, maxLength) + "...";
+};
+
+const UserCard = ({
+  profileImg,
+  name,
+  lastName,
+  country,
+  city,
+  description,
+  professions,
+  onClick,
+}: IUser & { onClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
 
-  const handleFavClick = () => {
+  const handleFavClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setFavClicked(!FavClicked);
   };
 
+  const handleButtonClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
+
+  const truncatedDescription = truncateText({ text: description, maxLength: 100 });
+
   return (
-    <div className="flex items-center justify-between w-80 flex-col shadow-2xl transition-all duration-300">
-      <div className="bg-[#5055C3] rounded-t-md text-slate-100 pt-2 pb-2 relative w-full text-center h-[26rem] flex flex-col justify-around">
-        <div className="flex justify-center px-5 mt-2">
-          <Image
-            className="rounded-full h-52 w-52 p-2 border-2 border-slate-400"
-            src={profileImg}
-            alt="perfil"
-            width={200}
-            height={200}
-          />
-          <span>
-            {FavClicked ? (
-              <button
-                onClick={handleFavClick}
-                className="absolute bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-red-500 hover:border-red-600 transition-all duration-300">
-                <GoHeartFill
-                  size={30}
-                  className="text-red-500 hover:text-red-600 transition-all duration-300"
-                />
-              </button>
-            ) : (
-              <button
-                onClick={handleFavClick}
-                className="absolute bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-indigo-900 hover:border-indigo-300 transition-all duration-300">
-                <GoHeartFill
-                  size={30}
-                  className="text-indigo-600 hover:text-indigo-600 transition-all duration-300"
-                />
-              </button>
-            )}
-          </span>
+    <div className="cursor-pointer" onClick={onClick}>
+      <div className="flex items-center justify-between w-[30rem] flex-col shadow-md transition-all duration-300 border rounded-t-xl">
+        <div className="w-full rounded-t-lg border-b border-gray-300">
+          <div className="flex justify-between w-full p-5">
+            <div className="flex flex-col justify-between">
+              <div className="flex items-center">
+                <button
+                  onClick={handleButtonClick}
+                  className="bg-white border mr-2 w-28 text-indigo-600 border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
+                  Message
+                </button>
+                <button
+                  onClick={handleButtonClick}
+                  className="bg-[#3D63DD] text-white text-center px-5 py-2 rounded-xl mr-2 hover:bg-[#93B4FF] transition-all duration-300">
+                  Hire
+                </button>
+                {FavClicked ? (
+                  <button onClick={handleFavClick} className="transition-all duration-300">
+                    <GoHeartFill className="text-red-500 hover:text-red-600 transition-all duration-300 size-10 border-2 p-1 border-red-500 rounded-full" />
+                  </button>
+                ) : (
+                  <button onClick={handleFavClick} className="transition-all duration-300">
+                    <GoHeartFill className="text-[#3D63DD] hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#3D63DD] rounded-full" />
+                  </button>
+                )}
+              </div>
+              <div className="">
+                <span className="text-lg font-bold">
+                  {name} {lastName}
+                </span>
+                <span>
+                  - {city}, {country}
+                </span>
+              </div>
+            </div>
+            <div>
+              <Image
+                className="rounded-full p-[1px] border-2 border-[#3D63DD]"
+                src={profileImg}
+                alt="perfil"
+                width={80}
+                height={80}
+              />
+            </div>
+          </div>
+          <div className="px-5">
+            <p className="text-sm leading-5 mt-1 mb-4">{truncatedDescription}</p>
+          </div>
         </div>
-        <h3 className="font-bold text-lg text-white my-1">
-          {name} {lastName}
-        </h3>
-        <h6 className="text-white font-bold">
-          {city}, {country}
-        </h6>
-        <p className="text-sm	leading-5 text-white mt-1 mb-4">{description}</p>
-        <div className="">
-          <button className="bg-white border mr-2 w-28 text-indigo-600 border-slate-300 font-medium py-2 px-4 rounded hover:bg-[#A1ABFF] transition-all duration-300">
-            Message
-          </button>
-          <button className="bg-transparent border w-28 border-slate-100 font-medium py-2 px-6 rounded text-slate-100 hover:bg-indigo-300 transition-all duration-300">
-            Hire
-          </button>
+        <div className="flex flex-col justify-around px-5 font-bold rounded-b-md h-[6rem] w-full ">
+          <h6 className="text-center">Professions</h6>
+          <div className="overflow-auto">
+            <ul className="list-none text-sm flex flex-wrap">
+              {professions.map((profession, index) => (
+                <li key={index} className="border border-slate-300 rounded-lg inline-block m-1 p-1">
+                  {profession}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="bg-[#4347A4] px-4 py-2 font-bold rounded-b-md h-28 w-full text-slate-100 border-t border-slate-100">
-        <h6 className="text-center">Skills</h6>
-        <div className="overflow-auto h-[5rem]">
-          <ul className="list-none m-0 p-0 text-sm flex flex-wrap">
-            {skills.map((skill, index) => (
-              <li key={index} className="border border-slate-300 rounded-lg inline-block m-1 p-1">
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <div className="bg-[#3D63DD] h-2 rounded-b-full"></div>
     </div>
   );
 };
