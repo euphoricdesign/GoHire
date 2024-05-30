@@ -23,7 +23,7 @@ const FormJobs: React.FC = () => {
 
 
     const onSubmit: SubmitHandler<FormData> = data => {
-        toast.success("Publicación creada con éxito!");
+        toast.success("Post created successfully!");
         console.log(data, "el boton funciona");
         // Aquí se realizará el envío de datos a la API.
 
@@ -38,7 +38,7 @@ const FormJobs: React.FC = () => {
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
                         <p className="max-w-xl text-lg">
-                            poner algo  jaja
+                        Create Your Best Job Proposa
                         </p>
                     </div>
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
