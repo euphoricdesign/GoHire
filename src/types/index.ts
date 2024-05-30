@@ -1,3 +1,11 @@
+export interface IJob {
+  title: string;
+  company: string;
+  testimonial: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface IUser {
   id: number;
   profileImg: string;
@@ -6,5 +14,7 @@ export interface IUser {
   country: string;
   city: string;
   description: string;
-  skills: string[];
+  professions: string[];
+  educations: string[];
+  jobs: IJob[];
 }
