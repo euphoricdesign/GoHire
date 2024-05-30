@@ -51,7 +51,7 @@ const FormJobs: React.FC = () => {
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
                         <p className="max-w-xl text-lg">
-                        Create Your Best Job Proposa
+                        Create Your Best Job Proposal
                         </p>
                     </div>
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
