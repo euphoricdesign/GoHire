@@ -1,6 +1,8 @@
+// pages/formulario.tsx
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface FormData {
     name: string;
@@ -13,28 +15,10 @@ interface FormData {
 }
 
 const FormJobs: React.FC = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const [formData, setFormData] = useState<FormData>({
-        name: '',
-        jobTitle: '',
-        description: '',
-        bio: '',
-        publishedDate: '',
-        readingTime: '',
-        imageUrl: ''
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { id, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [id]: value,
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log(formData);
+    const onSubmit: SubmitHandler<FormData> = data => {
+        console.log(data);
         // Aquí se realizará el envío de datos a la API.
     };
 
@@ -50,7 +34,7 @@ const FormJobs: React.FC = () => {
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
                         <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
                             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
-                            <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
                                 <div>
                                     <label htmlFor="name"></label>
                                     <input
@@ -58,9 +42,9 @@ const FormJobs: React.FC = () => {
                                         placeholder="Name"
                                         type="text"
                                         id="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
+                                        {...register("name", { required: "El nombre es obligatorio." })}
                                     />
+                                    {errors.name && <span>{errors.name.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="jobTitle"></label>
@@ -69,9 +53,9 @@ const FormJobs: React.FC = () => {
                                         placeholder="Job Title"
                                         type="text"
                                         id="jobTitle"
-                                        value={formData.jobTitle}
-                                        onChange={handleChange}
+                                        {...register("jobTitle", { required: "El título del trabajo es obligatorio." })}
                                     />
+                                    {errors.jobTitle && <span>{errors.jobTitle.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="description"></label>
@@ -80,9 +64,9 @@ const FormJobs: React.FC = () => {
                                         placeholder="Description"
                                         type="text"
                                         id="description"
-                                        value={formData.description}
-                                        onChange={handleChange}
+                                        {...register("description", { required: "La descripción es obligatoria." })}
                                     />
+                                    {errors.description && <span>{errors.description.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="bio"></label>
@@ -91,20 +75,20 @@ const FormJobs: React.FC = () => {
                                         placeholder="Bio"
                                         id="bio"
                                         rows={4}
-                                        value={formData.bio}
-                                        onChange={handleChange}
+                                        {...register("bio", { required: "La biografía es obligatoria." })}
                                     ></textarea>
+                                    {errors.bio && <span>{errors.bio.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="publishedDate"></label>
                                     <input
                                         className="w-full rounded-lg border border-gray-200 p-3 text-sm focus:border-custom-focus"
                                         placeholder="Published Date"
-                                        type="text"
+                                        type="date"
                                         id="publishedDate"
-                                        value={formData.publishedDate}
-                                        onChange={handleChange}
+                                        {...register("publishedDate", { required: "La fecha de publicación es obligatoria." })}
                                     />
+                                    {errors.publishedDate && <span>{errors.publishedDate.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="readingTime"></label>
@@ -113,28 +97,28 @@ const FormJobs: React.FC = () => {
                                         placeholder="Reading Time"
                                         type="text"
                                         id="readingTime"
-                                        value={formData.readingTime}
-                                        onChange={handleChange}
+                                        {...register("readingTime", { required: "El tiempo de lectura es obligatorio." })}
                                     />
+                                    {errors.readingTime && <span>{errors.readingTime.message}</span>}
                                 </div>
-                                <div>
+                                {/* <div>
                                     <label htmlFor="imageUrl"></label>
                                     <input
                                         className="w-full rounded-lg border-gray-200 p-3 text-sm"
                                         placeholder="Image URL"
                                         type="text"
                                         id="imageUrl"
-                                        value={formData.imageUrl}
-                                        onChange={handleChange}
+                                        {...register("imageUrl", { required: "La URL de la imagen es obligatoria." })}
                                     />
-                                </div>
+                                    {errors.imageUrl && <span>{errors.imageUrl.message}</span>}
+                                </div> */}
                                 <div className="mt-4">
                                     <button
                                         type="submit"
                                         className="inline-block w-full rounded-lg px-5 py-3 font-medium text-white sm:w-auto"
                                         style={{ backgroundColor: '#4537D4' }}
                                     >
-                                       Create Proposal
+                                        Create Proposal
                                     </button>
                                 </div>
                             </form>
