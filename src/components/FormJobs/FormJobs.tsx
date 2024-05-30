@@ -30,6 +30,19 @@ const FormJobs: React.FC = () => {
 
 
     };
+    const generateTimeOptions = () => {
+        const options = [];
+        for (let hour = 0; hour < 24; hour++) {
+            for (let minute = 0; minute < 60; minute += 15) {
+                const hourString = hour.toString().padStart(2, '0');
+                const minuteString = minute.toString().padStart(2, '0');
+                const timeString = `${hourString}:${minuteString}`;
+                options.push(<option key={timeString} value={timeString}>{timeString}</option>);
+            }
+        }
+        return options;
+    };
+
 
     return (
         <section className="bg-gray-100">
@@ -38,7 +51,7 @@ const FormJobs: React.FC = () => {
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
                         <p className="max-w-xl text-lg">
-                        Create Your Best Job Proposa
+                        Create Your Best Job Proposal
                         </p>
                     </div>
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
@@ -62,10 +75,9 @@ const FormJobs: React.FC = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="description"></label>
-                                    <input
+                                    <textarea
                                         className="w-full rounded-lg border-gray-200 p-3 text-sm"
                                         placeholder="Description"
-                                        type="text"
                                         id="description"
                                         {...register("description", {
                                             required: "La descripción es obligatoria.",
@@ -88,13 +100,14 @@ const FormJobs: React.FC = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="readingTime"></label>
-                                    <input
+                                    <select
                                         className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Reading Time"
-                                        type="text"
                                         id="readingTime"
                                         {...register("readingTime", { required: "El tiempo de lectura es obligatorio." })}
-                                    />
+                                    >
+                                        <option value="">Select Reading Time</option>
+                                        {generateTimeOptions()}
+                                    </select>
                                     {errors.readingTime && <span>{errors.readingTime.message}</span>}
                                 </div>
 
