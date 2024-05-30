@@ -12,9 +12,9 @@ const UserCard = ({ profileImg, name, lastName, country, city, description, skil
   };
 
   return (
-    <div className="flex items-center justify-between w-80 flex-col m-4 shadow-2xl scale-90 hover:scale-95 transition-all duration-300">
+    <div className="flex items-center justify-between w-80 flex-col shadow-2xl transition-all duration-300">
       <div className="bg-[#5055C3] rounded-t-md text-slate-100 pt-2 pb-2 relative w-full text-center h-[26rem] flex flex-col justify-around">
-        <div className="flex justify-end px-5 mt-2">
+        <div className="flex justify-center px-5 mt-2">
           <Image
             className="rounded-full h-52 w-52 p-2 border-2 border-slate-400"
             src={profileImg}
@@ -26,7 +26,7 @@ const UserCard = ({ profileImg, name, lastName, country, city, description, skil
             {FavClicked ? (
               <button
                 onClick={handleFavClick}
-                className="bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-red-500 hover:border-red-600 transition-all duration-300">
+                className="absolute bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-red-500 hover:border-red-600 transition-all duration-300">
                 <GoHeartFill
                   size={30}
                   className="text-red-500 hover:text-red-600 transition-all duration-300"
@@ -35,7 +35,7 @@ const UserCard = ({ profileImg, name, lastName, country, city, description, skil
             ) : (
               <button
                 onClick={handleFavClick}
-                className="bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-indigo-900 hover:border-indigo-300 transition-all duration-300">
+                className="absolute bg-white pt-1 px-1 pb-[2px] rounded-full border-2 border-indigo-900 hover:border-indigo-300 transition-all duration-300">
                 <GoHeartFill
                   size={30}
                   className="text-indigo-600 hover:text-indigo-600 transition-all duration-300"
