@@ -20,20 +20,20 @@ interface FormData {
 const FormJobs: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    
+
 
     const onSubmit: SubmitHandler<FormData> = data => {
         toast.success("Publicación creada con éxito!");
-        console.log(data,"el boton funciona");
+        console.log(data, "el boton funciona");
         // Aquí se realizará el envío de datos a la API.
 
-        
+
 
     };
-    
+
     return (
         <section className="bg-gray-100">
-            <ToastContainer/>
+            <ToastContainer />
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
@@ -45,7 +45,7 @@ const FormJobs: React.FC = () => {
                         <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
                             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                               
+
                                 <div>
                                     <label htmlFor="jobTitle"></label>
                                     <input
@@ -53,7 +53,10 @@ const FormJobs: React.FC = () => {
                                         placeholder="Job Title"
                                         type="text"
                                         id="jobTitle"
-                                        {...register("jobTitle", { required: "El título del trabajo es obligatorio." })}
+                                        {...register("jobTitle", {
+                                            required: "El título del trabajo es obligatorio.",
+                                            maxLength: { value: 20, message: "El título no puede tener más de 20 caracteres." }
+                                        })}
                                     />
                                     {errors.jobTitle && <span>{errors.jobTitle.message}</span>}
                                 </div>
@@ -64,11 +67,14 @@ const FormJobs: React.FC = () => {
                                         placeholder="Description"
                                         type="text"
                                         id="description"
-                                        {...register("description", { required: "La descripción es obligatoria." })}
+                                        {...register("description", {
+                                            required: "La descripción es obligatoria.",
+                                            maxLength: { value: 200, message: "La descripción no puede tener más de 200 caracteres." }
+                                        })}
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
-                               
+
                                 <div>
                                     <label htmlFor="publishedDate"></label>
                                     <input
@@ -91,7 +97,7 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.readingTime && <span>{errors.readingTime.message}</span>}
                                 </div>
-                                
+
                                 <div className="mt-4">
                                     <button
                                         type="submit"
