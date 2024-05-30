@@ -3,6 +3,9 @@
 
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 interface FormData {
     name: string;
@@ -17,13 +20,20 @@ interface FormData {
 const FormJobs: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit: SubmitHandler<FormData> = data => {
-        console.log(data);
-        // Aquí se realizará el envío de datos a la API.
-    };
+    
 
+    const onSubmit: SubmitHandler<FormData> = data => {
+        toast.success("Publicación creada con éxito!");
+        console.log(data,"el boton funciona");
+        // Aquí se realizará el envío de datos a la API.
+
+        
+
+    };
+    
     return (
         <section className="bg-gray-100">
+            <ToastContainer/>
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
