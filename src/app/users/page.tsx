@@ -4,7 +4,7 @@ import { usersPreload } from "@/utils/users";
 
 const Users = () => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-[100px]">
       <div className="">
         <UsersCards users={usersPreload} />
       </div>

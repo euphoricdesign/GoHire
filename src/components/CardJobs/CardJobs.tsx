@@ -28,14 +28,6 @@ const UserCard: React.FC<User> = ({ name, jobTitle, description, bio, publishedD
 
           <p className="mt-1 text-xs font-medium text-gray-600">By {name}</p>
         </div>
-
-        <div className="hidden sm:block sm:shrink-0">
-          <img
-            alt={jobTitle}
-            src={imageUrl}
-            className="size-16 rounded-lg object-cover shadow-sm"
-          />
-        </div>
       </div>
 
       <div className="mt-4">
