@@ -7,6 +7,7 @@
         "bio": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. At velit illum provident a, ipsa maiores deleniti consectetur nobis et eaque.",
         "publishedDate": "31st June, 2021",
         "readingTime": "3 minutes",
+        "category": "Developer",
         "imageUrl": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -16,6 +17,7 @@
         "bio": "Passionate about building accessible and performant web applications. Experienced in React and TypeScript.",
         "publishedDate": "15th July, 2022",
         "readingTime": "4 minutes",
+        "category": "Developer",
         "imageUrl": "https://images.unsplash.com/photo-1580656519535-5c74d5d0197b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -25,6 +27,7 @@
         "bio": "Specializing in Node.js and Express for creating robust backend solutions. Focused on performance and scalability.",
         "publishedDate": "20th August, 2022",
         "readingTime": "5 minutes",
+        "category": "Developer",
         "imageUrl": "https://images.unsplash.com/photo-1593642634402-d0be6ae26fda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -34,6 +37,7 @@
         "bio": "Experienced in creating intuitive and aesthetically pleasing designs. Skilled in Figma and Adobe XD.",
         "publishedDate": "10th September, 2022",
         "readingTime": "3 minutes",
+        "category": "Designer",
         "imageUrl": "https://images.unsplash.com/photo-1601986019543-34f9df8d7978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -43,6 +47,7 @@
         "bio": "Proficient in cloud platforms like AWS and Azure. Expertise in setting up and maintaining CI/CD pipelines.",
         "publishedDate": "5th October, 2022",
         "readingTime": "6 minutes",
+        "category": "Developer",
         "imageUrl": "https://images.unsplash.com/photo-1573497491208-6b1acb260507?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -52,6 +57,7 @@
         "bio": "Experienced in machine learning and data visualization. Skilled in Python and R.",
         "publishedDate": "25th November, 2022",
         "readingTime": "5 minutes",
+        "category": "Data Scientist",
         "imageUrl": "https://images.unsplash.com/photo-1604866832523-7c125e6c31c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -61,6 +67,7 @@
         "bio": "Experienced in creating intuitive and aesthetically pleasing designs. Skilled in Figma and Adobe XD.",
         "publishedDate": "10th September, 2022",
         "readingTime": "3 minutes",
+        "category": "Designer",
         "imageUrl": "https://images.unsplash.com/photo-1601986019543-34f9df8d7978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -70,6 +77,7 @@
         "bio": "Proficient in cloud platforms like AWS and Azure. Expertise in setting up and maintaining CI/CD pipelines.",
         "publishedDate": "5th October, 2022",
         "readingTime": "6 minutes",
+        "category": "Developer",
         "imageUrl": "https://images.unsplash.com/photo-1573497491208-6b1acb260507?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       },
       {
@@ -79,6 +87,7 @@
         "bio": "Experienced in machine learning and data visualization. Skilled in Python and R.",
         "publishedDate": "25th November, 2022",
         "readingTime": "5 minutes",
+        "category": "Data Scientist",
         "imageUrl": "https://images.unsplash.com/photo-1604866832523-7c125e6c31c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1180&q=80"
       }
     ]
