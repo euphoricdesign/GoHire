@@ -51,7 +51,7 @@ const FormJobs: React.FC = () => {
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
                         <p className="max-w-xl text-lg">
-                        Create Your Best Job Proposal
+                            Create Your Best Job Proposal
                         </p>
                     </div>
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
@@ -86,30 +86,12 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
+                                <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                                    <p className="text-gray-700">
+                                    The date and time of your application will be generated automatically
+                                    </p>
+                                </div>
 
-                                <div>
-                                    <label htmlFor="publishedDate"></label>
-                                    <input
-                                        className="w-full rounded-lg border border-gray-200 p-3 text-sm focus:border-custom-focus"
-                                        placeholder="Published Date"
-                                        type="date"
-                                        id="publishedDate"
-                                        {...register("publishedDate", { required: "La fecha de publicación es obligatoria." })}
-                                    />
-                                    {errors.publishedDate && <span>{errors.publishedDate.message}</span>}
-                                </div>
-                                <div>
-                                    <label htmlFor="readingTime"></label>
-                                    <select
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        id="readingTime"
-                                        {...register("readingTime", { required: "El tiempo de lectura es obligatorio." })}
-                                    >
-                                        <option value="">Select Reading Time</option>
-                                        {generateTimeOptions()}
-                                    </select>
-                                    {errors.readingTime && <span>{errors.readingTime.message}</span>}
-                                </div>
 
                                 <div className="mt-4">
                                     <button
