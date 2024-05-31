@@ -8,7 +8,9 @@ export default function MainPage() {
   return (
     <div className="relative">
       <Home />
-      <Carousel />
+      <div className="px-[124px]">
+        <Carousel />
+      </div>
     </div>
   );
 }

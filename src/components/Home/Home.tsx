@@ -22,11 +22,6 @@ const Home = () => {
                 <Image className='w-[540px]' src={imagenHome} alt="" />
             </div>
         </div>
-
-        <div className='p-10'>
-            <h2 className='font-bold text-4xl'>Simple section</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto doloribus perferendis non incidunt tenetur aliquam eligendi laudantium quisquam nemo. Sunt modi et quidem ab ipsa non, nesciunt optio amet architecto, voluptatibus eum itaque, hic exercitationem perspiciatis labore fugit blanditiis nulla?</p>
-        </div>
     </>
   )
 }
