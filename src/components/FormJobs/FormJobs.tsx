@@ -86,31 +86,13 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
+                                <div><p>
+                                    La fecha y hoara de tu postulacion va a ser generada automaticamente 
+                                    </p>
+                                    </div>
 
-                                <div>
-                                    <label htmlFor="publishedDate"></label>
-                                    <input
-                                        className="w-full rounded-lg border border-gray-200 p-3 text-sm focus:border-custom-focus"
-                                        placeholder="Published Date"
-                                        type="date"
-                                        id="publishedDate"
-                                        {...register("publishedDate", { required: "La fecha de publicación es obligatoria." })}
-                                    />
-                                    {errors.publishedDate && <span>{errors.publishedDate.message}</span>}
-                                </div>
-                                <div>
-                                    <label htmlFor="readingTime"></label>
-                                    <select
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        id="readingTime"
-                                        {...register("readingTime", { required: "El tiempo de lectura es obligatorio." })}
-                                    >
-                                        <option value="">Select Reading Time</option>
-                                        {generateTimeOptions()}
-                                    </select>
-                                    {errors.readingTime && <span>{errors.readingTime.message}</span>}
-                                </div>
-
+                               
+                               
                                 <div className="mt-4">
                                     <button
                                         type="submit"
