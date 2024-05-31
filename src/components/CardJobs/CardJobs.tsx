@@ -32,7 +32,7 @@ const CardJobs: React.FC<User> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-[ghostwhite]">
       <div
         onClick={handleDetail}
         className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 h-full cursor-pointer">
