@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { IUser } from "@/types";
+import RetractableViewBlack from "../RetractableView/RetractableView";
 
 interface TruncateTextParams {
   text: string;
@@ -40,9 +41,9 @@ const UserCard = ({
   const truncatedDescription = truncateText({ text: description, maxLength: 100 });
 
   return (
-    <div className="cursor-pointer" onClick={onClick}>
-      <div className="flex items-center justify-between w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-t-xl">
-        <div className="w-full rounded-t-lg border-b border-gray-300">
+    <div className="cursor-pointer bg-[ghostwhite]" onClick={onClick}>
+      <div className="flex items-center justify-between w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl">
+        <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
             <div className="flex flex-col justify-between">
               <div className="flex items-center">
@@ -58,11 +59,11 @@ const UserCard = ({
                 </button>
                 {FavClicked ? (
                   <button onClick={handleFavClick} className="transition-all duration-300">
-                    <GoHeartFill className="text-red-500 hover:text-red-600 transition-all duration-300 size-10 border-2 p-1 border-red-500 rounded-full" />
+                    <GoHeartFill className="text-red-500 bg-white hover:text-red-600 transition-all duration-300 size-10 border-2 p-1 border-red-500 rounded-full" />
                   </button>
                 ) : (
                   <button onClick={handleFavClick} className="transition-all duration-300">
-                    <GoHeartFill className="text-[#5049e5] hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#5049e5] rounded-full" />
+                    <GoHeartFill className="text-[#5049e5] bg-white hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#5049e5] rounded-full" />
                   </button>
                 )}
               </div>
