@@ -51,7 +51,7 @@ const FormJobs: React.FC = () => {
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
                         <p className="max-w-xl text-lg">
-                        Create Your Best Job Proposal
+                            Create Your Best Job Proposal
                         </p>
                     </div>
                     <div className="rounded-lg border border-gray-100 bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
@@ -86,13 +86,13 @@ const FormJobs: React.FC = () => {
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
-                                <div><p>
-                                    La fecha y hoara de tu postulacion va a ser generada automaticamente 
+                                <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                                    <p className="text-gray-700">
+                                    The date and time of your application will be generated automatically
                                     </p>
-                                    </div>
+                                </div>
 
-                               
-                               
+
                                 <div className="mt-4">
                                     <button
                                         type="submit"
