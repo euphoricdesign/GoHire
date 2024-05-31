@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { IUser } from "@/types";
+import RetractableViewBlack from "../RetractableView/RetractableView";
 
 interface TruncateTextParams {
   text: string;
