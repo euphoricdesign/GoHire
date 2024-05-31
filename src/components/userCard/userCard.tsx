@@ -41,19 +41,19 @@ const UserCard = ({
 
   return (
     <div className="cursor-pointer" onClick={onClick}>
-      <div className="flex items-center justify-between w-[30rem] flex-col shadow-md transition-all duration-300 border rounded-t-xl">
+      <div className="flex items-center justify-between w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-t-xl">
         <div className="w-full rounded-t-lg border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
             <div className="flex flex-col justify-between">
               <div className="flex items-center">
                 <button
                   onClick={handleButtonClick}
-                  className="bg-white border mr-2 w-28 text-indigo-600 border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
+                  className="bg-white border mr-2 w-28 text-[#5049e5] border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                   Message
                 </button>
                 <button
                   onClick={handleButtonClick}
-                  className="bg-[#3D63DD] text-white text-center px-5 py-2 rounded-xl mr-2 hover:bg-[#93B4FF] transition-all duration-300">
+                  className="bg-[#5049e5] text-white text-center px-5 py-2 rounded-xl mr-2 hover:opacity-80 transition-all duration-300">
                   Hire
                 </button>
                 {FavClicked ? (
@@ -62,7 +62,7 @@ const UserCard = ({
                   </button>
                 ) : (
                   <button onClick={handleFavClick} className="transition-all duration-300">
-                    <GoHeartFill className="text-[#3D63DD] hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#3D63DD] rounded-full" />
+                    <GoHeartFill className="text-[#5049e5] hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#5049e5] rounded-full" />
                   </button>
                 )}
               </div>
@@ -77,7 +77,7 @@ const UserCard = ({
             </div>
             <div>
               <Image
-                className="rounded-full p-[1px] border-2 border-[#3D63DD]"
+                className="rounded-full p-[1px] border-2 border-[#5049e5]"
                 src={profileImg}
                 alt="perfil"
                 width={80}
@@ -89,9 +89,8 @@ const UserCard = ({
             <p className="text-sm leading-5 mt-1 mb-4">{truncatedDescription}</p>
           </div>
         </div>
-        <div className="flex flex-col justify-around px-5 font-bold rounded-b-md h-[6rem] w-full ">
-          <h6 className="text-center">Professions</h6>
-          <div className="overflow-auto">
+        <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md h-[4rem] w-full ">
+          <div>
             <ul className="list-none text-sm flex flex-wrap">
               {professions.map((profession, index) => (
                 <li key={index} className="border border-slate-300 rounded-lg inline-block m-1 p-1">
@@ -102,7 +101,7 @@ const UserCard = ({
           </div>
         </div>
       </div>
-      <div className="bg-[#3D63DD] h-2 rounded-b-full"></div>
+      <div className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 rounded-b-full"></div>
     </div>
   );
 };
