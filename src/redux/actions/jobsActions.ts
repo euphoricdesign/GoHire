@@ -6,7 +6,7 @@ export const createJob = createAsyncThunk<JobsData, JobsPostData, { rejectValue:
     'jobs/createJob',
     async (newJob: JobsPostData, { rejectWithValue }) => {
         try {
-            const response = await axios.post('jobs/createJob', newJob);
+            const response = await axios.post('http://localhost:3000/publication', newJob);
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -22,7 +22,7 @@ export const getAllJobs = createAsyncThunk<JobsData[], void, { rejectValue: Fetc
     'jobs/getAllJobs',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get("")
+            const response = await axios.get("http://localhost:3000/publication")
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
