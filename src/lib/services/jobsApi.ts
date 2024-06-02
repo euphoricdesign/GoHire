@@ -4,7 +4,7 @@ import { JobsData } from "@/types/jobsTypes"
 export const jobsApi = createApi({
     reducerPath: "jobsApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000"
+        baseUrl: "http://localhost:3001"
     }),
     endpoints: (builder) => ({
         getAllJobs: builder.query<JobsData[], null>({

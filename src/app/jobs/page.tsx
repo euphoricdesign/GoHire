@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react' 
+import React, { useState } from 'react' 
 import CardJobs from '../../components/CardJobs/CardJobs' 
 import jobData from '../../utils/jobs.json' 
 import {useGetAllJobsQuery, useGetJobByIdQuery} from "@/lib/services/jobsApi"
@@ -8,13 +8,13 @@ import {useGetAllJobsQuery, useGetJobByIdQuery} from "@/lib/services/jobsApi"
 const SearchJobs: React.FC = () => {
 
   const {data, error, isLoading, isFetching} = useGetAllJobsQuery(null)
-  console.log("data: ", data)
+
   
   const [filteredProducts, setFilteredProducts] = useState(jobData.users) 
   const [selectedCategory, setSelectedCategory] = useState('') 
   const [selectedLocation, setSelectedLocation] = useState('') 
 
-  if(isLoading || isFetching) return <p>Loading...</p>
+
 
   if (error) return <p>Some Error</p>
 
@@ -67,20 +67,13 @@ const SearchJobs: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {filteredProducts.map((user, index) => (
-            <CardJobs  key={index} {...user} />
+        {isLoading || isFetching ?<p>Loading...</p>: " "}
+          {data?.map((job, index) => (
+            <CardJobs  key={index} {...job} />
           ))}
         </div>
       </div>
-        {
-          data?.map(job  => (
-            <div>
-              <p>{job.title}</p>
-              <p>{job.description}</p>
-              <p>{job.id}</p>
-            </div>
-          ))
-        }
+       
     </div>
   ) 
 }
