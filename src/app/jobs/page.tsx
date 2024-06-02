@@ -18,9 +18,9 @@ const SearchJobs: React.FC = () => {
 
   if (error) return <p>Some Error</p>
 
-  useEffect(() => {
-    applyFilters() 
-  }, [selectedCategory, selectedLocation]) 
+  // useEffect(() => {
+  //   applyFilters() 
+  // }, [selectedCategory, selectedLocation]) 
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value) 
@@ -71,6 +71,7 @@ const SearchJobs: React.FC = () => {
             <CardJobs  key={index} {...user} />
           ))}
         </div>
+      </div>
         {
           data?.map(job  => (
             <div>
@@ -80,7 +81,6 @@ const SearchJobs: React.FC = () => {
             </div>
           ))
         }
-      </div>
     </div>
   ) 
 }
