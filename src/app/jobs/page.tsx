@@ -37,8 +37,8 @@ const SearchJobs: React.FC = () => {
   } 
 
   return (
-    <div className="px-[124px]">
-      <div className="container mx-auto mt-[100px] flex gap-[20px] items-start">
+    <div className="md:px-[124px] mobile:px-[30px]">
+      <div className="container mx-auto mt-[100px] flex gap-[20px] items-start mobile:flex-col mobile:items-center">
         <div className="flex justify-center mb-4 flex-col gap-[20px]">
           <div className="mr-4">
             <select id="category" value={selectedCategory} onChange={handleCategoryChange} className="custom-select">
