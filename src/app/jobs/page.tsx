@@ -3,12 +3,20 @@
 import React, { useEffect, useState } from 'react' 
 import CardJobs from '../../components/CardJobs/CardJobs' 
 import jobData from '../../utils/jobs.json' 
+import {useGetAllJobsQuery, useGetJobByIdQuery} from "@/lib/services/jobsApi"
 
 const SearchJobs: React.FC = () => {
+
+  const {data, error, isLoading, isFetching} = useGetAllJobsQuery(null)
+  console.log("data: ", data)
   
   const [filteredProducts, setFilteredProducts] = useState(jobData.users) 
   const [selectedCategory, setSelectedCategory] = useState('') 
   const [selectedLocation, setSelectedLocation] = useState('') 
+
+  if(isLoading || isFetching) return <p>Loading...</p>
+
+  if (error) return <p>Some Error</p>
 
   useEffect(() => {
     applyFilters() 
@@ -63,6 +71,15 @@ const SearchJobs: React.FC = () => {
             <CardJobs  key={index} {...user} />
           ))}
         </div>
+        {
+          data?.map(job  => (
+            <div>
+              <p>{job.title}</p>
+              <p>{job.description}</p>
+              <p>{job.id}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   ) 

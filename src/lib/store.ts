@@ -1,16 +1,30 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from "./features/counter/counterSlice"
+import {jobsApi} from "./services/jobsApi"
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-        counterReducer
+        counterReducer,
+        "jobsApi": jobsApi.reducer
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([jobsApi.middleware])
   })
 }
 
+// Crea una instancia del store
+const store = makeStore()
+
+// Configura los listeners con la instancia del store
+setupListeners(store.dispatch)
+
+
+// Middkeware se agregan para 
+
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>
-// Infer the `RootState` and `AppDispatch` types from the store itself
+// Se extrae el tipo de dato del Store del estado raiz
 export type RootState = ReturnType<AppStore['getState']>
+// Se extrae el tipo de las funciones que se van a poder ejecutar
 export type AppDispatch = AppStore['dispatch']
