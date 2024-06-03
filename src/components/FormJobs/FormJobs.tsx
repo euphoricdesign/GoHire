@@ -1,35 +1,26 @@
-// pages/formulario.tsx
 "use client"
 
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
-interface FormData {
-    name: string;
-    jobTitle: string;
-    description: string;
-    bio: string;
-    publishedDate: string;
-    readingTime: string;
-    imageUrl: string;
-}
+import { JobsPostData } from '@/types/jobsTypes';
+import { usePostJobMutation } from "@/lib/services/jobsApi"
 
 const FormJobs: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<JobsPostData>();
+    const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
 
-
-
-    const onSubmit: SubmitHandler<FormData> = data => {
-        toast.success("Post created successfully!");
-        console.log(data, "el boton funciona");
-        // Aquí se realizará el envío de datos a la API.
-
-
-
+    const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
+        try {
+            await postJob(data).unwrap();
+            toast.success("Post created successfully!");
+        } catch (error) {
+            toast.error("Failed to create post. Please try again.");
+            console.error("Error creating post:", error);
+        }
     };
+
     const generateTimeOptions = () => {
         const options = [];
         for (let hour = 0; hour < 24; hour++) {
@@ -42,7 +33,6 @@ const FormJobs: React.FC = () => {
         }
         return options;
     };
-
 
     return (
         <section className="bg-gray-100">
@@ -66,12 +56,12 @@ const FormJobs: React.FC = () => {
                                         placeholder="Job Title"
                                         type="text"
                                         id="jobTitle"
-                                        {...register("jobTitle", {
-                                            required: "El título del trabajo es obligatorio.",
-                                            maxLength: { value: 20, message: "El título no puede tener más de 20 caracteres." }
+                                        {...register("title", {
+                                            required: "The title is required.",
+                                            maxLength: { value: 20, message: "The title cannot be more than 20 characters." }
                                         })}
                                     />
-                                    {errors.jobTitle && <span>{errors.jobTitle.message}</span>}
+                                    {errors.title && <span>{errors.title.message}</span>}
                                 </div>
                                 <div>
                                     <label htmlFor="description"></label>
@@ -80,28 +70,44 @@ const FormJobs: React.FC = () => {
                                         placeholder="Description"
                                         id="description"
                                         {...register("description", {
-                                            required: "La descripción es obligatoria.",
-                                            maxLength: { value: 200, message: "La descripción no puede tener más de 200 caracteres." }
+                                            required: "The description is mandatory.",
+                                            maxLength: { value: 200, message: "The description cannot be more than 200 characters." }
                                         })}
                                     />
                                     {errors.description && <span>{errors.description.message}</span>}
                                 </div>
+                                <div>
+                                    <label htmlFor="category"></label>
+                                    <input
+                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                        placeholder="Category"
+                                        type="text"
+                                        id="category"
+                                        {...register("category", {
+                                            required: "The Category is required",
+                                            maxLength: { value: 20, message: "The Category cannot be more than 20 characters." }
+                                        })}
+                                    />
+                                    {errors.category && <span>{errors.category.message}</span>}
+                                </div>
                                 <div className="p-4 bg-gray-100 rounded-lg shadow-md">
                                     <p className="text-gray-700">
-                                    The date and time of your application will be generated automatically
+                                        The date and time of your application will be generated automatically
                                     </p>
                                 </div>
-
 
                                 <div className="mt-4">
                                     <button
                                         type="submit"
                                         className="inline-block w-full rounded-lg px-5 py-3 font-medium text-white sm:w-auto"
                                         style={{ backgroundColor: '#4537D4' }}
+                                        disabled={isLoading}
                                     >
-                                        Create Proposal
+                                        {isLoading ? 'Creating...' : 'Create Proposal'}
                                     </button>
                                 </div>
+                                {isError && <div className="text-red-500">An error occurred while creating the post.</div>}
+                                {isSuccess && <div className="text-green-500">Post created successfully!</div>}
                             </form>
                         </div>
                     </div>

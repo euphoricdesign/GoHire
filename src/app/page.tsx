@@ -2,12 +2,18 @@
 
 import React from "react";
 import Home from "@/components/Home/Home";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import {increment, decrement} from "@/lib/features/counter/counterSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
 import CardJobs from "@/components/CardJobs/CardJobs";
 
 export default function MainPage() {
+
+ const count = useAppSelector(state => state.counterReducer.value)
+const dispatch = useAppDispatch()
+
   return (
     <div className="relative">
       <Home />
@@ -38,6 +44,8 @@ export default function MainPage() {
             }
           </div>
       </div>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(increment())}>Incrementar</button>
     </div>
   );
 }
