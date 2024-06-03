@@ -30,7 +30,7 @@ const config: Config = {
         'phone': '580px', // Dispositivos móviles grandes
       },
       boxShadow: {
-        'custom': '0px 0px 30px 0px rgba(98, 91, 229, 0.15)',
+        'custom': '0px 0px 30px 0px #007bff26',
       },
       colors: {
         'custom-purple': '#4537D4',
