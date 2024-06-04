@@ -100,10 +100,14 @@ const SearchJobs: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {isLoading || isFetching ? <p>Loading...</p> : ""}
-          {filteredJobs?.map((job) => (
-            <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
-          ))}
+        {isLoading || isFetching ? <p>Loading...</p> : ""}
+          {filteredJobs && filteredJobs.length > 0 ? (
+            filteredJobs.map((job) => (
+              <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
+            ))
+          ) : (
+            <p className="text-center text-red-500 mt-8">No hay datos disponibles para mostrar por el momento</p>
+          )}
         </div>
         <div>
           <RetractableView show={showDescription} onClose={handleCloseDescription}>
