@@ -50,15 +50,13 @@ export default function MainPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-[100px]">
-            {
+            {/* {
               jobData.users.map((user, index) => (
                 <CardJobs  key={index} {...user} onClick={() => handleDescription({...user})} />
               ))
-            }
+            } */}
           </div>
       </div>
-      <h1>{count}</h1>
-      <button onClick={() => dispatch(increment())}>Incrementar</button>
     </div>
   );
 }
