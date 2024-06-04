@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {increment, decrement} from "@/lib/features/counter/counterSlice"
@@ -8,11 +8,24 @@ import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
 import CardJobs from "@/components/CardJobs/CardJobs";
+import { JobsData } from "@/types/jobsTypes";
 
 export default function MainPage() {
+  const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
+  const [showDescription, setShowDescription] = useState(false);
 
- const count = useAppSelector(state => state.counterReducer.value)
-const dispatch = useAppDispatch()
+  const count = useAppSelector(state => state.counterReducer.value)
+  const dispatch = useAppDispatch()
+
+  const handleDescription = (job: JobsData | null) => {
+    setSelectedJobPost(job);
+    setShowDescription(true);
+  }
+
+  const handleCloseDescription = () => {
+    setShowDescription(false);
+    setSelectedJobPost(null);
+  }
 
   return (
     <div className="relative">
@@ -39,7 +52,7 @@ const dispatch = useAppDispatch()
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-[100px]">
             {
               jobData.users.map((user, index) => (
-                <CardJobs  key={index} {...user} />
+                <CardJobs  key={index} {...user} onClick={() => handleDescription({...user})} />
               ))
             }
           </div>
