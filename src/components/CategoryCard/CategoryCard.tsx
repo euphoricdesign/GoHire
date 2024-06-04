@@ -1,7 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
 
-const CategoryCard = ({title, vacancies, img}) => {
+interface CategoryCardProps {
+  title: string,
+  vacancies: string,
+  img: string
+}
+
+const CategoryCard: React.FC<CategoryCardProps> = ({title, vacancies, img}) => {
   return (
     <div className='border border-solid border-[rgba(6,18,36,0.1)] py-[22px] px-[18px] flex md:w-[308px] mobile:w-full rounded-xl bg-white gap-3 items-center'>
         <Image src={img} alt='' width={100} height={1} className='w-[45px]' />
