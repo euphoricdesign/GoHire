@@ -18,3 +18,12 @@ export interface IUser {
   educations: string[];
   jobs: IJob[];
 }
+
+export interface IJobPost {
+  id: number;
+  title: string;
+  description: string;
+  professions: string[];
+  userId: number;
+  readingTime: string;
+}
