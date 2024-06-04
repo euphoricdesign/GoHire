@@ -1,8 +1,7 @@
-"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BsArrowLeft, BsChatDots } from "react-icons/bs";
+import { BsChatDots } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { TfiBolt } from "react-icons/tfi";
 import { FaArrowUpRightFromSquare, FaRegStar, FaShareFromSquare } from "react-icons/fa6";
@@ -19,7 +18,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
 
   return (
     <div className="h-full w-full">
-      <div className="flex items-center justify-between w-full text-sm p-3 mt-3">
+      <div className="flex items-center justify-end w-full text-sm p-3">
         <Link href={`/users/${selectedUser.id}`} rel="noopener noreferrer" target="_blank">
           <button className="flex items-center">
             <h6>Open profile in a new window</h6>

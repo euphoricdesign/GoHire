@@ -10,8 +10,8 @@ export interface JobsData {
     category: string;
 }
 export interface JobsPostData {
-    title: string,
-    description: string,
-    imgUrl: string,
-    category: string
+  title: string;
+  description: string;
+  imgUrl: string;
+  category: string;
 }
