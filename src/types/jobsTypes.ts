@@ -7,6 +7,7 @@ export interface JobsData {
     date: string;
     time: string;
     timelapse: string;
+    category: string;
 }
 export interface JobsPostData {
     title: string,
