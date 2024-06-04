@@ -18,6 +18,14 @@
     background-size: 14px;
 }
 
+input:focus {
+  outline: none  
+}
+
+textarea:focus {
+  outline: none  
+}
+
 select option:checked {
     background-color: #9370DB; /* Violeta */
     color: #fff; /* Texto blanco */
