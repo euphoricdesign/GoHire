@@ -178,8 +178,8 @@ const SearchJobs: React.FC = () => {
   };
 
   return (
-    <div className="px-[124px]">
-      <div className="container mx-auto mt-[100px] flex gap-[20px] items-start">
+    <div className="md:px-[124px] mobile:px-[30px]">
+      <div className="container mx-auto mt-[100px] flex gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex justify-center mb-4 flex-col gap-[20px]">
           <div className="mr-4">
             <select
@@ -208,9 +208,9 @@ const SearchJobs: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {isLoading || isFetching ? <p>Loading...</p> : " "}
-          {data?.map((job, index) => (
-            <CardJobs key={index} {...job} onClick={() => handleDescription(job)} />
+        {isLoading || isFetching ?<p>Loading...</p>: " "}
+          {data?.map((job:any, index:any) => (
+            <CardJobs  key={index} {...job} />
           ))}
         </div>
         {/* onClick={() => handleDescription(job)} */}

@@ -4,7 +4,7 @@ import { usersPreload } from "@/utils/users";
 
 const Users = () => {
   return (
-    <div className="flex mt-[100px] px-[124px]">
+    <div className="flex mt-[100px] md:px-[124px] mobile:px-[30px]">
       <div className="">
         <UsersCards users={usersPreload} />
       </div>

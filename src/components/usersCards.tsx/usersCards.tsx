@@ -16,11 +16,11 @@ const UsersCards = ({ users }: { users: IUser[] }) => {
 
   return (
     <div className="flex flex-wrap ">
-      <div className="flex justify-center items-center flex-wrap z-30 gap-[20px]">
+      <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[20px]">
         {users.map((user) => (
           <div
             key={user.id}
-            className="hover:scale-95 transition-all duration-300 relative"
+            className="mobile:w-full  md:w-[25.8rem] hover:scale-95 transition-all duration-300 relative"
             onClick={() => handleDescription(user)}>
             <UserCard {...user} onClick={() => handleDescription(user)} />
           </div>
