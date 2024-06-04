@@ -5,9 +5,10 @@ import React from "react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 import Image from "next/image";
+import { JobsData, JobsPostData } from "@/types/jobsTypes";
 
-const RetractableJobInfo = ({ selectedJob }: { selectedJob: IJobPost }) => {
-  const user = usersPreload.find((user) => user.id === selectedJob.userId);
+const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
+  const user = usersPreload.find((user) => user.id === parseInt(selectedJob.id));
 
   return (
     <div className="h-full w-full">
@@ -26,7 +27,7 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: IJobPost }) => {
               <div className="p-5 border-b border-gray-300">
                 <div className="text-[32px] font-bold">{selectedJob.title}</div>
                 <div className="flex items-center ">
-                  Posted {selectedJob.readingTime} ago -{" "}
+                  Posted {selectedJob.timelapse} ago -{" "}
                   <span className="ml-1 flex items-center text-xl">
                     <IoLocationOutline /> Location
                   </span>
@@ -35,7 +36,7 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: IJobPost }) => {
               <div className="border-b border-gray-300 p-5">{selectedJob.description}</div>
               <div className="p-5">
                 <div className="text-lg font-bold">Professions needed:</div>
-                <div className="mt-2 ">{selectedJob.professions}</div>
+                <div className="mt-2 ">{selectedJob.category}</div>
               </div>
             </div>
           </div>
