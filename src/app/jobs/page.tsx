@@ -15,9 +15,14 @@ const SearchJobs: React.FC = () => {
   const [filteredJobs, setFilteredJobs] = useState<JobsData[] | undefined>(data);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
+  const [locations, setLocations] = useState<string[]>([]);
 
   useEffect(() => {
     if (data) {
+      const cities = data
+        .map(job => job.user?.city) // Verificación de job.user?.city
+        .filter((city, index, self) => city && self.indexOf(city) === index); // Filtrado de duplicados
+      setLocations(cities as string[]); // Actualización del estado de locations
       applyFilters();
     }
   }, [data, selectedCategory, selectedLocation]);
@@ -48,7 +53,7 @@ const SearchJobs: React.FC = () => {
     }
 
     if (selectedLocation) {
-      filtered = filtered?.filter((job) => job.user.city === selectedLocation);
+      filtered = filtered?.filter((job) => job.user && job.user.city === selectedLocation); // Verificación de job.user
     }
 
     setFilteredJobs(filtered);
@@ -61,7 +66,7 @@ const SearchJobs: React.FC = () => {
       <div className="container mx-auto mt-[100px] flex gap-[20px] items-start">
         <div className="flex justify-center mb-4 flex-col gap-[20px]">
           <div className="mr-4">
-          <select
+            <select
               id="category"
               value={selectedCategory}
               onChange={handleCategoryChange}
@@ -87,14 +92,15 @@ const SearchJobs: React.FC = () => {
               onChange={handleLocationChange}
               className="custom-select">
               <option value="">Filter by location</option>
-              <option value="Ciudad 1">Ciudad 1</option>
-              <option value="Ciudad 2">Ciudad 2</option>
+              {locations.map((city) => ( // Uso de locations en el select de ubicación
+                <option key={city} value={city}>{city}</option>
+              ))}
             </select>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {isLoading || isFetching ? <p>Loading...</p> : " "}
+          {isLoading || isFetching ? <p>Loading...</p> : ""}
           {filteredJobs?.map((job) => (
             <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
           ))}
