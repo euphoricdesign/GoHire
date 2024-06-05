@@ -10,10 +10,10 @@ interface TruncateTextParams {
 }
 
 const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
-  if (text.length <= maxLength) {
+  if (text?.length <= maxLength) {
     return text;
   }
-  return text.slice(0, maxLength) + "...";
+  return text?.slice(0, maxLength) + "...";
 };
 
 const UserCard = ({
@@ -23,7 +23,7 @@ const UserCard = ({
   country,
   city,
   description,
-  professions,
+  profesions,
   onClick,
 }: IUser & { onClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
@@ -57,11 +57,15 @@ const UserCard = ({
                   Hire
                 </button>
                 {FavClicked ? (
-                  <button onClick={handleFavClick} className="transition-all duration-300 mobile:hidden md:block">
+                  <button
+                    onClick={handleFavClick}
+                    className="transition-all duration-300 mobile:hidden md:block">
                     <GoHeartFill className="text-red-500 bg-white hover:text-red-600 transition-all duration-300 size-10 border-2 p-1 border-red-500 rounded-full" />
                   </button>
                 ) : (
-                  <button onClick={handleFavClick} className="transition-all duration-300 mobile:hidden md:block">
+                  <button
+                    onClick={handleFavClick}
+                    className="transition-all duration-300 mobile:hidden md:block">
                     <GoHeartFill className="text-[#3C65F5] bg-white hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#3C65F5] rounded-full" />
                   </button>
                 )}
@@ -92,11 +96,14 @@ const UserCard = ({
         <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[4rem] mobile:h-[6rem] w-full ">
           <div>
             <ul className="list-none text-sm flex flex-wrap">
-              {professions.map((profession, index) => (
-                <li key={index} className="border border-slate-300 rounded-lg inline-block m-1 p-1">
-                  {profession}
-                </li>
-              ))}
+              {profesions &&
+                profesions.map((profession, index) => (
+                  <li
+                    key={index}
+                    className="border border-slate-300 rounded-lg inline-block m-1 p-1">
+                    {profession.category}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
