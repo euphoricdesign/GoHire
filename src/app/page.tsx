@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import {increment, decrement} from "@/lib/features/counter/counterSlice"
+import {increment, decrement} from "@/lib/features/counter/userSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
