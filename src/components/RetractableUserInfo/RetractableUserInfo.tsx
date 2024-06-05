@@ -95,9 +95,9 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
               <h2 className="font-bold m-5">Professions:</h2>
               <div className="">
                 <ul className="list-none flex flex-col text-lg pb-4">
-                  {selectedUser.professions.map((profession, index) => (
+                  {selectedUser.profesions.map((profession, index) => (
                     <li key={index} className="rounded-lg inline-block m-1 p-2 px-5">
-                      {profession}
+                      {profession.category}
                       <div className="flex">
                         <h6 className="text-sm mr-2">Rate:</h6>
                         <p className="flex">
@@ -115,20 +115,22 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
             </div>
             <div>
               <h2 className="font-bold m-5">Education:</h2>
-              {selectedUser.educations.map((education) => (
+              <div>EDUCATION - agregar en el back</div>
+              {/*TODO: AGREGAR EDUCATION AL USER */}
+              {/* {selectedUser.educations.map((education) => (
                 <div className="px-5" key={education}>
                   {education}
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
           <div className="float-right w-[70%] h-auto border-l border-gray-300">
             <div className="border-b border-gray-300 p-5">
               <div>
                 <h1 className="text-xl font-bold flex">
-                  {selectedUser.professions.map((profession) => (
-                    <div className="" key={profession}>
-                      {profession}
+                  {selectedUser.profesions.map((profession) => (
+                    <div className="" key={profession.id}>
+                      {profession.category}
                     </div>
                   ))}
                 </h1>
@@ -139,9 +141,11 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
             </div>
             <div className="p-5">
               <h1 className="text-xl font-bold">Work History</h1>
-              {selectedUser.jobs.map((job, index) => (
+              <div>work history - agregar del back</div>
+              {/*TODO: AGREGAR JOBS AL USER */}
+              {/* {selectedUser.jobs.map((job, index) => (
                 <WorkHistoryCard key={index} {...job} />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
