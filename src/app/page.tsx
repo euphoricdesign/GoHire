@@ -9,12 +9,10 @@ import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
 import CardJobs from "@/components/CardJobs/CardJobs";
 import { JobsData } from "@/types/jobsTypes";
-import LoginButton from '@/app/api/auth/LoginButton'
-import { useUser } from '@auth0/nextjs-auth0/client';
-import LogOutButton from '@/app/api/auth/LogoutButton'
+
 
 export default function MainPage() {
-  const { user, error, isLoading } = useUser();
+  
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
@@ -62,7 +60,7 @@ export default function MainPage() {
             } */}
           </div>
       </div>
-      {user ?<LogOutButton /> : <LoginButton/> }
+      
      
        
     </div>
