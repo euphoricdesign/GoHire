@@ -7,7 +7,7 @@ import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
 import { useGetAllUsersQuery } from "@/lib/services/usersApi";
 
 const UsersCards = () => {
-  const { data: users, isLoading } = useGetAllUsersQuery(null);
+  const { data: users } = useGetAllUsersQuery(null);
   const [showDescription, setShowDescription] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
 
