@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from "./features/counter/userSlice";
-import { jobsApi } from "./services/jobsApi";
-import { setupListeners } from '@reduxjs/toolkit/query';
+import { configureStore } from "@reduxjs/toolkit";;
+import userReducer from "./features/counter/userSlice";;
+import {  jobsApi  } from "./services/jobsApi";;
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { usersApi } from "./services/usersApi";;
 
 // Configurar el store
 export const makeStore = () => {
@@ -15,6 +16,7 @@ export const makeStore = () => {
 }
 
 // Crea una instancia del store
+const store = makeStore();
 const store = makeStore();
 
 // Configura los listeners con la instancia del store
