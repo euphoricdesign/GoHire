@@ -57,11 +57,15 @@ const UserCard = ({
                   Hire
                 </button>
                 {FavClicked ? (
-                  <button onClick={handleFavClick} className="transition-all duration-300 mobile:hidden md:block">
+                  <button
+                    onClick={handleFavClick}
+                    className="transition-all duration-300 mobile:hidden md:block">
                     <GoHeartFill className="text-red-500 bg-white hover:text-red-600 transition-all duration-300 size-10 border-2 p-1 border-red-500 rounded-full" />
                   </button>
                 ) : (
-                  <button onClick={handleFavClick} className="transition-all duration-300 mobile:hidden md:block">
+                  <button
+                    onClick={handleFavClick}
+                    className="transition-all duration-300 mobile:hidden md:block">
                     <GoHeartFill className="text-[#3C65F5] bg-white hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 border-[#3C65F5] rounded-full" />
                   </button>
                 )}
