@@ -14,6 +14,11 @@ interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const Navbar: React.FC = () => {
   const { user, error, isLoading } = useUser();
   const [scrollPosition, setScrollPosition] = useState(0);
+  useEffect(()=>{
+    if(user){
+      
+    }
+  })
   
   const pathname = usePathname()
   console.log(pathname !== '/')
