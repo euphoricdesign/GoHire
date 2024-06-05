@@ -17,7 +17,6 @@ export const makeStore = () => {
 
 // Crea una instancia del store
 const store = makeStore();
-const store = makeStore();
 
 // Configura los listeners con la instancia del store
 setupListeners(store.dispatch);
