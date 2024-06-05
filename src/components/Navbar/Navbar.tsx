@@ -28,9 +28,9 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className={`header py-4 md:px-[124px] mobile:px-[30px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
+    <header className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
       <div className="flex items-center">
-        <a href="#" className="logo mr-10">
+        <a href="/" className="logo mr-10">
           Logo
         </a>
 
@@ -44,9 +44,6 @@ const Navbar: React.FC = () => {
           </i>
         </label>
         <nav className="navbar">
-          <a className="text-sm" href="/" style={{ "--i": 0 }} {...({} as AnchorProps)}>
-            Home
-          </a>
           <a className="text-sm" href="/users" style={{ "--i": 1 }} {...({} as AnchorProps)}>
             Users
           </a>
@@ -64,10 +61,10 @@ const Navbar: React.FC = () => {
 
       <div className="flex items-center gap-3 text-sm">
         <div className="hidden md:flex md:items-center active:text-[#3C65F5]">
-          <a className={`text-gray-600`}>Sign in</a>{" "}
+          <a className={`text-[#05264E]`}>Sign in</a>{" "}
           <div
-            className={`w-px h-4 bg-gray-600 mx-1.5`}></div>{" "}
-          <a className={`text-gray-600`}>Dashboard</a>
+            className={`w-px h-4 bg-[#05264E] mx-1.5`}></div>{" "}
+          <a className={`text-[#05264E]`}>Dashboard</a>
         </div>
         <button className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden" onClick={() => window.location.href = '/formJobs'}>
           Post a job
