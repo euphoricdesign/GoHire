@@ -18,15 +18,15 @@ const FormJobs: React.FC = () => {
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
         try {
-            const formData = new FormData();
-            formData.append('title', data.title);
-            formData.append('description', data.description);
-            formData.append('category', data.category);
-            if (data.image) formData.append('image', data.image);
-            console.log(formData)
+            // const formData = new FormData();
+            // formData.append('title', data.title);
+            // formData.append('description', data.description);
+            // formData.append('category', data.category);
+            // if (data.image) formData.append('image', data.image);
+            // console.log(formData)
 
-            await postJob(formData).unwrap();
-            toast.success("Post created successfully!");
+            // await postJob(formData).unwrap();
+            // toast.success("Post created successfully!");
         } catch (error) {
             toast.error("Failed to create post. Please try again.");
             console.error("Error creating post:", error);
