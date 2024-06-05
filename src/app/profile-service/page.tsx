@@ -23,12 +23,12 @@ export default function ProfileServer({ user }: ProfileServerProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context.req, context.res);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context.req, context.res);
 
-  return {
-    props: {
-      user: session?.user || null,
-    },
-  };
-};
+//   return {
+//     props: {
+//       user: session?.user || null,
+//     },
+//   };
+// };
