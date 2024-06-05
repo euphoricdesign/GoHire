@@ -9,8 +9,12 @@ import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
 import CardJobs from "@/components/CardJobs/CardJobs";
 import { JobsData } from "@/types/jobsTypes";
+import LoginButton from '@/app/api/auth/LoginButton'
+import { useUser } from '@auth0/nextjs-auth0/client';
+import LogOutButton from '@/app/api/auth/LogoutButton'
 
 export default function MainPage() {
+  const { user, error, isLoading } = useUser();
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
@@ -31,6 +35,7 @@ export default function MainPage() {
     <div className="relative">
       <Home />
       <div className="md:px-[124px] mobile:px-[30px] mt-[100px]">
+        
           <div className='text-center'>
             <h1 className='text-4xl font-semibold text-[#363636]'>Browse by category</h1>
             <p className='text-[#6c757d] mt-[10px] mb-[35px]'>Find the job that’s perfect for you. about 800+ new jobs everyday</p>
@@ -57,6 +62,9 @@ export default function MainPage() {
             } */}
           </div>
       </div>
+      {user ?<LogOutButton /> : <LoginButton/> }
+     
+       
     </div>
   );
 }
