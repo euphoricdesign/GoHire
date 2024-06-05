@@ -14,7 +14,21 @@ export interface IUser {
   country: string;
   city: string;
   description: string;
-  professions: string[];
+  profesions: IProfessions[];
   educations: string[];
   jobs: IJob[];
+}
+
+export interface IProfessions {
+  id: string;
+  category: string;
+}
+
+export interface IJobPost {
+  id: number;
+  title: string;
+  description: string;
+  professions: string[];
+  userId: number;
+  readingTime: string;
 }

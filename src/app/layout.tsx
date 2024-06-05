@@ -1,10 +1,9 @@
-import { Inter } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import StoreProvider from "./StoreProvider";
 
-const inter = Inter({ subsets: ["latin"] });
-
+const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -13,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={plus_jakarta_sans.className}>
         <StoreProvider>
           <Navbar />
           {children}
