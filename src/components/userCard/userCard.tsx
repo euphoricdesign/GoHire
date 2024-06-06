@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { IUser } from "@/types";
+import SendMessageModal from "../Modals/SendMessageModal";
 
 interface TruncateTextParams {
   text: string;
@@ -27,6 +28,7 @@ const UserCard = ({
   onClick,
 }: IUser & { onClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -35,6 +37,11 @@ const UserCard = ({
 
   const handleButtonClick = (event: React.MouseEvent) => {
     event.stopPropagation();
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   const truncatedDescription = truncateText({ text: description, maxLength: 100 });
@@ -109,6 +116,7 @@ const UserCard = ({
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 rounded-b-full"></div>
+      <SendMessageModal show={showModal} onClose={handleCloseModal} />
     </div>
   );
 };
