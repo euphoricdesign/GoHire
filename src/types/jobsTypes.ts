@@ -21,3 +21,10 @@ export interface JobsPostData {
   category: string;
 }
 
+export interface JobsHistory {
+  title: string,
+  company: string,
+  testimonial: string,
+  startDate: string,
+  endDate: string
+}
