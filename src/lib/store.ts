@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";;
-import userReducer from "./features/counter/userSlice";;
+import userReducer from "./features/slices/userSlice";;
 import {  jobsApi  } from "./services/jobsApi";;
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { userApi } from "./services/userApi";
