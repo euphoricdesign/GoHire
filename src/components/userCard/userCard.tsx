@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
-import { IUser } from "@/types";
+import { UserData } from "@/types/userTypes";
 
 interface TruncateTextParams {
   text: string;
@@ -25,7 +25,7 @@ const UserCard = ({
   description,
   profesions,
   onClick,
-}: IUser & { onClick: () => void }) => {
+}: UserData & { onClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
@@ -82,7 +82,7 @@ const UserCard = ({
             <div>
               <Image
                 className="rounded-full p-[1px] border-2 border-[#3C65F5]"
-                src={profileImg}
+                src={profileImg || "/path/to/default/image.jpg"}
                 alt="perfil"
                 width={80}
                 height={80}
