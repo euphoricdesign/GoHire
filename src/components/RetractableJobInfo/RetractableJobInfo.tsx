@@ -1,4 +1,3 @@
-import { IJobPost } from "@/types";
 import { usersPreload } from "@/utils/users";
 import Link from "next/link";
 import React from "react";

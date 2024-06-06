@@ -2,16 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";;
 import userReducer from "./features/counter/userSlice";;
 import {  jobsApi  } from "./services/jobsApi";;
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { userApi } from "./services/userApi";;
+import { userApi } from "./services/userApi";
 
 // Configurar el store
 export const makeStore = () => {
   return configureStore({
     reducer: {
       user: userReducer,
-      [jobsApi.reducerPath]: jobsApi.reducer
+      [jobsApi.reducerPath]: jobsApi.reducer,
+      [userApi.reducerPath]: userApi.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(jobsApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(jobsApi.middleware).concat(userApi.middleware)
   });
 }
 

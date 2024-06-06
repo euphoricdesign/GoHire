@@ -1,10 +1,15 @@
+import { JobsData } from "./jobsTypes";
+import { Professions } from "./professionsTypes";
+
+
 export interface userPostData {
     name: string;
+    nickname: string;
     email: string;
     email_verified: boolean;
     picture: string;
     sub: string;
-  }
+    }
   
   export interface UserData {
     id: string;
@@ -18,5 +23,10 @@ export interface userPostData {
     availableToWork: boolean;
     professionalRate: string;
     newMember: boolean;
+    profileImg?: string;
+    profesions: Professions[];
+    educations: string[];
+    jobs: JobsData[];
+    description:string;
   }
   
