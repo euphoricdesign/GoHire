@@ -7,7 +7,8 @@ import LoginButton from '@/app/api/auth/LoginButton';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import LogOutButton from '@/app/api/auth/LogoutButton';
 import { usePostUserMutation } from "@/lib/services/userApi";
-import { userPostData } from "@/types/userTypes";
+import { userPostData } from "@/types/userTypes"
+
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
 }
@@ -19,11 +20,13 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const postUserData = async () => {
+      console.log(user)
       if (user) {
         const userData: userPostData = {
           name: user.name || '',
           email: user.email || '',
           email_verified: user.email_verified || false,
+          nickname:user.nickname ||'',
           picture: user.picture || '',
           sub: user.sub || ''
         };
@@ -38,7 +41,6 @@ const Navbar: React.FC = () => {
 
     postUserData();
   }, [user, postUser]);
-
 
   const pathname = usePathname();
   console.log(pathname !== '/');

@@ -4,13 +4,12 @@ import { Professions } from "./professionsTypes";
 
 export interface userPostData {
     name: string;
-    given_name: string;
+    nickname: string;
     email: string;
     email_verified: boolean;
     picture: string;
     sub: string;
-    family_name:string;
-  }
+    }
   
   export interface UserData {
     id: string;
