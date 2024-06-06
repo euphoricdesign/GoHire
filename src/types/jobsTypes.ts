@@ -1,4 +1,8 @@
-// recibir desde el back
+import { UserData } from "./userTypes";
+
+
+
+
 export interface JobsData {
   id: string;
   title: string;
@@ -17,16 +21,3 @@ export interface JobsPostData {
   category: string;
 }
 
-export interface UserData{
-id:string,
-name:string,
-lastName:string,
-dni:string,
-country:string,
-city:string,
-birthdate:Date,
-bio:string,
-availableToWork:boolean,
-professionalRate:string,
-newMember:boolean
-}

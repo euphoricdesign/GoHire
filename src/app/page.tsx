@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Merriweather } from "next/font/google";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import {increment, decrement} from "@/lib/features/counter/counterSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
@@ -16,10 +15,10 @@ import Image from "next/image";
 const merriweather = Merriweather({weight: ["300","400","700","900"], style:["italic", "normal"], subsets:["latin"]})
 
 export default function MainPage() {
+  
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
-  const count = useAppSelector(state => state.counterReducer.value)
   const dispatch = useAppDispatch()
 
   const handleDescription = (job: JobsData | null) => {
@@ -73,6 +72,9 @@ export default function MainPage() {
             } */}
           </div>
       </div>
+      
+     
+       
     </div>
   );
 }
