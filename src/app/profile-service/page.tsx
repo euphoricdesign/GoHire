@@ -1,17 +1,7 @@
-import { getSession } from '@auth0/nextjs-auth0';
-import { GetServerSideProps } from 'next';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
-type UserProfile = {
-  picture?: string;
-  name?: string;
-  email?: string;
-};
-
-type ProfileServerProps = {
-  user?: UserProfile;
-};
-
-export default function ProfileServer({ user }: ProfileServerProps) {
+export default function ProfileServer() {
+    const { user } = useUser();
   return (
     user && (
       <div>
@@ -23,12 +13,3 @@ export default function ProfileServer({ user }: ProfileServerProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context.req, context.res);
-
-  return {
-    props: {
-      user: session?.user || null,
-    },
-  };
-};

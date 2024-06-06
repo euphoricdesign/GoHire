@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import {increment, decrement} from "@/lib/features/counter/userSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
@@ -16,7 +15,6 @@ export default function MainPage() {
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
-  const count = useAppSelector(state => state.counterReducer.value)
   const dispatch = useAppDispatch()
 
   const handleDescription = (job: JobsData | null) => {
