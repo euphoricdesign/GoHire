@@ -1,17 +1,18 @@
 "use client";
-import { IUser } from "@/types";
+
 import { useState } from "react";
 import UserCard from "../userCard/userCard";
 import RetractableView from "../RetractableView/RetractableView";
 import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
 import { useGetAllUsersQuery } from "@/lib/services/userApi";
+import { UserData } from "@/types/userTypes";
 
 const UsersCards = () => {
-  const { data: users } = useGetAllUsersQuery(null);
+  const {data} = useGetAllUsersQuery(null);
   const [showDescription, setShowDescription] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
-  const handleDescription = (user: IUser | null) => {
+  const handleDescription = (user: UserData | null) => {
     setSelectedUser(user);
     setShowDescription(true);
   };
@@ -19,8 +20,8 @@ const UsersCards = () => {
   return (
     <div className="flex flex-wrap ">
       <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[20px]">
-        {users &&
-          users.map((user) => (
+        {data &&
+          data.map((user) => (
             <div
               key={user.id}
               className="mobile:w-full  md:w-[25.8rem] hover:scale-95 transition-all duration-300 relative"
