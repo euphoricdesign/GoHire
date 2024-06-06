@@ -13,6 +13,10 @@ export const userApi = createApi({
     getAllUsers: builder.query<IUser[], null>({
       query: () => "users",
     }),
+    // Consulta para obtener los usuarios por página
+    listUsers: builder.query<IUser[], number | void>({
+      query: (page = 1) => `users?page=${page}`,
+    }),
     // Mutación para crear un nuevo usuario
     postUser: builder.mutation<UserData, userPostData>({
       query: (newUser) => ({
@@ -25,4 +29,4 @@ export const userApi = createApi({
 });
 
 // Exporta los hooks generados automáticamente para las consultas y mutaciones
-export const { useGetAllUsersQuery, usePostUserMutation } = userApi;
+export const { useGetAllUsersQuery, usePostUserMutation, useListUsersQuery } = userApi;
