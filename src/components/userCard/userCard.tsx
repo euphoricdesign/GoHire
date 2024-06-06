@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { IUser } from "@/types";
-import SendMessageModal from "../Modals/SendMessageModal";
+import { UserData } from "@/types/userTypes";
 
 interface TruncateTextParams {
   text: string;
@@ -18,17 +18,22 @@ const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
 };
 
 const UserCard = ({
-  profileImg,
+  id,
   name,
   lastName,
+  dni,
   country,
   city,
-  description,
+  birthdate,
+  bio,
   profesions,
+  availableToWork,
+  professionalRate,
+  newMember,
   onClick,
-}: IUser & { onClick: () => void }) => {
+  onMessageClick,
+}: UserData & { onClick: () => void; onMessageClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -37,14 +42,9 @@ const UserCard = ({
 
   const handleButtonClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    setShowModal(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const truncatedDescription = truncateText({ text: description, maxLength: 100 });
+  const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
     <div className="cursor-pointer bg-[ghostwhite] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
@@ -54,7 +54,10 @@ const UserCard = ({
             <div className="flex flex-col justify-between">
               <div className="flex items-center">
                 <button
-                  onClick={handleButtonClick}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onMessageClick();
+                  }}
                   className="bg-white border mr-2 w-28 text-[#3C65F5] border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                   Message
                 </button>
@@ -87,13 +90,13 @@ const UserCard = ({
               </div>
             </div>
             <div>
-              <Image
+              {/* <Image
                 className="rounded-full p-[1px] border-2 border-[#3C65F5]"
                 src={profileImg}
                 alt="perfil"
                 width={80}
                 height={80}
-              />
+              /> */}
             </div>
           </div>
           <div className="px-5">
@@ -104,11 +107,11 @@ const UserCard = ({
           <div>
             <ul className="list-none text-sm flex flex-wrap">
               {profesions &&
-                profesions.map((profession, index) => (
+                profesions.map((profesion, index) => (
                   <li
                     key={index}
                     className="border border-slate-300 rounded-lg inline-block m-1 p-1">
-                    {profession.category}
+                    {profesion.category}
                   </li>
                 ))}
             </ul>
@@ -116,7 +119,6 @@ const UserCard = ({
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 rounded-b-full"></div>
-      <SendMessageModal show={showModal} onClose={handleCloseModal} />
     </div>
   );
 };
