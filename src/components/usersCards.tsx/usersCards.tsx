@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import UserCard from "../userCard/userCard";
 import RetractableView from "../RetractableView/RetractableView";
 import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
-import { useListUsersQuery } from "@/lib/services/usersApi";
+import { useListUsersQuery } from "@/lib/services/userApi";
 
 const UsersCards = () => {
   const [page, setPage] = useState(1);

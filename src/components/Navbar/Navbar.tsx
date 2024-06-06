@@ -3,13 +3,44 @@
 import { useEffect, useState } from "react";
 import "../../utils/Navbar.css";
 import { usePathname } from "next/navigation";
-
+import LoginButton from "@/app/api/auth/LoginButton";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import LogOutButton from "@/app/api/auth/LogoutButton";
+import { usePostUserMutation } from "@/lib/services/userApi";
+import { userPostData } from "@/types/userTypes";
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
 }
 
 const Navbar: React.FC = () => {
+  const { user, error, isLoading } = useUser();
+  const [postUser] = usePostUserMutation();
   const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const postUserData = async () => {
+      if (user) {
+        const userData: userPostData = {
+          name: user.name || "",
+          email: user.email || "",
+          email_verified: user.email_verified || false,
+          picture: user.picture || "",
+          sub: user.sub || "",
+        };
+
+        try {
+          await postUser(userData).unwrap();
+        } catch (error) {
+          console.error("Failed to post user data:", error);
+        }
+      }
+    };
+
+    postUserData();
+  }, [user, postUser]);
+
+  const pathname = usePathname();
+  console.log(pathname !== "/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +60,7 @@ const Navbar: React.FC = () => {
         scrollPosition > 0 ? "scrolled" : ""
       }`}>
       <div className="flex items-center">
-        <a href="#" className="logo mr-10">
+        <a href="/" className="logo mr-10">
           Logo
         </a>
 
@@ -43,9 +74,6 @@ const Navbar: React.FC = () => {
           </i>
         </label>
         <nav className="navbar">
-          <a className="text-sm" href="/" style={{ "--i": 0 }} {...({} as AnchorProps)}>
-            Home
-          </a>
           <a className="text-sm" href="/users" style={{ "--i": 1 }} {...({} as AnchorProps)}>
             Users
           </a>
@@ -63,10 +91,11 @@ const Navbar: React.FC = () => {
 
       <div className="flex items-center gap-3 text-sm">
         <div className="hidden md:flex md:items-center active:text-[#3C65F5]">
-          <a className={`text-gray-600`}>Sign in</a>{" "}
+          {user ? <LogOutButton /> : <LoginButton />}
           <div className={`w-px h-4 bg-gray-600 mx-1.5`}></div>{" "}
           <a className={`text-gray-600`}>Dashboard</a>
         </div>
+
         <button
           className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
           onClick={() => (window.location.href = "/formJobs")}>
