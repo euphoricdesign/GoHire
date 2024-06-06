@@ -4,7 +4,7 @@ import { useState } from "react";
 import UserCard from "../userCard/userCard";
 import RetractableView from "../RetractableView/RetractableView";
 import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
-import { useGetAllUsersQuery } from "@/lib/services/usersApi";
+import { useGetAllUsersQuery } from "@/lib/services/userApi";
 
 const UsersCards = () => {
   const { data: users } = useGetAllUsersQuery(null);

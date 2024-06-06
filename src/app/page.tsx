@@ -3,18 +3,18 @@
 import React, { useState } from "react";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import {increment, decrement} from "@/lib/features/counter/counterSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
 import CardJobs from "@/components/CardJobs/CardJobs";
 import { JobsData } from "@/types/jobsTypes";
 
+
 export default function MainPage() {
+  
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
-  const count = useAppSelector(state => state.counterReducer.value)
   const dispatch = useAppDispatch()
 
   const handleDescription = (job: JobsData | null) => {
@@ -31,6 +31,7 @@ export default function MainPage() {
     <div className="relative">
       <Home />
       <div className="md:px-[124px] mobile:px-[30px] mt-[100px]">
+        
           <div className='text-center'>
             <h1 className='text-4xl font-semibold text-[#363636]'>Browse by category</h1>
             <p className='text-[#6c757d] mt-[10px] mb-[35px]'>Find the job that’s perfect for you. about 800+ new jobs everyday</p>
@@ -57,6 +58,9 @@ export default function MainPage() {
             } */}
           </div>
       </div>
+      
+     
+       
     </div>
   );
 }
