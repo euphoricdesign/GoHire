@@ -1,3 +1,4 @@
+import { UserData } from "./userTypes";
 // recibir desde el back
 export interface JobsData {
   id: string;
@@ -20,19 +21,8 @@ export interface JobsPostData {
   file?: File; // Asegúrate de que image sea opcional si no siempre se envía.
 }
 
-export interface UserData{
-id:string,
-name:string,
-lastName:string,
-dni:string,
-country:string,
-city:string,
-birthdate:Date,
-bio:string,
-availableToWork:boolean,
-professionalRate:string,
-newMember:boolean
-}export interface JobsHistory {
+
+export interface JobsHistory {
   title: string,
   company: string,
   testimonial: string,
