@@ -15,7 +15,6 @@ import Image from "next/image";
 const merriweather = Merriweather({weight: ["300","400","700","900"], style:["italic", "normal"], subsets:["latin"]})
 
 export default function MainPage() {
-  
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
@@ -72,9 +71,6 @@ export default function MainPage() {
             } */}
           </div>
       </div>
-      
-     
-       
     </div>
   );
 }
