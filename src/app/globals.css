@@ -50,3 +50,7 @@ select option:checked {
   z-index: -1;
   opacity: 0.1;
 }
+
+.form-container {
+  padding-bottom: calc(2rem + 0.7rem);
+}
