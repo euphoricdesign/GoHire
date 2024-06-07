@@ -64,6 +64,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
+    <header className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
       <div className="flex items-center">
         <a href="/" className="logo mr-10">
           Logo
