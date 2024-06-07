@@ -1,7 +1,7 @@
 import React from "react";
-import { IJob } from "@/types";
+import { JobsHistory } from "@/types/jobsTypes";
 
-const WorkHistoryCard = ({ title, company, testimonial, startDate, endDate }: IJob) => {
+const WorkHistoryCard = ({ title, company, testimonial, startDate, endDate }: JobsHistory) => {
   return (
     <div className="border p-4 rounded-md shadow-md mb-4">
       <h4 className="font-bold text-lg">

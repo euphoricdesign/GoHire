@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./features/counter/userSlice";
+import userReducer from "./features/slices/userSlice";
 import { jobsApi } from "./services/jobsApi";
-import { userApi } from "./services/userApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { userApi } from "./services/userApi";
 
 // Configurar el store
 export const makeStore = () => {

@@ -1,11 +1,11 @@
 "use client";
-import { IUser } from "@/types";
 import { useState, useEffect } from "react";
 import UserCard from "../userCard/userCard";
 import RetractableView from "../RetractableView/RetractableView";
 import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
 import { useListUsersQuery } from "@/lib/services/userApi";
 import Modal from "react-modal";
+import { UserData } from "@/types/userTypes";
 
 const UsersCards = () => {
   const [page, setPage] = useState(1);
@@ -15,7 +15,7 @@ const UsersCards = () => {
     isFetching,
   } = useListUsersQuery(page);
   const [showDescription, setShowDescription] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const UsersCards = () => {
     setPage(page);
   }, [paginatedUsersResponse]);
 
-  const handleDescription = (user: IUser | null) => {
+  const handleDescription = (user: UserData | null) => {
     setSelectedUser(user);
     setShowDescription(true);
   };
@@ -38,7 +38,7 @@ const UsersCards = () => {
 
   console.log(paginatedUsersResponse, "esto es la respuesta del back");
 
-  const handleOpenModal = (user: IUser) => {
+  const handleOpenModal = (user: UserData) => {
     setSelectedUser(user);
     setShowModal(true);
   };
@@ -52,7 +52,7 @@ const UsersCards = () => {
     <div className="flex flex-wrap">
       <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[20px]">
         {paginatedUsersResponse &&
-          paginatedUsersResponse.map((user: IUser) => (
+          paginatedUsersResponse.map((user: UserData) => (
             <div
               key={user.id}
               className="mobile:w-full md:w-[25.8rem] hover:scale-95 transition-all duration-300 relative"

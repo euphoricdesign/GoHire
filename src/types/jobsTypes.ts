@@ -7,7 +7,7 @@ export interface JobsData {
   id: string;
   title: string;
   description: string;
-  imgUrl: string;
+  image: string;
   date: string;
   time: string;
   timelapse: string;
@@ -17,7 +17,14 @@ export interface JobsData {
 export interface JobsPostData {
   title: string;
   description: string;
-  imgUrl: string;
+  image: File | null;
   category: string;
 }
 
+export interface JobsHistory {
+  title: string,
+  company: string,
+  testimonial: string,
+  startDate: string,
+  endDate: string
+}

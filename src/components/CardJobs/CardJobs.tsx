@@ -7,7 +7,7 @@ const CardJobs = ({
   id,
   title,
   description,
-  imgUrl,
+  image,
   date,
   time,
   timelapse,
