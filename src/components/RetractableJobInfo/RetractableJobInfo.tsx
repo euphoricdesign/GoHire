@@ -45,13 +45,13 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
               {user ? (
                 <div className="flex flex-col items-start">
                   <div className="m-3 p-1 border border-gray-300 rounded-full">
-                    <Image
+                    {/* <Image
                       className="rounded-full"
                       src={user.profileImg}
                       alt="profile img"
                       width={96}
                       height={96}
-                    />
+                    /> */}
                   </div>
                   <h2 className="text-[16px] font-bold">
                     {user.name} {user.lastName}
