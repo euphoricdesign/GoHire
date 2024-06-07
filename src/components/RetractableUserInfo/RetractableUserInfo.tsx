@@ -7,9 +7,9 @@ import { TfiBolt } from "react-icons/tfi";
 import { FaArrowUpRightFromSquare, FaRegStar, FaShareFromSquare } from "react-icons/fa6";
 import { GoHeartFill } from "react-icons/go";
 import WorkHistoryCard from "../WorkHistoryCard/WorkHistoryCard";
-import { IUser } from "@/types";
+import { UserData } from "@/types/userTypes";
 
-const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
+const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
   const [isFavClicked, setIsFavClicked] = useState(false);
 
   const handleFavClicked = () => {
@@ -32,7 +32,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
             <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
-                src={selectedUser.profileImg}
+                src={selectedUser?.profileImg || "/path/to/default/image.jpg"}
                 alt={`${selectedUser.name} ${selectedUser.lastName}'s profile image`}
                 width={96}
                 height={96}

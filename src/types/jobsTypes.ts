@@ -32,4 +32,10 @@ bio:string,
 availableToWork:boolean,
 professionalRate:string,
 newMember:boolean
+}export interface JobsHistory {
+  title: string,
+  company: string,
+  testimonial: string,
+  startDate: string,
+  endDate: string
 }
