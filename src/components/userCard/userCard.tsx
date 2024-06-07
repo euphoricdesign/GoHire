@@ -17,15 +17,21 @@ const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
 };
 
 const UserCard = ({
-  profileImg,
+  id,
   name,
   lastName,
+  dni,
   country,
   city,
-  description,
+  birthdate,
+  bio,
   profesions,
+  availableToWork,
+  professionalRate,
+  newMember,
   onClick,
-}: UserData & { onClick: () => void }) => {
+  onMessageClick,
+}: UserData & { onClick: () => void; onMessageClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
@@ -37,7 +43,7 @@ const UserCard = ({
     event.stopPropagation();
   };
 
-  const truncatedDescription = truncateText({ text: description, maxLength: 100 });
+  const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
     <div className="cursor-pointer bg-[ghostwhite] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
@@ -47,7 +53,10 @@ const UserCard = ({
             <div className="flex flex-col justify-between">
               <div className="flex items-center">
                 <button
-                  onClick={handleButtonClick}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onMessageClick();
+                  }}
                   className="bg-white border mr-2 w-28 text-[#3C65F5] border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                   Message
                 </button>
@@ -80,13 +89,13 @@ const UserCard = ({
               </div>
             </div>
             <div>
-              <Image
+              {/* <Image
                 className="rounded-full p-[1px] border-2 border-[#3C65F5]"
                 src={profileImg || "/path/to/default/image.jpg"}
                 alt="perfil"
                 width={80}
                 height={80}
-              />
+              /> */}
             </div>
           </div>
           <div className="px-5">
@@ -97,11 +106,11 @@ const UserCard = ({
           <div>
             <ul className="list-none text-sm flex flex-wrap">
               {profesions &&
-                profesions.map((profession, index) => (
+                profesions.map((profesion, index) => (
                   <li
                     key={index}
                     className="border border-slate-300 rounded-lg inline-block m-1 p-1">
-                    {profession.category}
+                    {profesion.category}
                   </li>
                 ))}
             </ul>

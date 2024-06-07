@@ -11,6 +11,8 @@ const CardJobs = ({
   date,
   time,
   timelapse,
+  category,
+  user,
   onClick,
 }: JobsData & { onClick: () => void }) => {
   return (
