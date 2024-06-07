@@ -2,30 +2,27 @@
 
 import React, { useState, useEffect } from "react";
 import CardJobs from "../../components/CardJobs/CardJobs";
-import { useGetAllJobsQuery } from "@/lib/services/jobsApi";
+import { useListJobsQuery } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import RetractableJobInfo from "@/components/RetractableJobInfo/RetractableJobInfo";
 import RetractableView from "@/components/RetractableView/RetractableView";
 
 const SearchJobs: React.FC = () => {
-  const { data, error, isLoading, isFetching } = useGetAllJobsQuery(null);
+  const [page, setPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const { data, isLoading, isFetching, error } = useListJobsQuery({
+    page,
+    category: selectedCategory,
+    city: selectedCity,
+  });
+
+  useEffect(() => {
+    setPage(page);
+  }, [data]);
 
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
-  const [filteredJobs, setFilteredJobs] = useState<JobsData[] | undefined>(data);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [locations, setLocations] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (data) {
-      const cities = data
-        .map(job => job.user?.city) // Verificación de job.user?.city
-        .filter((city, index, self) => city && self.indexOf(city) === index); // Filtrado de duplicados
-      setLocations(cities as string[]); // Actualización del estado de locations
-      applyFilters();
-    }
-  }, [data, selectedCategory, selectedLocation]);
 
   const handleDescription = (job: JobsData | null) => {
     setSelectedJobPost(job);
@@ -41,22 +38,8 @@ const SearchJobs: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLocation(event.target.value);
-  };
-
-  const applyFilters = () => {
-    let filtered = data;
-
-    if (selectedCategory) {
-      filtered = filtered?.filter((job) => job.category === selectedCategory);
-    }
-
-    if (selectedLocation) {
-      filtered = filtered?.filter((job) => job.user && job.user.city === selectedLocation); // Verificación de job.user
-    }
-
-    setFilteredJobs(filtered);
+  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCity(event.target.value);
   };
 
   if (error) return <p>Some Error</p>;
@@ -84,30 +67,41 @@ const SearchJobs: React.FC = () => {
               <option value="Abogado">Abogado</option>
             </select>
           </div>
-          
+
           <div>
             <select
-              id="location"
-              value={selectedLocation}
-              onChange={handleLocationChange}
+              id="city"
+              value={selectedCity}
+              onChange={handleCityChange}
               className="custom-select">
-              <option value="">Filter by location</option>
-              {locations.map((city) => ( // Uso de locations en el select de ubicación
-                <option key={city} value={city}>{city}</option>
-              ))}
+              <option value="">Filter by City</option>
+              <option value="Rio de Janeiro">Rio de Janeiro</option>
+              <option value="Arica">Arica</option>
             </select>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-        {isLoading || isFetching ? <p>Loading...</p> : ""}
-          {filteredJobs && filteredJobs.length > 0 ? (
-            filteredJobs.map((job) => (
-              <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
-            ))
-          ) : (
-            <p className="text-center text-red-500 mt-8">No hay datos disponibles para mostrar por el momento</p>
-          )}
+        <div className="flex flex-col">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            {isLoading || isFetching ? <p>Loading...</p> : ""}
+            {data && data.length > 0 ? (
+              data.map((job) => (
+                <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
+              ))
+            ) : (
+              <p className="text-center text-red-500 mt-8">
+                No hay datos disponibles para mostrar por el momento
+              </p>
+            )}
+          </div>
+          <div className="w-full flex justify-center mt-4">
+            <button onClick={() => setPage(page - 1)} disabled={isFetching || page === 1}>
+              Previous
+            </button>
+            <div>{page}</div>
+            <button onClick={() => setPage(page + 1)} disabled={isFetching}>
+              Next
+            </button>
+          </div>
         </div>
         <div>
           <RetractableView show={showDescription} onClose={handleCloseDescription}>
