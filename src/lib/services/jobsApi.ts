@@ -10,11 +10,14 @@ export const jobsApi = createApi({
     getAllJobs: builder.query<JobsData[], null>({
       query: () => "publication",
     }),
-    listJobs: builder.query<JobsData[], { page: number; category?: string }>({
-      query: ({ page = 1, category }) => {
-        let url = `publication?${page}`;
+    listJobs: builder.query<JobsData[], { page: number; category?: string; city?: string }>({
+      query: ({ page = 1, category, city }) => {
+        let url = `publication?page=${page}`;
         if (category) {
           url += `&category=${category}`;
+        }
+        if (city) {
+          url += `&city=${city}`;
         }
         return url;
       },

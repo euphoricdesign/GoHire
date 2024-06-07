@@ -47,8 +47,8 @@ const Navbar: React.FC = () => {
     postUserData();
   }, [user, postUser, dispatch]);
 
-  const pathname = usePathname();
-  console.log(pathname !== "/");
+  // const pathname = usePathname();
+  // console.log(pathname !== "/");
 
   useEffect(() => {
     const handleScroll = () => {
