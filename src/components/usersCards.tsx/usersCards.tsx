@@ -4,8 +4,8 @@ import UserCard from "../userCard/userCard";
 import RetractableView from "../RetractableView/RetractableView";
 import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
 import { useListUsersQuery } from "@/lib/services/userApi";
-import Modal from "react-modal";
 import { UserData } from "@/types/userTypes";
+import SendMessageModal from "../Modals/SendMessageModal";
 
 const UsersCards = () => {
   const [page, setPage] = useState(1);
@@ -74,22 +74,11 @@ const UsersCards = () => {
           Next
         </button>
       </div>
-      <Modal
+      <SendMessageModal
         isOpen={showModal}
         onRequestClose={handleCloseModal}
-        contentLabel="Send Message Modal"
-        ariaHideApp={false}
-        className="fixed inset-0 flex items-center justify-center z-50 outline-none"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40">
-        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-auto z-50">
-          <h2 className="text-xl font-bold mb-4">Send a Message to {selectedUser?.name}</h2>
-          <button
-            onClick={handleCloseModal}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Close
-          </button>
-        </div>
-      </Modal>
+        selectedUser={selectedUser}
+      />
     </div>
   );
 };

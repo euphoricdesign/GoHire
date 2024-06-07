@@ -4,11 +4,11 @@ import React from "react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 import Image from "next/image";
-import { JobsData, JobsPostData } from "@/types/jobsTypes";
+import { JobsData } from "@/types/jobsTypes";
+import { useGetUserByIdQuery } from "@/lib/services/userApi";
 
 const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
-  const user = usersPreload.find((user) => user.id === parseInt(selectedJob.id));
-
+  const { data: user } = useGetUserByIdQuery({ id: selectedJob.user.id });
   return (
     <div className="h-full w-full">
       <div className="flex items-center justify-end w-full text-sm p-3">

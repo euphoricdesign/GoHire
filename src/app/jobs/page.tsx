@@ -77,7 +77,6 @@ const SearchJobs: React.FC = () => {
               <option value="">Filter by City</option>
               <option value="Rio de Janeiro">Rio de Janeiro</option>
               <option value="Arica">Arica</option>
-              <option value="Encarnacion">Encarnacion</option>
             </select>
           </div>
         </div>
