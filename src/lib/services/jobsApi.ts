@@ -13,7 +13,7 @@ export const jobsApi = createApi({
         getJobById: builder.query<JobsData, {id: string}>({
             query: ({id}) => `publication/${id}`
         }),
-        postJob: builder.mutation<JobsData,JobsPostData>({
+        postJob: builder.mutation<JobsData,FormData>({
             query: (newJob) => ({
                 url: "publication",
                 method: "POST",
