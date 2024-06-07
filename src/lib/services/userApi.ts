@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData } from "@/types/userTypes";
 
-
 // Define el API con todas las consultas y mutaciones
 export const userApi = createApi({
   reducerPath: "usersApi",
@@ -14,7 +13,7 @@ export const userApi = createApi({
       query: () => "users",
     }),
     // Consulta para obtener los usuarios por página
-    listUsers: builder.query<IUser[], number | void>({
+    listUsers: builder.query<UserData[], number | void>({
       query: (page = 1) => `users?page=${page}`,
     }),
     // Mutación para crear un nuevo usuario

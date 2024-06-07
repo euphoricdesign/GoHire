@@ -19,7 +19,6 @@ const UsersCards = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    console.log("Paginated Users:", paginatedUsersResponse);
     setPage(page);
   }, [paginatedUsersResponse]);
 
@@ -35,8 +34,6 @@ const UsersCards = () => {
   if (!paginatedUsersResponse || paginatedUsersResponse.length === 0) {
     return <div>No users available.</div>;
   }
-
-  console.log(paginatedUsersResponse, "esto es la respuesta del back");
 
   const handleOpenModal = (user: UserData) => {
     setSelectedUser(user);
