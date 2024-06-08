@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { JobsPostData } from '@/types/jobsTypes';
-import { usePostJobMutation } from "@/lib/services/jobsApi"
+import { usePostJobMutation } from "@/lib/services/jobsApi";
 import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt } from 'react-icons/fa';
-import Collaborators from '../../../public/collaborators.svg'
+import Collaborators from '../../../public/collaborators.svg';
 import Image from 'next/image';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 
 const FormJobs: React.FC = () => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
@@ -22,8 +23,10 @@ const FormJobs: React.FC = () => {
             formData.append('title', data.title);
             formData.append('description', data.description);
             formData.append('category', data.category);
+            formData.append('location', data.location); // Asegúrate de agregar 'location'
+            formData.append('remoteWork', data.remoteWork.toString()); // Convertir a string
             if (data.file) formData.append('file', data.file);
-            console.log(formData)
+            console.log(formData);
 
             await postJob(formData).unwrap();
             toast.success("Post created successfully!");
@@ -36,17 +39,17 @@ const FormJobs: React.FC = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-          setValue('file', file);
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreviewImage(reader.result as string);
-          };
-          reader.readAsDataURL(file);
+            setValue('file', file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result as string);
+            };
+            reader.readAsDataURL(file);
         } else {
-          setValue('file', undefined);
-          setPreviewImage(null);
+            setValue('file', undefined);
+            setPreviewImage(null);
         }
-      };
+    };
 
     const generateTimeOptions = () => {
         const options = [];
@@ -62,7 +65,6 @@ const FormJobs: React.FC = () => {
     };
 
     return (
-        
         <section className="mt-[80px] mobile:px-[25px] md:px-0">
             <ToastContainer />
             <div className="mx-auto max-w-screen-xl py-16">
