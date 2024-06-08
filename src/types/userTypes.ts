@@ -7,7 +7,6 @@ export interface userPostData {
   email: string;
   email_verified: boolean;
   picture: string;
-  sub: string;
 }
 
 export interface UserData {
@@ -27,4 +26,5 @@ export interface UserData {
   educations: string[];
   jobs: JobsData[];
   description: string;
+  token?: string
 }
