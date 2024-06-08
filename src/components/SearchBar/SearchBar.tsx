@@ -1,63 +1,76 @@
+"use client"
+
 import React, { useEffect, useState } from 'react'
-import { GoLocation, GoPencil } from "react-icons/go";
+import { GoPencil } from "react-icons/go";
 import { useGetAllJobsQuery } from '@/lib/services/jobsApi';
 import { JobsData } from '@/types/jobsTypes';
+import Link from 'next/link';
 
 const SearchBar = () => {
-
-  const { data, isLoading, isFetching, error } = useGetAllJobsQuery(null)
+  const { data, isLoading } = useGetAllJobsQuery(null);
   const [job, setJob] = useState<JobsData[] | []>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (data && data.length > 0) {
-      setJob(data)
-      setLoading(false); // Esto para asegurarte de que `loading` se actualiza correctamente
+      setJob(data);
+      setLoading(false);
     }
-  }, [data]) // Asegúrate de agregar `data` como dependencia del useEffect
+  }, [data]);
 
   const filteredJobs = job.filter(jobItem =>
-    jobItem.category.toLowerCase().includes(searchTerm.toLowerCase())
+    jobItem.category.includes(searchTerm)
   );
 
   const JobsItem = ({ job }: { job: JobsData }) => (
-    <article className="rounded-xl border-2 border-gray-100 bg-white">
-      <div className="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
-        <a href={job.category}>{job.category}</a> {/* Ajusta el contenido según necesites */}
+    <article className="rounded-xl border-2 border-gray-100 bg-white p-2 mb-1">
+      <div className="flex items-start gap-2">
+          <a href={`/jobs/${job.id}`} className="block shrink-0">
+            <img
+              alt=""
+              src={job.image}
+              className="w-14 h-14 rounded-lg object-cover cursor-pointer"
+            />
+          </a>
+        <div className="flex-1">
+          <p className="font-medium text-sm">
+              <a href={`/jobs/${job.id}`} className="hover:underline cursor-pointer">{job.title}</a>
+          </p>
+          <p className="line-clamp-2 text-xs text-gray-700">
+            {job.description}
+          </p>
+          <p className="line-clamp-2 text-xs text-gray-700 mb-1">
+            {job.date}
+          </p>
+          <div className="mt-1 text-gray-500 font-medium text-xs">{job.category}</div>
+        </div>
       </div>
     </article>
   );
 
   return (
-    <form className='md:w-[600px] bg-white py-[12px] px-[16px] md:flex gap-4 items-center justify-center rounded shadow-custom'>
-      <div className='w-[200px] flex items-center mobile:mb-[15px] md:mb-0'>
-        <label htmlFor="search"><GoPencil className='text-gray-600' /></label>
-        <input
-          id="search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className='py-[0.6rem] px-4 focus:outline-none'
-          type="text"
-          placeholder='Keywords'
-        />
-        {searchTerm.length > 0 && !loading && (
-          <div className="absolute z-10 bg-white text-blue-700 w-full rounded-md mt-1">
-            {filteredJobs.map(job => (
-              <JobsItem key={job.id} job={job} />
-            ))}
+    <form className='relative max-w-[500px] bg-white py-[12px] px-[16px] flex gap-4 items-center rounded shadow-custom'>
+        <div className='flex-1 relative'>
+          <div className='flex items-center'>
+            <GoPencil className='text-gray-600 mr-2' />
+            <input
+              id="search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='py-[0.6rem] px-4 focus:outline-none w-full'
+              type="text"
+              placeholder='Keywords'
+            />
           </div>
-        )}
-      </div>
-      {/* <div className='w-[200px] flex items-center mobile:mb-[15px] md:mb-0'>
-        <label htmlFor=""><GoLocation className='text-gray-600' /></label>
-        <input className='py-[0.6rem] px-4 focus:outline-none' type="text" placeholder='Location' />
-      </div> */}
-      <div>
-        <button className='mb-0 text-sm border-none md:w-28 mobile:w-full p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80'>
-          Buscar
-        </button>
-      </div>
+          {searchTerm.length > 0 && !loading && (
+            <div className="absolute z-10 bg-white text-blue-700 w-full rounded-md mt-1 max-h-60 overflow-y-auto">
+              {filteredJobs.map(job => (
+                <JobsItem key={job.id} job={job} />
+              ))}
+            </div>
+          )}
+        </div>
     </form>
   );
 }
