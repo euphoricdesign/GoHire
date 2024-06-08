@@ -16,7 +16,6 @@ const FormJobs: React.FC = () => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
-    const token = useSelector((state: RootState) => state.user.token);
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
         try {
@@ -28,7 +27,6 @@ const FormJobs: React.FC = () => {
             formData.append('remoteWork', data.remoteWork.toString()); // Convertir a string
             if (data.file) formData.append('file', data.file);
             console.log(formData);
-            console.log('Token:', token); // Log del token
 
             await postJob(formData).unwrap();
             toast.success("Post created successfully!");
