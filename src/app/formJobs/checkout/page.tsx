@@ -6,12 +6,6 @@ import Mp from '../../../../public/mp.png'
 import { SiMercadopago } from "react-icons/si";
 import { FaCheck } from "react-icons/fa6";
 
-// font-weight: 600;
-// color: #62646a;
-// text-align: left;
-// margin-bottom: 4px;
-// font-size: 16px;
-
 
 const Checkout = () => {
     const [isMercadoPagoChecked, setIsMercadoPagoChecked] = useState(false)
