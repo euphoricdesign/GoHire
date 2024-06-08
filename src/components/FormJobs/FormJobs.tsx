@@ -9,7 +9,6 @@ import { usePostJobMutation } from "@/lib/services/jobsApi";
 import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-usePathname
 
 interface FormJobsProps {
     title: string
@@ -17,8 +16,6 @@ interface FormJobsProps {
     width: string
     textButton: string
 }
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
 
 const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
