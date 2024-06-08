@@ -27,16 +27,16 @@ const Navbar: React.FC = () => {
       console.log(user);
       if (user) {
         const userData: userPostData = {
-          name: user.name || "",
-          email: user.email || "",
-          email_verified: user.email_verified || false,
-          nickname: user.nickname || "",
-          picture: user.picture || "",
-          sub: user.sub || "",
+          name: user?.name || "",
+          email: user?.email || "",
+          email_verified: user?.email_verified || false,
+          nickname: user?.nickname || "",
+          picture: user?.picture || "",
         };
 
         try {
           const result = await postUser(userData).unwrap();
+          console.log("result: ", result)
           dispatch(setUserDetail(result));
         } catch (error) {
           console.error("Failed to post user data:", error);
