@@ -25,6 +25,7 @@ const UserCard = ({
   city,
   birthdate,
   bio,
+  profileImg,
   profesions,
   availableToWork,
   professionalRate,
@@ -50,7 +51,7 @@ const UserCard = ({
       <div className="flex items-center justify-between md:w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl mobile:w-full">
         <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col">
               <div className="flex items-center">
                 <button
                   onClick={(event) => {
@@ -79,23 +80,24 @@ const UserCard = ({
                   </button>
                 )}
               </div>
-              <div className="">
+              <div className="mt-1 min-h-14 flex flex-col justify-center">
                 <span className="text-lg font-bold">
                   {name} {lastName}
                 </span>
                 <span>
-                  - {city}, {country}
+                  {" - "}
+                  {city}, {country}
                 </span>
               </div>
             </div>
             <div>
-              {/* <Image
-                className="rounded-full p-[1px] border-2 border-[#3C65F5]"
-                src={profileImg || "/path/to/default/image.jpg"}
+              <Image
+                className="rounded-full p-[1px] border-2 border-[#3C65F5] min-w-20 min-h-20"
+                src={profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt="perfil"
                 width={80}
                 height={80}
-              /> */}
+              />
             </div>
           </div>
           <div className="px-5">

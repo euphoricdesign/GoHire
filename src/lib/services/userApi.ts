@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData } from "@/types/userTypes";
-import type { RootState } from '@/lib/store';
+import type { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
+import { selectUserDetail } from "../features/slices/userSlice";
 
 // Define el API con todas las consultas y mutaciones
 export const userApi = createApi({
@@ -8,11 +10,12 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
     prepareHeaders: (headers, { getState, endpoint }) => {
-      if (endpoint === 'postUser') {
+      if (endpoint === "postUser") {
         const token = (getState() as RootState).user.userDetail?.token;
         if (token) {
           headers.set("authorization", `Bearer ${token}`);
-          console.log('Token added to headers:', token);
+          console.log("Token added to headers:", token);
+          localStorage.setItem("userToken", token);
         }
       }
       return headers;
@@ -28,8 +31,18 @@ export const userApi = createApi({
     }),
     // Consulta para obtener los usuarios por página
     listUsers: builder.query<UserData[], number | void>({
-      query: (page = 1) => `users?page=${page}`,
+      query: (page = 1) => {
+        const userToken = localStorage.getItem("userToken");
+        return {
+          url: `users?page=${page}`,
+          headers: {
+            Authorization: userToken || "",
+          },
+        };
+      },
     }),
+
+    // `users?page=${page}`,
     // Mutación para crear un nuevo usuario
     postUser: builder.mutation<UserData, userPostData>({
       query: (newUser) => ({

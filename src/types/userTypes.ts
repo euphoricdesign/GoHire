@@ -1,3 +1,5 @@
+import { UserEducation } from "./educationsTypes";
+import { UserExperiences } from "./experiencesTypes";
 import { JobsData } from "./jobsTypes";
 import { Professions } from "./professionsTypes";
 
@@ -23,8 +25,8 @@ export interface UserData {
   newMember: boolean;
   profileImg?: string;
   profesions: Professions[];
-  educations: string[];
-  jobs: JobsData[];
+  educations: UserEducation[];
+  experiences: UserExperiences[];
   description: string;
   token?: string
 }
