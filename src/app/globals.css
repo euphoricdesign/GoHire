@@ -51,6 +51,18 @@ select option:checked {
   opacity: 0.1;
 }
 
+.spanAfterSm::after {
+  content: "";
+  background-color: #3C65F5;
+  height: 20px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -4px;
+  z-index: -1;
+  opacity: 0.1;
+}
+
 .form-container {
   padding-bottom: calc(2rem + 0.7rem);
 }

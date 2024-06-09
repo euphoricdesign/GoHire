@@ -6,6 +6,7 @@ import { useListJobsQuery } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import RetractableJobInfo from "@/components/RetractableJobInfo/RetractableJobInfo";
 import RetractableView from "@/components/RetractableView/RetractableView";
+import BannerCategory from "@/components/BannerCategory/BannerCategory";
 
 const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -46,40 +47,9 @@ const SearchJobs: React.FC = () => {
 
   return (
     <div className="md:px-[124px] mobile:px-[30px]">
-      <div className="container mx-auto mt-[100px] flex gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
-        <div className="flex justify-center mb-4 flex-col gap-[20px]">
-          <div className="mr-4">
-            <select
-              id="category"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              className="custom-select">
-              <option value="">Filter by category</option>
-              <option value="Enfermera">Enfermera</option>
-              <option value="Chef">Chef</option>
-              <option value="Dentista">Dentista</option>
-              <option value="Psicólogo">Psicólogo</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Fotógrafo">Fotógrafo</option>
-              <option value="Científico">Científico</option>
-              <option value="Maestro">Maestro</option>
-              <option value="Mecánico">Mecánico</option>
-              <option value="Abogado">Abogado</option>
-            </select>
-          </div>
-
-          <div>
-            <select
-              id="city"
-              value={selectedCity}
-              onChange={handleCityChange}
-              className="custom-select">
-              <option value="">Filter by City</option>
-              <option value="Rio de Janeiro">Rio de Janeiro</option>
-              <option value="Arica">Arica</option>
-            </select>
-          </div>
-        </div>
+      <BannerCategory selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} selectedCity={selectedCity} handleCityChange={handleCityChange} />
+      
+      <div className="container mx-auto mt-[100px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex flex-col">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
             {isLoading || isFetching ? <p>Loading...</p> : ""}
