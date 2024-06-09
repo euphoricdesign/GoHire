@@ -9,7 +9,7 @@ export interface JobsData {
   time: string;
   timelapse: string;
   category: string;
-  user: UserData
+  user: UserData;
 }
 
 export interface JobsPostData {
@@ -22,11 +22,10 @@ export interface JobsPostData {
   paymentPlan?: string
 }
 
-
 export interface JobsHistory {
-  title: string,
-  company: string,
-  testimonial: string,
-  startDate: string,
-  endDate: string
+  title: string;
+  company: string;
+  testimonial: string;
+  startDate: string;
+  endDate: string;
 }
