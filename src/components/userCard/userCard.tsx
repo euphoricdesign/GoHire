@@ -25,6 +25,7 @@ const UserCard = ({
   city,
   birthdate,
   bio,
+  profileImg,
   profesions,
   availableToWork,
   professionalRate,
@@ -92,7 +93,7 @@ const UserCard = ({
             <div>
               <Image
                 className="rounded-full p-[1px] border-2 border-[#3C65F5] min-w-20 min-h-20"
-                src={"https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
+                src={profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt="perfil"
                 width={80}
                 height={80}

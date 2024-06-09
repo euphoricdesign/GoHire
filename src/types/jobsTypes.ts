@@ -1,8 +1,5 @@
 import { UserData } from "./userTypes";
 
-
-
-
 export interface JobsData {
   id: string;
   title: string;
@@ -12,7 +9,7 @@ export interface JobsData {
   time: string;
   timelapse: string;
   category: string;
-  user: UserData
+  user: UserData;
 }
 export interface JobsPostData {
   title: string;
@@ -22,9 +19,9 @@ export interface JobsPostData {
 }
 
 export interface JobsHistory {
-  title: string,
-  company: string,
-  testimonial: string,
-  startDate: string,
-  endDate: string
+  title: string;
+  company: string;
+  testimonial: string;
+  startDate: string;
+  endDate: string;
 }
