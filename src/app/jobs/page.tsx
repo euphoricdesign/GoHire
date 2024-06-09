@@ -11,11 +11,11 @@ import BannerCategory from "@/components/BannerCategory/BannerCategory";
 const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
   const { data, isLoading, isFetching, error } = useListJobsQuery({
     page,
     category: selectedCategory,
-    city: selectedCity,
+    location: selectedLocation,
   });
 
   useEffect(() => {
@@ -39,16 +39,21 @@ const SearchJobs: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value);
+  const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLocation(event.target.value);
   };
 
   if (error) return <p>Some Error</p>;
 
   return (
     <div className="md:px-[124px] mobile:px-[30px]">
-      <BannerCategory selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} selectedCity={selectedCity} handleCityChange={handleCityChange} />
-      
+      <BannerCategory
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+        selectedLocation={selectedLocation}
+        handleLocationChange={handleLocationChange}
+      />
+
       <div className="container mx-auto mt-[100px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex flex-col">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">

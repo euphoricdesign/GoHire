@@ -27,7 +27,15 @@ export const userApi = createApi({
       query: () => "users",
     }),
     getUserById: builder.query<UserData, { id: string }>({
-      query: ({ id }) => `users/${id}`,
+      query: ({ id }) => {
+        const userToken = localStorage.getItem("userToken");
+        return {
+          url: `users/${id}`,
+          headers: {
+            Authorization: userToken || "",
+          },
+        };
+      },
     }),
     // Consulta para obtener los usuarios por página
     listUsers: builder.query<UserData[], number | void>({

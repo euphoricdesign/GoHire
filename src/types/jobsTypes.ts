@@ -3,6 +3,7 @@ import { UserData } from "./userTypes";
 export interface JobsData {
   id: string;
   title: string;
+  location: string;
   description: string;
   image: string;
   date: string;
