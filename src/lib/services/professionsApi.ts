@@ -13,9 +13,4 @@ export const professionsApi = createApi({
   }),
 });
 
-// builder.query es cuando se quiere hacer una peticion tipo GET
-// builder.mutation es cuando se quiere hacer una modificacion de datos POST PUT
-
 export const { useGetAllProfessionsQuery } = professionsApi;
-
-// se crean hooks de react desde la configuracion del enrutado de jobsApi con el nombre de hook use+{endpoint}+Query

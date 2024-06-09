@@ -5,22 +5,22 @@ import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
 interface BannerCategoryProps {
   selectedCategory: string;
   handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectedLocation: string;
-  handleLocationChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  selectedCountry: string;
+  handleCountryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const BannerCategory: React.FC<BannerCategoryProps> = ({
   selectedCategory,
   handleCategoryChange,
-  selectedLocation,
-  handleLocationChange,
+  selectedCountry,
+  handleCountryChange,
 }) => {
   const [page, setPage] = useState(1);
 
   const { data } = useListJobsQuery({
     page,
     category: selectedCategory,
-    location: selectedLocation,
+    city: selectedCountry,
   });
 
   return (
@@ -59,12 +59,15 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
               <FaSearchLocation className="text-[40px]" />
               <select
                 id="city"
-                value={selectedLocation}
-                onChange={handleLocationChange}
+                value={selectedCountry}
+                onChange={handleCountryChange}
                 className="py-[0.6rem] px-4 focus:outline-none w-full">
                 <option value="">Filter by City</option>
-                <option value="Rio de Janeiro">Rio de Janeiro</option>
-                <option value="Arica">Arica</option>
+                <option value="Sao Paulo">Sao Paulo</option>
+                <option value="Montevideo">Montevideo</option>
+                <option value="Rosario">Rosario</option>
+                <option value="Chile">Salamanca</option>
+                <option value="Chile">Salto</option>
               </select>
             </div>
           </div>

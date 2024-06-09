@@ -10,15 +10,15 @@ export const jobsApi = createApi({
     getAllJobs: builder.query<JobsData[], null>({
       query: () => "publication",
     }),
-    listJobs: builder.query<JobsData[], { page: number; category?: string; location?: string }>({
-      query: ({ page = 1, category, location }) => {
+    listJobs: builder.query<JobsData[], { page: number; category?: string; city?: string }>({
+      query: ({ page = 1, category, city }) => {
         const userToken = localStorage.getItem("userToken");
         let url = `publication?page=${page}`;
         if (category) {
           url += `&category=${category}`;
         }
-        if (location) {
-          url += `&city=${location}`;
+        if (city) {
+          url += `&city=${city}`;
         }
         return {
           url,

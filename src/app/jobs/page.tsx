@@ -11,11 +11,11 @@ import BannerCategory from "@/components/BannerCategory/BannerCategory";
 const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const { data, isLoading, isFetching, error } = useListJobsQuery({
     page,
     category: selectedCategory,
-    location: selectedLocation,
+    city: selectedCountry,
   });
 
   useEffect(() => {
@@ -39,8 +39,8 @@ const SearchJobs: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLocation(event.target.value);
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCountry(event.target.value);
   };
 
   if (error) return <p>Some Error</p>;
@@ -50,8 +50,8 @@ const SearchJobs: React.FC = () => {
       <BannerCategory
         selectedCategory={selectedCategory}
         handleCategoryChange={handleCategoryChange}
-        selectedLocation={selectedLocation}
-        handleLocationChange={handleLocationChange}
+        selectedCountry={selectedCountry}
+        handleCountryChange={handleCountryChange}
       />
 
       <div className="container mx-auto mt-[100px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
