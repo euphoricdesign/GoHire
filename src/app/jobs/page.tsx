@@ -12,6 +12,10 @@ const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+
+  const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
+  const [showDescription, setShowDescription] = useState(false);
+
   const { data, isLoading, isFetching, error } = useListJobsQuery({
     page,
     category: selectedCategory,
@@ -22,8 +26,7 @@ const SearchJobs: React.FC = () => {
     setPage(page);
   }, [data]);
 
-  const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
-  const [showDescription, setShowDescription] = useState(false);
+
 
   const handleDescription = (job: JobsData | null) => {
     setSelectedJobPost(job);
@@ -51,19 +54,22 @@ const SearchJobs: React.FC = () => {
       
       <div className="container mx-auto mt-[100px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex flex-col">
+            {isLoading || isFetching ? (
+              <div className="w-full flex flex-row gap-2 justify-center items-center">
+                <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+              </div>
+            ) : ""}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {isLoading || isFetching ? <p>Loading...</p> : ""}
-            {data && data.length > 0 ? (
+         
+            {data && data.length > 0 && (
               data.map((job) => (
                 <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
               ))
-            ) : (
-              <p className="text-center text-red-500 mt-8">
-                No hay datos disponibles para mostrar por el momento
-              </p>
             )}
           </div>
-          <div className="w-full flex justify-center mt-4">
+          <div className={`w-full flex justify-center mt-4 ${isLoading && 'hidden'}`}>
             <button onClick={() => setPage(page - 1)} disabled={isFetching || page === 1}>
               Previous
             </button>

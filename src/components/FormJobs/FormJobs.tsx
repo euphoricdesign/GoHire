@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { JobsPostData } from '@/types/jobsTypes';
 import { usePostJobMutation } from "@/lib/services/jobsApi";
-import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt, FaMoneyBillAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -22,8 +22,30 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
+    const [formData, setFormData] = useState({});
+    
     const path = usePathname()
     const router = useRouter()
+
+    const handlePlanChange = (e:any) => {
+        const selectedPlan = plans.find(plan => plan.id === parseInt(e.target.value));
+        if (selectedPlan) {
+        setFormData(selectedPlan);
+        }
+    };
+
+    // const onSubmitAd = async (e:any) => {
+    //     e.preventDefault();
+    //     const res = await fetch('/api/create-premium-listing', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(formData),
+    //     });
+    //     Maneja la respuesta del backend
+    //   };
+
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
         try {
@@ -155,6 +177,25 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
 
                             <div className="flex items-center">
                                 <div className="w-10 text-[#3C65F5]">
+                                    <FaLaptopHouse className="w-5 h-5" />
+                                </div>
+                                <div className="flex-grow relative">
+                                    <select
+                                        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
+                                        id="remoteWork"
+                                        {...register("remoteWork", { required: true })}
+                                    >
+                                        <option value="">Is it a remote job?</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
+                                    {errors.remoteWork && <span className="text-red-500 text-xs mt-1">Please select an option</span>}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center">
+                                <div className="w-10 text-[#3C65F5]">
                                     <FaMapMarkerAlt className="w-5 h-5" />
                                 </div>
                                 <div className="flex-grow relative">
@@ -170,25 +211,6 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
                                     />
                                     <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
                                     {errors.location && <span className="text-red-500 text-xs mt-1">{errors.location.message}</span>}
-                                </div>
-                            </div>
-
-                            <div className="flex items-center">
-                                <div className="w-10 text-[#3C65F5]">
-                                    <FaLaptopHouse className="w-5 h-5" />
-                                </div>
-                                <div className="flex-grow relative">
-                                    <select
-                                        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
-                                        id="remoteWork"
-                                        {...register("remoteWork", { required: true })}
-                                    >
-                                        <option value="">Is it a remote job?</option>
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
-                                    </select>
-                                    <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
-                                    {errors.remoteWork && <span className="text-red-500 text-xs mt-1">Please select an option</span>}
                                 </div>
                             </div>
 
@@ -226,6 +248,32 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
                                 />
                             </div>
                             )}
+
+                            {
+                                path !== '/formJobs' && (
+                                    <div className="flex items-center">
+                                        <div className="w-10 text-[#3C65F5]">
+                                            <FaMoneyBillAlt className="w-5 h-5" />
+                                        </div>
+                                        <div className="flex-grow relative">
+                                            <select
+                                                className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
+                                                id="paymentPlan"
+                                                {...register("paymentPlan", { required: true })}
+                                            >
+                                                <option value="">Select a payment plan</option>
+                                                <option value="plan1">7 días - $5000</option>
+                                                <option value="plan2">14 días - $8000</option>
+                                                <option value="plan3">30 días - $15000</option>
+                                            </select>
+                                            <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
+                                            {errors.paymentPlan && <span className="text-red-500 text-xs mt-1">Please select a payment plan</span>}
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+
                             <div className="p-3 bg-blue-100 rounded-lg flex items-start space-x-2">
                                 <FaInfoCircle className="w-5 h-5 text-[#3C65F5] mt-1 flex-shrink-0" />
                                 <p className="text-sm text-blue-700">
