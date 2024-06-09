@@ -1,7 +1,7 @@
 function LoginButton() {
     return (
-      <button className="w-full bg-purple-600">
-        <a href="/api/auth/login" className="font-medium">
+      <button className="w-full">
+        <a href="/api/auth/login" className="text-[#05264E]">
           Login
         </a>
       </button>

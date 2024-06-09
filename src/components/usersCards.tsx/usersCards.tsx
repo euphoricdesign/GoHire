@@ -47,7 +47,7 @@ const UsersCards = () => {
 
   return (
     <div className="flex flex-wrap">
-      <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[20px]">
+      <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[16px]">
         {paginatedUsersResponse &&
           paginatedUsersResponse.map((user: UserData) => (
             <div

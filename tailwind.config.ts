@@ -8,11 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      lineHeight: {
+        'leading-custom': '1.571',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "violetBg": 'url("https://rekroot.themes.zone/wp-content/uploads/2021/07/home1_back.png")'
+        "bannerBg": 'url("https://jthemes.com/themes/wp/jobbox/wp-content/themes/jobbox/assets/imgs/banner.png")'
       },
       screens: {
         // Breakpoints predefinidos

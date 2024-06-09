@@ -1,11 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData } from "@/types/userTypes";
+import type { RootState } from '@/lib/store';
 
 // Define el API con todas las consultas y mutaciones
 export const userApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
+    prepareHeaders: (headers, { getState, endpoint }) => {
+      if (endpoint === 'postUser') {
+        const token = (getState() as RootState).user.userDetail?.token;
+        if (token) {
+          headers.set("authorization", `Bearer ${token}`);
+          console.log('Token added to headers:', token);
+        }
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     // Consulta para obtener todos los usuarios

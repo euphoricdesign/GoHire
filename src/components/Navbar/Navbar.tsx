@@ -27,16 +27,16 @@ const Navbar: React.FC = () => {
       console.log(user);
       if (user) {
         const userData: userPostData = {
-          name: user.name || "",
-          email: user.email || "",
-          email_verified: user.email_verified || false,
-          nickname: user.nickname || "",
-          picture: user.picture || "",
-          sub: user.sub || "",
+          name: user?.name || "",
+          email: user?.email || "",
+          email_verified: user?.email_verified || false,
+          nickname: user?.nickname || "",
+          picture: user?.picture || "",
         };
 
         try {
           const result = await postUser(userData).unwrap();
+          console.log("result: ", result)
           dispatch(setUserDetail(result));
         } catch (error) {
           console.error("Failed to post user data:", error);
@@ -101,9 +101,6 @@ const Navbar: React.FC = () => {
         {userDetail && <p>User is logged in</p>}
         <div className="hidden md:flex md:items-center active:text-[#3C65F5]">
           {user ? <LogOutButton /> : <LoginButton />}
-          <div className={`w-px h-4 bg-gray-600 mx-1.5`}></div>{" "}
-          <a className={`text-gray-600`}>Dashboard</a>
-          <a className={`text-[#05264E]`}>Sign in</a>{" "}
           <div className={`w-px h-4 bg-[#05264E] mx-1.5`}></div>{" "}
           <a className={`text-[#05264E]`}>Dashboard</a>
         </div>

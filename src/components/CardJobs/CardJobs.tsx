@@ -16,7 +16,7 @@ const CardJobs = ({
   onClick,
 }: JobsData & { onClick: () => void }) => {
   return (
-    <div className="relative bg-[ghostwhite]">
+    <div className="relative bg-[#f2f6fd] rounded-lg">
       <div
         onClick={onClick}
         className="relative block overflow-hidden rounded-lg border border-gray-100 h-full cursor-pointer">

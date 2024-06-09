@@ -1,32 +1,48 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { JobsPostData } from '@/types/jobsTypes';
-import { usePostJobMutation } from "@/lib/services/jobsApi"
-import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage } from 'react-icons/fa';
-import Collaborators from '../../../public/collaborators.svg'
+import { usePostJobMutation } from "@/lib/services/jobsApi";
+import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 
+interface FormJobsProps {
+    title: string
+    img: string
+    width: string
+    textButton: string
+}
 
-const FormJobs: React.FC = () => {
+const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
+    const path = usePathname()
+    const router = useRouter()
+
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
         try {
-            // const formData = new FormData();
-            // formData.append('title', data.title);
-            // formData.append('description', data.description);
-            // formData.append('category', data.category);
-            // if (data.image) formData.append('image', data.image);
-            // console.log(formData)
+            const formData = new FormData();
+            formData.append('title', data.title);
+            formData.append('description', data.description);
+            formData.append('category', data.category);
+            formData.append('location', data.location); // Asegúrate de agregar 'location'
+            formData.append('remoteWork', data.remoteWork.toString()); // Convertir a string
+            if (data.file) formData.append('file', data.file);
 
-            // await postJob(formData).unwrap();
-            // toast.success("Post created successfully!");
+            await postJob(formData).unwrap();
+            toast.success("Post created successfully!");
+
+            if (path === '/formJobs/spotlight-post') {
+                router.push('/formJobs/checkout')
+            }
+
+            
         } catch (error) {
             toast.error("Failed to create post. Please try again.");
             console.error("Error creating post:", error);
@@ -36,17 +52,17 @@ const FormJobs: React.FC = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-          setValue('image', file);
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreviewImage(reader.result as string);
-          };
-          reader.readAsDataURL(file);
+            setValue('file', file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result as string);
+            };
+            reader.readAsDataURL(file);
         } else {
-          setValue('image', null);
-          setPreviewImage(null);
+            setValue('file', undefined);
+            setPreviewImage(null);
         }
-      };
+    };
 
     const generateTimeOptions = () => {
         const options = [];
@@ -62,16 +78,18 @@ const FormJobs: React.FC = () => {
     };
 
     return (
-        <section className="mt-[80px] mobile:px-[25px] md:px-0">
+        
+        <section className="mt-[100px] mobile:px-[25px] md:px-0">
             <ToastContainer />
-            <div className="mx-auto max-w-screen-xl py-16">
+            <div className="mx-auto max-w-screen-xl pb-8">
                 <div className="flex gap-[90px] mobile:flex-col md:flex-row">
                     <div className="lg:col-span-2 flex flex-col gap-[80px]">
                         <p className="max-w-xl text-[30px] text-[#05264E] font-semibold mobile:text-center md:text-start">
-                            Create Your Best Job Proposal
+                            {title}
                         </p>
-                        <Image src={Collaborators} width={100} height={1} alt='' className='w-[840px]' />
+                        <Image src={img} width={100} height={1} alt='' className={`${width}`} />
                     </div>
+                
                     <div className="relative block overflow-hidden rounded-lg border-gray-100 p-4 sm:pt-6 sm:pr-6 sm:pl-6 lg:pt-8 lg:pr-8 lg:pl-8 form-container shadow-md">
                         <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -101,7 +119,7 @@ const FormJobs: React.FC = () => {
                                 </div>
                                 <div className="flex-grow relative">
                                     <textarea
-                                        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 resize-none peer"
+                                        className="w-full h-[80px] text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 resize-none peer"
                                         placeholder="Description"
                                         id="description"
                                         rows={4}
@@ -137,6 +155,45 @@ const FormJobs: React.FC = () => {
 
                             <div className="flex items-center">
                                 <div className="w-10 text-[#3C65F5]">
+                                    <FaMapMarkerAlt className="w-5 h-5" />
+                                </div>
+                                <div className="flex-grow relative">
+                                    <input
+                                        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
+                                        placeholder="Location"
+                                        type="text"
+                                        id="location"
+                                        {...register("location", {
+                                            required: "The location is required",
+                                            maxLength: { value: 50, message: "The location cannot be more than 50 characters." }
+                                        })}
+                                    />
+                                    <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
+                                    {errors.location && <span className="text-red-500 text-xs mt-1">{errors.location.message}</span>}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center">
+                                <div className="w-10 text-[#3C65F5]">
+                                    <FaLaptopHouse className="w-5 h-5" />
+                                </div>
+                                <div className="flex-grow relative">
+                                    <select
+                                        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
+                                        id="remoteWork"
+                                        {...register("remoteWork", { required: true })}
+                                    >
+                                        <option value="">Is it a remote job?</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
+                                    {errors.remoteWork && <span className="text-red-500 text-xs mt-1">Please select an option</span>}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center">
+                                <div className="w-10 text-[#3C65F5]">
                                     <FaImage className="w-5 h-5" />
                                 </div>
                                 <div className="flex-grow relative">
@@ -161,7 +218,7 @@ const FormJobs: React.FC = () => {
 
                             {/* Previsualización de la imagen */}
                             {previewImage && (
-                            <div className="mt-4">
+                            <div className="mt-4 max-w-[200px]">
                                 <img 
                                     src={previewImage} 
                                     alt="Vista previa" 
@@ -169,7 +226,6 @@ const FormJobs: React.FC = () => {
                                 />
                             </div>
                             )}
-
                             <div className="p-3 bg-blue-100 rounded-lg flex items-start space-x-2">
                                 <FaInfoCircle className="w-5 h-5 text-[#3C65F5] mt-1 flex-shrink-0" />
                                 <p className="text-sm text-blue-700">
@@ -184,12 +240,13 @@ const FormJobs: React.FC = () => {
                                     style={{ backgroundColor: '#4537D4' }}
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? 'Creating...' : 'Create Proposal'}
+                                    {isLoading ? 'Creating...' : `${textButton}`}
                                 </button>
                             </div>
                             {isError && <div className="text-red-500 text-center">An error occurred while creating the post.</div>}
                             {isSuccess && <div className="text-green-500 text-center">Post created successfully!</div>}
                         </form>
+                            
                     </div>
                 </div>
             </div>
