@@ -2,16 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import CardJobs from "../../components/CardJobs/CardJobs";
-import { useListJobsQuery } from "@/lib/services/jobsApi";
+import { useListJobsQuery, useGetAllJobsQuery } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import RetractableJobInfo from "@/components/RetractableJobInfo/RetractableJobInfo";
 import RetractableView from "@/components/RetractableView/RetractableView";
 import BannerCategory from "@/components/BannerCategory/BannerCategory";
 
 const SearchJobs: React.FC = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
+
+  const { data: dataGetAll, isLoading: isLoadingGetAll, isFetching: isFetchengGetAll, error: errorGetAll } = useGetAllJobsQuery(null)
+console.log("dataGetAll: ", dataGetAll)
+
   const { data, isLoading, isFetching, error } = useListJobsQuery({
     page,
     category: selectedCategory,
@@ -19,8 +23,10 @@ const SearchJobs: React.FC = () => {
   });
 
   useEffect(() => {
-    setPage(page);
-  }, [data]);
+    console.log("Current page:", page);
+    console.log("Current category:", selectedCategory);
+    console.log("Current country:", selectedCountry);
+  }, [page, selectedCategory, selectedCountry, data]);
 
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
@@ -37,14 +43,15 @@ const SearchJobs: React.FC = () => {
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
+    setPage(1); // Reset page to 1 when category changes
   };
 
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(event.target.value);
+    setPage(1); // Reset page to 1 when country changes
   };
 
-  const totalPages = Math.ceil((data?.count ?? 0) / 10);
-
+  const totalPages = Math.ceil((dataGetAll?.length ?? 0) / 10);
 
   return (
     <div className="md:px-[124px] mobile:px-[30px]">
@@ -57,21 +64,20 @@ const SearchJobs: React.FC = () => {
 
       <div className="container mx-auto mt-[100px] mb-[40px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex flex-col">
-            {isLoading || isFetching ? (
-              <div className="w-full flex flex-row gap-2 justify-center items-center">
-                <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
-                <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
-                <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
-              </div>
-            ) : ""}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {data?.publicationsFind && data.publicationsFind.length > 0 && (
-              data.publicationsFind.map((job) => (
+          {isLoading || isFetching ? (
+            <div className="w-full flex flex-row gap-2 justify-center items-center">
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+              {data && data.length > 0 && data.map((job) => (
                 <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
-              ))
-            )}
-          </div>
-          
+              ))}
+            </div>
+          )}
+
           {/* Paginado */}
           <div className={`flex items-center justify-center mt-4 ${isLoading && 'hidden'}`}>
             <button
@@ -104,7 +110,7 @@ const SearchJobs: React.FC = () => {
               onClick={() => setPage(page + 1)}
               disabled={isFetching || page === totalPages}
               className={`p-2 rounded-full transition-colors duration-300 ${
-                isFetching
+                isFetching || page === totalPages
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-[#3C65F5] hover:bg-[#3c52f5] text-white'
               }`}
