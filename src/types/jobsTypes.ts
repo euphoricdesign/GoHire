@@ -26,6 +26,7 @@ export interface JobsPostData {
   location: string;
   remoteWork: boolean;
   file?: File; // Asegúrate de que image sea opcional si no siempre se envía.
+  paymentPlan?: string
 }
 
 export interface JobsHistory {

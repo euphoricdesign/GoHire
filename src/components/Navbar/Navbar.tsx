@@ -25,7 +25,6 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const postUserData = async () => {
-      console.log(user);
       if (user) {
         const userData: userPostData = {
           name: user?.name || "",
@@ -99,7 +98,6 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-3 text-sm">
-        {userDetail && <p>User is logged in</p>}
         <div className="hidden md:flex md:items-center active:text-[#3C65F5]">
           {user ? <LogOutButton /> : <LoginButton />}
           <div className={`w-px h-4 bg-[#05264E] mx-1.5`}></div>{" "}

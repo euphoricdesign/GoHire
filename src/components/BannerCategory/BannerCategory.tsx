@@ -64,12 +64,12 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 value={selectedCountry}
                 onChange={handleCountryChange}
                 className="py-[0.6rem] px-4 focus:outline-none w-full">
-                <option value="">Filter by City</option>
-                <option value="Sao Paulo">Sao Paulo</option>
-                <option value="Montevideo">Montevideo</option>
-                <option value="Rosario">Rosario</option>
-                <option value="Chile">Salamanca</option>
-                <option value="Chile">Salto</option>
+                <option value="">Filter by Country</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Chile">Chile</option>
+                <option value="Uruguay">Uruguay</option>
               </select>
             </div>
           </div>

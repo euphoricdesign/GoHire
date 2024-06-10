@@ -5,7 +5,7 @@ import Growth from '../../../../public/growth.svg'
 const CreatePostWithAd = () => {
   return (
     <div className='mt-[100px] px-[124px]'>
-      <FormJobs title='Get started with ads to win work' img={Growth} width='w-[600px]' textButton='Continue' />
+      <FormJobs title='Get started with ads to win work' img={Growth} width='w-[645px]' textButton='Continue' />
     </div>
   )
 }
