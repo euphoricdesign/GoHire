@@ -10,6 +10,7 @@ import { usePostUserMutation } from "@/lib/services/userApi";
 import { userPostData } from "@/types/userTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetail, selectUserDetail } from "@/lib/features/slices/userSlice";
+import Link from "next/link";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
@@ -35,7 +36,7 @@ const Navbar: React.FC = () => {
 
         try {
           const result = await postUser(userData).unwrap();
-          console.log("result: ", result)
+          console.log("result: ", result);
           dispatch(setUserDetail(result));
         } catch (error) {
           console.error("Failed to post user data:", error);
@@ -100,7 +101,9 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex md:items-center active:text-[#3C65F5]">
           {user ? <LogOutButton /> : <LoginButton />}
           <div className={`w-px h-4 bg-[#05264E] mx-1.5`}></div>{" "}
-          <a className={`text-[#05264E]`}>Dashboard</a>
+          <Link href={"http://localhost:3000/profile"}>
+            <div className={`text-[#05264E]`}>Dashboard</div>
+          </Link>
         </div>
 
         <button

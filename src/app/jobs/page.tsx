@@ -11,15 +11,11 @@ import BannerCategory from "@/components/BannerCategory/BannerCategory";
 const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
-  const [selectedJobPost, setSelectedJobPost] = useState(null);
-  const [showDescription, setShowDescription] = useState(false);
-
+  const [selectedCountry, setSelectedCountry] = useState("");
   const { data, isLoading, isFetching, error } = useListJobsQuery({
     page,
     category: selectedCategory,
-    city: selectedCity,
+    city: selectedCountry,
   });
 
   useEffect(() => {
@@ -41,16 +37,23 @@ const SearchJobs: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value);
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCountry(event.target.value);
   };
+
+  const totalPages = Math.ceil((data?.count ?? 0) / 10);
 
   if (error) return <p>Some Error</p>;
 
   return (
     <div className="md:px-[124px] mobile:px-[30px]">
-      <BannerCategory selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} selectedCity={selectedCity} handleCityChange={handleCityChange} />
-      
+      <BannerCategory
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+        selectedCountry={selectedCountry}
+        handleCountryChange={handleCountryChange}
+      />
+
       <div className="container mx-auto mt-[100px] mb-[40px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">
         <div className="flex flex-col">
             {isLoading || isFetching ? (
@@ -61,8 +64,8 @@ const SearchJobs: React.FC = () => {
               </div>
             ) : ""}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-         
-            {data && data.length > 0 && (
+            {isLoading || isFetching ? <p>Loading...</p> : ""}
+            {data?.publicationsFind && data.publicationsFind.length > 0 ? (
               data.publicationsFind.map((job) => (
                 <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
               ))

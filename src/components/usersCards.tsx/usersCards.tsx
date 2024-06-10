@@ -27,6 +27,16 @@ const UsersCards = () => {
     setShowDescription(true);
   };
 
+  if (isPaginatedUsersLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!paginatedUsersResponse?.usersFind || paginatedUsersResponse.usersFind.length === 0) {
+    return <div>No users available.</div>;
+  }
+
+  const totalPages = Math.ceil((paginatedUsersResponse.count ?? 0) / 10);
+
   const handleOpenModal = (user: UserData) => {
     setSelectedUser(user);
     setShowModal(true);
@@ -56,7 +66,7 @@ const UsersCards = () => {
   return (
     <div className="flex flex-wrap justify-center">
       <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[16px]">
-        {paginatedUsersResponse &&
+        {paginatedUsersResponse.usersFind &&
           paginatedUsersResponse.usersFind.map((user: UserData) => (
             <div
               key={user.id}
