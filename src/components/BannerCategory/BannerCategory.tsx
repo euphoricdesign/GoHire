@@ -1,4 +1,4 @@
-import { useListJobsQuery, useGetAllJobsQuery } from "@/lib/services/jobsApi";
+import { useListJobsQuery } from "@/lib/services/jobsApi";
 import React, { useState } from "react";
 import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
 
@@ -16,7 +16,6 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
   handleCountryChange,
 }) => {
   const [page, setPage] = useState(1);
-  // const { data: dataGetAll, isLoading: isLoadingGetAll, isFetching: isFetchengGetAll, error: errorGetAll } = useGetAllJobsQuery(null)
 
   const { data } = useListJobsQuery({
     page,
@@ -28,8 +27,7 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
     <div className="bg-bannerBg bg-center flex flex-col justify-center items-center p-[40px] rounded-xl mt-[100px]">
       <h2 className="text-[28px] text-[#05264E] font-[700] z-10">
         <span className="text-[#3C65F5] relative spanAfterSm">
-          {/* {dataGetAll?.length || 0}  */}
-          Jobs
+          {data?.publicationsFind?.length || 0} Jobs
         </span>{" "}
         Available Now
       </h2>

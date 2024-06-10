@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { JobsData } from "@/types/jobsTypes";
+import { JobsData, JobsFindData } from "@/types/jobsTypes";
 import type { RootState } from '@/lib/store';
 
 export const jobsApi = createApi({
@@ -21,7 +21,7 @@ export const jobsApi = createApi({
     getAllJobs: builder.query<JobsData[], null>({
       query: () => "publication",
     }),
-    listJobs: builder.query<JobsData[], { page: number; category?: string; city?: string }>({
+    listJobs: builder.query<JobsFindData, { page: number; category?: string; city?: string }>({
       query: ({ page = 1, category, city }) => {
         let url = `publication?page=${page}`;
         if (category) {
