@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,7 @@ import { usePostJobMutation } from "@/lib/services/jobsApi";
 import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHouse, FaMapMarkerAlt, FaMoneyBillAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { plans } from '@/utils/plan';
 
 interface FormJobsProps {
     title: string
@@ -21,30 +22,42 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
-
-    const [formData, setFormData] = useState({});
+    
+    const [dataSelect, setDataSelec] = useState({});
     
     const path = usePathname()
     const router = useRouter()
 
-    const handlePlanChange = (e:any) => {
+    const userToken = localStorage.getItem("userToken");7
+    
+
+    const handlePlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedPlan = plans.find(plan => plan.id === parseInt(e.target.value));
         if (selectedPlan) {
-        setFormData(selectedPlan);
+            setDataSelec(selectedPlan);
         }
+
     };
 
-    // const onSubmitAd = async (e:any) => {
-    //     e.preventDefault();
-    //     const res = await fetch('/api/create-premium-listing', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(formData),
-    //     });
-    //     Maneja la respuesta del backend
-    //   };
+    useEffect(() => {
+        console.log('Data updated:', dataSelect);
+      }, [dataSelect]);
+
+      useEffect(() => {
+        
+      }, []);
+
+//   const handleSubmit = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     e.preventDefault();
+//     const res = await fetch('/api/create-premium-listing', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(formData),
+//     });
+//     // Maneja la respuesta del backend
+//   };
 
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
@@ -59,10 +72,23 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
 
             await postJob(formData).unwrap();
             toast.success("Post created successfully!");
+            
+            
 
-            if (path === '/formJobs/spotlight-post') {
-                router.push('/formJobs/checkout')
-            }
+            const res = await fetch('http://localhost:3001/payments', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `${userToken}`
+                },
+                body: JSON.stringify(dataSelect),
+              });
+
+              console.log(res)
+
+            // if (path === '/formJobs/spotlight-post') {
+            //     router.push('/formJobs/checkout')
+            // }
 
             
         } catch (error) {
@@ -257,14 +283,16 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
                                         </div>
                                         <div className="flex-grow relative">
                                             <select
+                                                onChange={handlePlanChange}
                                                 className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
                                                 id="paymentPlan"
-                                                {...register("paymentPlan", { required: true })}
                                             >
-                                                <option value="">Select a payment plan</option>
-                                                <option value="plan1">7 días - $5000</option>
-                                                <option value="plan2">14 días - $8000</option>
-                                                <option value="plan3">30 días - $15000</option>
+                                                <option value="">Selecciona un plan</option>
+                                                {plans.map(plan => (
+                                                <option key={plan.id} value={plan.id}>
+                                                    {plan.title} ({plan.quantity} días - ${plan.unit_price})
+                                                </option>
+                                                ))}
                                             </select>
                                             <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
                                             {errors.paymentPlan && <span className="text-red-500 text-xs mt-1">Please select a payment plan</span>}
