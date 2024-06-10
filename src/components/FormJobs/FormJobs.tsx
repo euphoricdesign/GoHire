@@ -10,6 +10,8 @@ import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHous
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { plans } from '@/utils/plan';
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetail, selectUserDetail } from "@/lib/features/slices/userSlice";
 
 interface FormJobsProps {
     title: string
@@ -22,11 +24,10 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
     const [previewImage, setPreviewImage] = useState<string | null>(null);
-    
+    const dispatch = useDispatch();
+    const userDetail = useSelector(selectUserDetail);
     const [dataSelect, setDataSelec] = useState({});
-
-    const [userToken, setUserToken] = useState(localStorage.getItem("userToken") || null)
-    
+ 
     const path = usePathname()
     const router = useRouter()
 
@@ -42,20 +43,9 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     };
 
     useEffect(() => {
-        if (window !== undefined) {
-            const storedUserToken = localStorage.getItem('userToken')
-          
-            setUserToken(storedUserToken)
-        }
-    }, [])
-
-    useEffect(() => {
         console.log('Data updated:', dataSelect);
       }, [dataSelect]);
 
-      useEffect(() => {
-        
-      }, []);
 
 //   const handleSubmit = async (e: React.ChangeEvent<HTMLSelectElement>) => {
 //     e.preventDefault();
@@ -89,7 +79,7 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `${userToken}`
+                  'Authorization': `${userDetail?.token}`
                 },
                 body: JSON.stringify(dataSelect),
               });

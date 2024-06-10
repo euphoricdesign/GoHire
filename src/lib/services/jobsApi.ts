@@ -1,10 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { JobsData, JobsFindData, JobsPostData } from "@/types/jobsTypes";
+import { JobsData, JobsFindData } from "@/types/jobsTypes";
+import type { RootState } from '@/lib/store';
 
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
+    prepareHeaders: (headers, { getState, endpoint }) => {
+      if (endpoint === 'postJob' || "listJobs") {
+        const token = (getState() as RootState).user.userDetail?.token;
+        if (token) {
+          headers.set("authorization", `Bearer ${token}`);
+          console.log('Token added to headers:', token);
+        }
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getAllJobs: builder.query<JobsData[], null>({
@@ -12,7 +23,6 @@ export const jobsApi = createApi({
     }),
     listJobs: builder.query<JobsFindData, { page: number; category?: string; city?: string }>({
       query: ({ page = 1, category, city }) => {
-        const userToken = localStorage.getItem("userToken");
         let url = `publication?page=${page}`;
         if (category) {
           url += `&category=${category}`;
@@ -21,10 +31,7 @@ export const jobsApi = createApi({
           url += `&city=${city}`;
         }
         return {
-          url,
-          headers: {
-            Authorization: userToken || "",
-          },
+          url
         };
       },
     }),

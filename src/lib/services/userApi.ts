@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData, UsersData } from "@/types/userTypes";
-import type { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
-import { selectUserDetail } from "../features/slices/userSlice";
+import type { RootState } from '@/lib/store';
 
 // Define el API con todas las consultas y mutaciones
 export const userApi = createApi({
@@ -10,12 +8,11 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
     prepareHeaders: (headers, { getState, endpoint }) => {
-      if (endpoint === "postUser") {
+      if (endpoint === 'postUser') {
         const token = (getState() as RootState).user.userDetail?.token;
         if (token) {
           headers.set("authorization", `Bearer ${token}`);
-          console.log("Token added to headers:", token);
-          localStorage.setItem("userToken", token);
+          console.log('Token added to headers:', token);
         }
       }
       return headers;
@@ -27,30 +24,12 @@ export const userApi = createApi({
       query: () => "users",
     }),
     getUserById: builder.query<UserData, { id: string }>({
-      query: ({ id }) => {
-        const userToken = localStorage.getItem("userToken");
-        return {
-          url: `users/${id}`,
-          headers: {
-            Authorization: userToken || "",
-          },
-        };
-      },
+      query: ({ id }) => `users/${id}`,
     }),
     // Consulta para obtener los usuarios por página
     listUsers: builder.query<UsersData, number | void>({
-      query: (page = 1) => {
-        const userToken = localStorage.getItem("userToken");
-        return {
-          url: `users?page=${page}`,
-          headers: {
-            Authorization: userToken || "",
-          },
-        };
-      },
+      query: (page = 1) => `users?page=${page}`,
     }),
-
-    // `users?page=${page}`,
     // Mutación para crear un nuevo usuario
     postUser: builder.mutation<UserData, userPostData>({
       query: (newUser) => ({

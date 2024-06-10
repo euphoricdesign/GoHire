@@ -1,8 +1,19 @@
-function LogOutButton() {
+import { useDispatch } from 'react-redux';
+import { clearUserDetail } from '@/lib/features/slices/userSlice';
 
-    return (
-      <button className="w-full"><a className="text-[#05264E]" href="/api/auth/logout">Log Out</a>
-      </button>)
-  }
-  
-  export default LogOutButton
+function LogOutButton() {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(clearUserDetail());
+    window.location.href = "/api/auth/logout";
+  };
+
+  return (
+    <button className="w-full" onClick={handleLogout}>
+      <span className="text-[#05264E]">Log Out</span>
+    </button>
+  );
+}
+
+export default LogOutButton;
