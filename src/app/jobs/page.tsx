@@ -22,8 +22,10 @@ const SearchJobs: React.FC = () => {
     setPage(page);
   }, [data]);
 
+  const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
+  const [showDescription, setShowDescription] = useState(false);
 
-  const handleDescription = (job: any) => {
+  const handleDescription = (job: JobsData | null) => {
     setSelectedJobPost(job);
     setShowDescription(true);
   };
@@ -43,7 +45,6 @@ const SearchJobs: React.FC = () => {
 
   const totalPages = Math.ceil((data?.count ?? 0) / 10);
 
-  if (error) return <p>Some Error</p>;
 
   return (
     <div className="md:px-[124px] mobile:px-[30px]">
@@ -65,7 +66,7 @@ const SearchJobs: React.FC = () => {
             ) : ""}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
             {isLoading || isFetching ? <p>Loading...</p> : ""}
-            {data?.publicationsFind && data.publicationsFind.length > 0 ? (
+            {data?.publicationsFind && data.publicationsFind.length > 0 && (
               data.publicationsFind.map((job) => (
                 <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
               ))
@@ -102,7 +103,7 @@ const SearchJobs: React.FC = () => {
 
             <button
               onClick={() => setPage(page + 1)}
-              disabled={isFetching}
+              disabled={isFetching || page === totalPages}
               className={`p-2 rounded-full transition-colors duration-300 ${
                 isFetching
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'

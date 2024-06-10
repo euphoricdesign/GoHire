@@ -47,7 +47,7 @@ const UserCard = ({
   const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
-    <div className="cursor-pointer bg-[ghostwhite] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
+    <div className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
       <div className="flex items-center justify-between md:w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl mobile:w-full">
         <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
@@ -104,14 +104,14 @@ const UserCard = ({
             <p className="text-sm leading-5 mt-1 mb-4">{truncatedDescription}</p>
           </div>
         </div>
-        <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[4rem] mobile:h-[6rem] w-full ">
+        <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[6rem] mobile:h-[6rem] w-full ">
           <div>
             <ul className="list-none text-sm flex flex-wrap">
               {profesions &&
                 profesions.map((profesion, index) => (
                   <li
                     key={index}
-                    className="border border-slate-300 rounded-lg inline-block m-1 p-1">
+                    className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
                     {profesion.category}
                   </li>
                 ))}
