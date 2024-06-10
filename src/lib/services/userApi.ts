@@ -15,7 +15,9 @@ export const userApi = createApi({
         if (token) {
           headers.set("authorization", `Bearer ${token}`);
           console.log("Token added to headers:", token);
-          localStorage.setItem("userToken", token);
+          if (window !== undefined) {
+            localStorage.setItem("userToken", token);
+          }
         }
       }
       return headers;

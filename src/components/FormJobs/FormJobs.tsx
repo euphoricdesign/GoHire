@@ -24,11 +24,13 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     
     const [dataSelect, setDataSelec] = useState({});
+
+    const [userToken, setUserToken] = useState(localStorage.getItem("userToken") || null)
     
     const path = usePathname()
     const router = useRouter()
 
-    const userToken = localStorage.getItem("userToken");7
+  
     
 
     const handlePlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,6 +40,14 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
         }
 
     };
+
+    useEffect(() => {
+        if (window !== undefined) {
+            const storedUserToken = localStorage.getItem('userToken')
+          
+            setUserToken(storedUserToken)
+        }
+    }, [])
 
     useEffect(() => {
         console.log('Data updated:', dataSelect);

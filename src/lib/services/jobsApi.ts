@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { JobsData, JobsFindData, JobsPostData } from "@/types/jobsTypes";
 import { RootState } from "../store";
 
-const userToken = localStorage.getItem("userToken");
+const userToken = window !== undefined ? localStorage.getItem("userToken") : null;
 
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
@@ -14,7 +14,9 @@ export const jobsApi = createApi({
         if (token) {
           headers.set("authorization", `Bearer ${token}`);
           console.log("Token added to headers:", token);
-          localStorage.setItem("userToken", token);
+          if (window !== undefined) {
+            localStorage.setItem("userToken", token);
+          }
         }
       }
       return headers;
