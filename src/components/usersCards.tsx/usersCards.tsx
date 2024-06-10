@@ -31,9 +31,11 @@ const UsersCards = () => {
     return <div>Loading...</div>;
   }
 
-  if (!paginatedUsersResponse || paginatedUsersResponse.length === 0) {
+  if (!paginatedUsersResponse?.usersFind || paginatedUsersResponse.usersFind.length === 0) {
     return <div>No users available.</div>;
   }
+
+  const totalPages = Math.ceil((paginatedUsersResponse.count ?? 0) / 10);
 
   const handleOpenModal = (user: UserData) => {
     setSelectedUser(user);
@@ -48,8 +50,8 @@ const UsersCards = () => {
   return (
     <div className="flex flex-wrap">
       <div className="mobile:w-full flex items-center flex-wrap z-30 gap-[16px]">
-        {paginatedUsersResponse &&
-          paginatedUsersResponse.map((user: UserData) => (
+        {paginatedUsersResponse.usersFind &&
+          paginatedUsersResponse.usersFind.map((user: UserData) => (
             <div
               key={user.id}
               className="mobile:w-full md:w-[25.8rem] hover:scale-95 transition-all duration-300 relative"
@@ -70,7 +72,7 @@ const UsersCards = () => {
           Previous
         </button>
         <div>{page}</div>
-        <button onClick={() => setPage(page + 1)} disabled={isFetching}>
+        <button onClick={() => setPage(page + 1)} disabled={isFetching || page === totalPages}>
           Next
         </button>
       </div>

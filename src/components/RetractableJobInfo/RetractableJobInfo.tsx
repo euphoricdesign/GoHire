@@ -45,13 +45,13 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
               {user ? (
                 <div className="flex flex-col items-start">
                   <div className="m-3 p-1 border border-gray-300 rounded-full">
-                    {/* <Image
+                    <Image
                       className="rounded-full"
-                      src={user.profileImg}
+                      src={user.profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                       alt="profile img"
                       width={96}
                       height={96}
-                    /> */}
+                    />
                   </div>
                   <h2 className="text-[16px] font-bold">
                     {user.name} {user.lastName}
@@ -72,21 +72,21 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
                 <div className="flex items-center justify-center w-full text-sm p-5 border-b border-gray-300">
                   <Link href={`/users/${user.id}`} rel="noopener noreferrer" target="_blank">
                     <button className="flex items-center">
-                      <h6 className="text-[#3D63DD] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3D63DD]">
+                      <h6 className="text-[#3C65F5] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3D63DD]">
                         View Profile
                       </h6>
-                      <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+                      <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
                     </button>
                   </Link>
                 </div>
                 <div className="p-5 flex items-center justify-around">
                   <div>
-                    <button className="bg-white text-sm border w-24 text-[#5049e5] border-slate-300 font-medium px-3 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
+                    <button className="bg-white text-sm border w-24 text-[#3C65F5] border-slate-300 font-medium px-3 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                       Message
                     </button>
                   </div>
                   <div>
-                    <button className="bg-[#5049e5] text-sm text-white w-24 text-center px-3 py-2 rounded-xl hover:opacity-80 transition-all duration-300">
+                    <button className="bg-[#3C65F5] text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300">
                       Apply Now
                     </button>
                   </div>
