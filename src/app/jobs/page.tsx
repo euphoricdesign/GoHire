@@ -9,7 +9,7 @@ import RetractableView from "@/components/RetractableView/RetractableView";
 import BannerCategory from "@/components/BannerCategory/BannerCategory";
 
 const SearchJobs: React.FC = () => {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 

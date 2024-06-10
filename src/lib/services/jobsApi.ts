@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { JobsData, JobsFindData } from "@/types/jobsTypes";
+import { JobsData } from "@/types/jobsTypes";
 import type { RootState } from '@/lib/store';
 
 export const jobsApi = createApi({
