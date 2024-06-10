@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userPostData, UserData } from "@/types/userTypes";
+import { userPostData, UserData, UsersData } from "@/types/userTypes";
 import type { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { selectUserDetail } from "../features/slices/userSlice";
@@ -38,7 +38,7 @@ export const userApi = createApi({
       },
     }),
     // Consulta para obtener los usuarios por página
-    listUsers: builder.query<UserData[], number | void>({
+    listUsers: builder.query<UsersData, number | void>({
       query: (page = 1) => {
         const userToken = localStorage.getItem("userToken");
         return {

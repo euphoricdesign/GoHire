@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { JobsData, JobsPostData } from "@/types/jobsTypes";
+import { JobsData, JobsFindData, JobsPostData } from "@/types/jobsTypes";
 
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
@@ -10,7 +10,7 @@ export const jobsApi = createApi({
     getAllJobs: builder.query<JobsData[], null>({
       query: () => "publication",
     }),
-    listJobs: builder.query<JobsData[], { page: number; category?: string; city?: string }>({
+    listJobs: builder.query<JobsFindData, { page: number; category?: string; city?: string }>({
       query: ({ page = 1, category, city }) => {
         const userToken = localStorage.getItem("userToken");
         let url = `publication?page=${page}`;

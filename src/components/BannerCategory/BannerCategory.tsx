@@ -26,7 +26,9 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
   return (
     <div className="bg-bannerBg bg-center flex flex-col justify-center items-center p-[40px] rounded-xl mt-[100px]">
       <h2 className="text-[28px] text-[#05264E] font-[700] z-10">
-        <span className="text-[#3C65F5] relative spanAfterSm">{data?.length || 0} Jobs</span>{" "}
+        <span className="text-[#3C65F5] relative spanAfterSm">
+          {data?.publicationsFind?.length || 0} Jobs
+        </span>{" "}
         Available Now
       </h2>
       <p className="leading-custom text-sm font-medium text-[#66789C] text-center mt-[12px]">

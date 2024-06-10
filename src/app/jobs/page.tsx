@@ -43,6 +43,8 @@ const SearchJobs: React.FC = () => {
     setSelectedCountry(event.target.value);
   };
 
+  const totalPages = Math.ceil((data?.count ?? 0) / 10);
+
   if (error) return <p>Some Error</p>;
 
   return (
@@ -58,8 +60,8 @@ const SearchJobs: React.FC = () => {
         <div className="flex flex-col">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
             {isLoading || isFetching ? <p>Loading...</p> : ""}
-            {data && data.length > 0 ? (
-              data.map((job) => (
+            {data?.publicationsFind && data.publicationsFind.length > 0 ? (
+              data.publicationsFind.map((job) => (
                 <CardJobs key={job.id} {...job} onClick={() => handleDescription(job)} />
               ))
             ) : (
@@ -73,7 +75,7 @@ const SearchJobs: React.FC = () => {
               Previous
             </button>
             <div>{page}</div>
-            <button onClick={() => setPage(page + 1)} disabled={isFetching}>
+            <button onClick={() => setPage(page + 1)} disabled={isFetching || page === totalPages}>
               Next
             </button>
           </div>

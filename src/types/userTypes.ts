@@ -11,6 +11,11 @@ export interface userPostData {
   picture: string;
 }
 
+export interface UsersData {
+  usersFind: UserData[];
+  count: number;
+}
+
 export interface UserData {
   id: string;
   name: string;
@@ -28,5 +33,5 @@ export interface UserData {
   educations: UserEducation[];
   experiences: UserExperiences[];
   description: string;
-  token?: string
+  token?: string;
 }
