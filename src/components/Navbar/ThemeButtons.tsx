@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 
 const ThemeButtons = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState<string>("light");
   const iconRef = useRef<HTMLImageElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
