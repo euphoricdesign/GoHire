@@ -33,39 +33,39 @@ const UserDashboard = () => {
   return (
     <div className="px-[124px] my-[100px] justify-between flex relative">
       <div className="relative float-left w-[20%]">
-        <div className="text-3xl font-bold">User Settings</div>
+        <div className="text-3xl font-bold text-[#05264E]">User Settings</div>
         <div className="flex flex-col mt-10 font-bold">
           <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 ${
-              selectedOption === "My Info" && "text-blue-500"
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === "My Info" && "text-[#3C65F5]"
             }`}
             onClick={() => handleOptionClick("My Info")}>
             My Info
           </div>
           <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 ${
-              selectedOption === "Messages" && "text-blue-500"
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === "Messages" && "text-[#3C65F5]"
             }`}
             onClick={() => handleOptionClick("Messages")}>
             Messages
           </div>
           <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 ${
-              selectedOption === "Publications" && "text-blue-500"
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === "Publications" && "text-[#3C65F5]"
             }`}
             onClick={() => handleOptionClick("Publications")}>
             Publications
           </div>
           <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 ${
-              selectedOption === "Notification Settings" && "text-blue-500"
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === "Notification Settings" && "text-[#3C65F5]"
             }`}
             onClick={() => handleOptionClick("Notification Settings")}>
             Notification Settings
           </div>
           <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 ${
-              selectedOption === "Password And Security" && "text-blue-500"
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === "Password And Security" && "text-[#3C65F5]"
             }`}
             onClick={() => handleOptionClick("Password And Security")}>
             Password And Security
