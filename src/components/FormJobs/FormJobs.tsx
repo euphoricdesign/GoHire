@@ -31,8 +31,6 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     
     const [dataSelect, setDataSelec] = useState({});
 
-    const [userToken, setUserToken] = useState(localStorage.getItem("userToken") || null)
-
     const dispatch = useAppDispatch();
     
     const path = usePathname()
@@ -50,19 +48,12 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     };
 
     useEffect(() => {
-        if (window !== undefined) {
-            const storedUserToken = localStorage.getItem('userToken')
-          
-            setUserToken(storedUserToken)
-        }
-    }, [])
-
-    useEffect(() => {
         console.log('Data updated:', dataSelect);
     }, [dataSelect]);
 
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
+        console.log(data)
         try {
             const formData = new FormData();
             formData.append('title', data.title);
@@ -80,7 +71,7 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
             delete nuevoObjeto.id;
             const result = await postPayment(nuevoObjeto).unwrap();
 
-              dispatch(setPaymentData(result))
+            dispatch(setPaymentData(result))
 
             if (path === '/formJobs/spotlight-post') {
                 router.push('/formJobs/checkout')
