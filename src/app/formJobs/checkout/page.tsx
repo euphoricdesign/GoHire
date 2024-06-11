@@ -5,12 +5,13 @@ import Cards from '../../../../public/cards.png'
 import Mp from '../../../../public/mp.png'
 import { SiMercadopago } from "react-icons/si";
 import { FaCheck } from "react-icons/fa6";
-import { useSelector } from 'react-redux'
+import { useSelector, shallowEqual } from 'react-redux'
+import { RootState } from '@/lib/store'
 
 
-const Checkout = () => {
-    const [isMercadoPagoChecked, setIsMercadoPagoChecked] = useState(false)
-    const url = useSelector(state => state.payments.paymentData.url)
+const Checkout: React.FC = () => {
+    const [isMercadoPagoChecked, setIsMercadoPagoChecked] = useState<boolean>(false)
+    const url = useSelector((state: RootState) => state.payments.paymentData?.url, shallowEqual) || '';
     console.log(url)
 
     const handleMpChange = (event: ChangeEvent<HTMLInputElement>) => {

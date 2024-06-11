@@ -22,6 +22,13 @@ interface FormJobsProps {
     textButton: string
 }
 
+interface Plan {
+    id?: number;
+    title: string;
+    quantity: number;
+    unit_price: number;
+}
+
 const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
@@ -29,28 +36,20 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
 
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     
-    const [dataSelect, setDataSelec] = useState({});
+    const [dataSelect, setDataSelect] = useState<Plan>({} as Plan);
 
     const dispatch = useAppDispatch();
     
     const path = usePathname()
     const router = useRouter()
 
-  
-    
-
     const handlePlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedPlan = plans.find(plan => plan.id === parseInt(e.target.value));
         if (selectedPlan) {
-            setDataSelec(selectedPlan);
+            setDataSelect(selectedPlan);
         }
 
     };
-
-    useEffect(() => {
-        console.log('Data updated:', dataSelect);
-    }, [dataSelect]);
-
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
         console.log(data)
@@ -99,18 +98,9 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
         }
     };
 
-    const generateTimeOptions = () => {
-        const options = [];
-        for (let hour = 0; hour < 24; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
-                const hourString = hour.toString().padStart(2, '0');
-                const minuteString = minute.toString().padStart(2, '0');
-                const timeString = `${hourString}:${minuteString}`;
-                options.push(<option key={timeString} value={timeString}>{timeString}</option>);
-            }
-        }
-        return options;
-    };
+    useEffect(() => {
+        console.log('Data updated:', dataSelect);
+    }, [dataSelect]);
 
     return (
         

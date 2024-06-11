@@ -12,7 +12,7 @@ const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const { data, isLoading, isFetching, error } = useListJobsQuery({
+  const { data, isLoading, isFetching } = useListJobsQuery({
     page,
     category: selectedCategory,
     city: selectedCountry,
