@@ -114,8 +114,8 @@ const Navbar: React.FC = () => {
           onClick={() => (window.location.href = "/formJobs")}>
           Post a job
         </button>
+        <ThemeButtons />
       </div>
-      <ThemeButtons />
     </header>
   );
 };
