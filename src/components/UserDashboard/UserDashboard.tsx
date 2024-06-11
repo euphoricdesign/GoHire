@@ -31,7 +31,7 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="md:mx-24 my-5 mt-24 flex relative md:p-24">
+    <div className="px-[124px] my-[100px] justify-between flex relative">
       <div className="relative float-left w-[20%]">
         <div className="text-3xl font-bold">User Settings</div>
         <div className="flex flex-col mt-10 font-bold">
