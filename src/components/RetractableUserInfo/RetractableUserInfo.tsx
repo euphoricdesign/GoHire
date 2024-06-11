@@ -127,17 +127,9 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
           </div>
           <div className="float-right w-[70%] h-auto border-l border-gray-300">
             <div className="border-b border-gray-300 p-5">
-              <div>
-                <h1 className="text-xl font-bold flex">
-                  {selectedUser.profesions.map((profession) => (
-                    <div className="" key={profession.id}>
-                      {profession.category}
-                    </div>
-                  ))}
-                </h1>
-              </div>
-              <div className="mt-5">
-                <h1>{selectedUser.description}</h1>
+              <div className="font-bold">Sobre {selectedUser.name}</div>
+              <div className="mt-2">
+                <h1>{selectedUser.bio}</h1>
               </div>
             </div>
             <div className="p-5">
