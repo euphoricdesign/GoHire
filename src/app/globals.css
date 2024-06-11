@@ -164,3 +164,33 @@ select option:checked {
   width: 100%;
   height: 100%;
 }
+
+
+/* animations */
+
+@keyframes desactivating-dark-mode {
+  to {
+    transform: translate(2.5em);
+  }
+}
+
+@keyframes activating-dark-mode {
+  to {
+    transform: translate(-2.5em);
+  }
+}
+
+@keyframes sun-effect-icon {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes moon-effect-icon {
+  50% {
+    transform: translateY(-0.6em) scale(0.8);
+  }
+  100% {
+    transform: translateY(1.5em);
+  }
+}
