@@ -5,24 +5,18 @@ const ThemeButtons = () => {
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
+    if (storedTheme) setTheme(storedTheme);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    theme === "dark"
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "ligth" : "dark");
-    console.log(theme);
-    console.log("pepe");
   };
 
   return (
