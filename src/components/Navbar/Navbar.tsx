@@ -9,8 +9,13 @@ import LogOutButton from "@/app/api/auth/LogoutButton";
 import { usePostUserMutation } from "@/lib/services/userApi";
 import { userPostData } from "@/types/userTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDetail, clearUserDetail, selectUserDetail } from "@/lib/features/slices/userSlice";
+import {
+  setUserDetail,
+  clearUserDetail,
+  selectUserDetail,
+} from "@/lib/features/slices/userSlice";
 import Link from "next/link";
+import ThemeButtons from "./ThemeButtons";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
@@ -69,19 +74,44 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${scrollPosition > 0 ? "scrolled" : ""}`}>
+      className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${
+        scrollPosition > 0 ? "scrolled" : ""
+      }`}
+    >
       <div className="flex items-center">
-        <a href="/" className="logo mr-10">Logo</a>
+        <a href="/" className="logo mr-10">
+          Logo
+        </a>
         <input type="checkbox" id="check" />
         <label htmlFor="check" className="icons">
-          <i id="menu-icon" className="icon">&#9776;</i>
-          <i id="close-icon" className="icon">&#10005;</i>
+          <i id="menu-icon" className="icon">
+            &#9776;
+          </i>
+          <i id="close-icon" className="icon">
+            &#10005;
+          </i>
         </label>
         <nav className="navbar">
-          <a className="text-sm" href="/users" style={{ "--i": 1 } as AnchorProps}>Users</a>
-          <a className="text-sm" href="/jobs" style={{ "--i": 3 } as AnchorProps}>Jobs</a>
-          <a className="text-sm" href="#" style={{ "--i": 2 } as AnchorProps}>Blog</a>
-          <a className="text-sm" href="#" style={{ "--i": 3 } as AnchorProps}>Contact</a>
+          <a
+            className="text-sm"
+            href="/users"
+            style={{ "--i": 1 } as AnchorProps}
+          >
+            Users
+          </a>
+          <a
+            className="text-sm"
+            href="/jobs"
+            style={{ "--i": 3 } as AnchorProps}
+          >
+            Jobs
+          </a>
+          <a className="text-sm" href="#" style={{ "--i": 2 } as AnchorProps}>
+            Blog
+          </a>
+          <a className="text-sm" href="#" style={{ "--i": 3 } as AnchorProps}>
+            Contact
+          </a>
         </nav>
       </div>
       <div className="flex items-center gap-3 text-sm">
@@ -93,11 +123,13 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         <button
-          className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
-          onClick={() => (window.location.href = "/formJobs")}>
+          className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium dark:bg-black bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
+          onClick={() => (window.location.href = "/formJobs")}
+        >
           Post a job
         </button>
       </div>
+      <ThemeButtons />
     </header>
   );
 };
