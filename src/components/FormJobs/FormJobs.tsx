@@ -10,8 +10,10 @@ import { FaInfoCircle, FaBriefcase, FaAlignLeft, FaFolder, FaImage, FaLaptopHous
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { plans } from '@/utils/plan';
-import { useDispatch, useSelector } from "react-redux";
-import { setUserDetail, selectUserDetail } from "@/lib/features/slices/userSlice";
+import { usePostPaymentMutation } from '@/lib/services/paymentsApi';
+import { useAppDispatch } from '@/lib/hooks';
+import { setPaymentData } from '@/lib/features/slices/paymentsSlice';
+
 
 interface FormJobsProps {
     title: string
@@ -23,11 +25,16 @@ interface FormJobsProps {
 const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<JobsPostData>();
     const [postJob, { isLoading, isError, isSuccess }] = usePostJobMutation();
+    const [postPayment] = usePostPaymentMutation();
+
     const [previewImage, setPreviewImage] = useState<string | null>(null);
-    const dispatch = useDispatch();
-    const userDetail = useSelector(selectUserDetail);
+    
     const [dataSelect, setDataSelec] = useState({});
- 
+
+    const [userToken, setUserToken] = useState(localStorage.getItem("userToken") || null)
+
+    const dispatch = useAppDispatch();
+    
     const path = usePathname()
     const router = useRouter()
 
@@ -43,21 +50,16 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
     };
 
     useEffect(() => {
+        if (window !== undefined) {
+            const storedUserToken = localStorage.getItem('userToken')
+          
+            setUserToken(storedUserToken)
+        }
+    }, [])
+
+    useEffect(() => {
         console.log('Data updated:', dataSelect);
-      }, [dataSelect]);
-
-
-//   const handleSubmit = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-//     e.preventDefault();
-//     const res = await fetch('/api/create-premium-listing', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(formData),
-//     });
-//     // Maneja la respuesta del backend
-//   };
+    }, [dataSelect]);
 
 
     const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
@@ -74,21 +76,15 @@ const FormJobs: React.FC<FormJobsProps> = ({title, img, width, textButton}) => {
             toast.success("Post created successfully!");
             
             
+            const nuevoObjeto = Object.assign({}, dataSelect);
+            delete nuevoObjeto.id;
+            const result = await postPayment(nuevoObjeto).unwrap();
 
-            const res = await fetch('http://localhost:3001/payments', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `${userDetail?.token}`
-                },
-                body: JSON.stringify(dataSelect),
-              });
+              dispatch(setPaymentData(result))
 
-              console.log(res)
-
-            // if (path === '/formJobs/spotlight-post') {
-            //     router.push('/formJobs/checkout')
-            // }
+            if (path === '/formJobs/spotlight-post') {
+                router.push('/formJobs/checkout')
+            }
 
             
         } catch (error) {

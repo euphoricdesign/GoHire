@@ -3,6 +3,8 @@ import userReducer from "./features/slices/userSlice";
 import { jobsApi } from "./services/jobsApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { userApi } from "./services/userApi";
+import { paymentsApi } from "./services/paymentsApi"
+import paymentsReducer from "./features/slices/paymentsSlice"; 
 
 // Configurar el store
 export const makeStore = () => {
@@ -11,9 +13,11 @@ export const makeStore = () => {
       user: userReducer,
       [jobsApi.reducerPath]: jobsApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
+      [paymentsApi.reducerPath]: paymentsApi.reducer,
+      payments: paymentsReducer, // Agrega el nuevo reducer
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(jobsApi.middleware).concat(userApi.middleware),
+      getDefaultMiddleware().concat(jobsApi.middleware).concat(userApi.middleware).concat(paymentsApi.middleware),
   });
 };
 

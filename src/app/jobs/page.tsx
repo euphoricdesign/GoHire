@@ -44,6 +44,8 @@ const SearchJobs: React.FC = () => {
   };
 
   const totalPages = Math.ceil((data?.count ?? 0) / 10);
+  console.log(data?.count);
+  
 
 
   return (
@@ -53,6 +55,7 @@ const SearchJobs: React.FC = () => {
         handleCategoryChange={handleCategoryChange}
         selectedCountry={selectedCountry}
         handleCountryChange={handleCountryChange}
+        count={data?.count}
       />
 
       <div className="container mx-auto mt-[100px] mb-[40px] gap-[20px] items-start md:flex-row md:items-start mobile:flex-col mobile:items-center">

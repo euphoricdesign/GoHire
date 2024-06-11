@@ -5,10 +5,13 @@ import Cards from '../../../../public/cards.png'
 import Mp from '../../../../public/mp.png'
 import { SiMercadopago } from "react-icons/si";
 import { FaCheck } from "react-icons/fa6";
+import { useSelector } from 'react-redux'
 
 
 const Checkout = () => {
     const [isMercadoPagoChecked, setIsMercadoPagoChecked] = useState(false)
+    const url = useSelector(state => state.payments.paymentData.url)
+    console.log(url)
 
     const handleMpChange = (event: ChangeEvent<HTMLInputElement>) => {
         setIsMercadoPagoChecked(event.target.checked);
@@ -56,7 +59,7 @@ const Checkout = () => {
                     <span>Total</span>
                     <span>$8,000</span>
                 </div>
-                <button className={`w-full mt-5 border-none p-2.5 h-12 rounded text-white font-medium flex items-center justify-center ${isMercadoPagoChecked ? 'bg-sky-500' : 'bg-[#3C65F5]'} transition-all cursor-pointer duration-300 ease-in-out opacity-100 hover:opacity-80 text-center`}>{isMercadoPagoChecked ? <SiMercadopago className='text-[40px] text-center text-white' /> : 'Ir a pagar' }</button>
+                <button onClick={isMercadoPagoChecked ? () => window.location.href = `${url}` : () => {}} className={`w-full mt-5 border-none p-2.5 h-12 rounded text-white font-medium flex items-center justify-center ${isMercadoPagoChecked ? 'bg-sky-500' : 'bg-[#3C65F5]'} transition-all cursor-pointer duration-300 ease-in-out opacity-100 hover:opacity-80 text-center`}>{isMercadoPagoChecked ? <SiMercadopago className='text-[40px] text-center text-white' /> : 'Ir a pagar' }</button>
             </div>
         </div>
     </div>

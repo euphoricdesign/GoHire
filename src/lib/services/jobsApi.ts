@@ -10,7 +10,7 @@ export const jobsApi = createApi({
       if (endpoint === 'postJob' || "listJobs") {
         const token = (getState() as RootState).user.userDetail?.token;
         if (token) {
-          headers.set("authorization", `Bearer ${token}`);
+          headers.set("authorization", `${token}`);
           console.log('Token added to headers:', token);
         }
       }
