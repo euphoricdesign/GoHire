@@ -9,6 +9,7 @@ import { BsEyeSlash } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { useGetUserMeQuery, useUpdateUserMutation } from "@/lib/services/userApi";
 import Modal from "react-modal";
+import ProfileModal from "./ProfileModal";
 
 const UserProfile = () => {
   const { data: user, error: getUserError, isLoading: getUserLoading } = useGetUserMeQuery(null);
@@ -40,7 +41,6 @@ const UserProfile = () => {
   };
 
   const openModal = () => {
-    setNewName(name);
     setIsModalOpen(true);
   };
 
@@ -127,7 +127,9 @@ const UserProfile = () => {
                 <div className="flex items-center mb-3 justify-between">
                   <div className="font-bold mx-[1.5rem]">My Description:</div>
                   <div>
-                    <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer mr-5" />
+                    <button onClick={openModal}>
+                      <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer mr-5" />
+                    </button>
                   </div>
                 </div>
                 <div className="px-[1.5rem] mb-4 text-[#05264E]">
@@ -213,20 +215,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Edit Name Modal"
-        className="">
-        <div className="bg-red-300 w-96">
-          <h2>Edit Name</h2>
-          <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
-          <button onClick={handleUpdate} disabled={updateLoading}>
-            {updateLoading ? "Updating..." : "Submit"}
-          </button>
-          <button onClick={closeModal}>Close</button>
-        </div>
-      </Modal>
+      {isModalOpen && <ProfileModal />}
     </div>
   );
 };
