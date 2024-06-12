@@ -22,7 +22,7 @@ interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const Navbar: React.FC = () => {
-  const { user, error, isLoading } = useUser();
+  const { user, isLoading } = useUser();
   const [postUser] = usePostUserMutation();
   const dispatch = useDispatch();
   const userDetail = useSelector(selectUserDetail);
