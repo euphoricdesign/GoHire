@@ -101,7 +101,7 @@ const UserCard = ({
             </div>
           </div>
           <div className="px-5">
-            <p className="text-sm leading-5 mt-1 mb-4">{truncatedDescription}</p>
+            <p className="text-sm leading-5 mt-1 mb-4 h-[40px]">{truncatedDescription}</p>
           </div>
         </div>
         <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[6rem] mobile:h-[6rem] w-full ">
