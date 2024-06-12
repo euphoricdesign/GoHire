@@ -47,7 +47,7 @@ const UserCard = ({
   const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
-    <div className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
+    <div className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem] rounded-xl" onClick={onClick}>
       <div className="flex items-center justify-between md:w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl mobile:w-full">
         <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
