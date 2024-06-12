@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData, UsersData } from "@/types/userTypes";
-import type { RootState } from '@/lib/store';
+import type { RootState } from "@/lib/store";
 
 // Define el API con todas las consultas y mutaciones
 export const userApi = createApi({
@@ -8,11 +8,12 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
     prepareHeaders: (headers, { getState, endpoint }) => {
-      if (endpoint === 'postUser') {
+      if (endpoint === "postJob" || "listJobs" || "getUserMe") {
         const token = (getState() as RootState).user.userDetail?.token;
         if (token) {
-          headers.set("authorization", `Bearer ${token}`);
-          console.log('Token added to headers:', token);
+          headers.set("authorization", token);
+          console.log("Token added to headers:", token);
+          localStorage.setItem("token", token);
         }
       }
       return headers;
@@ -26,6 +27,15 @@ export const userApi = createApi({
     getUserById: builder.query<UserData, { id: string }>({
       query: ({ id }) => `users/${id}`,
     }),
+    getUserMe: builder.query<UserData, null>({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "users/me",
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
     // Consulta para obtener los usuarios por página
     listUsers: builder.query<UsersData, number | void>({
       query: (page = 1) => `users?page=${page}`,
@@ -38,9 +48,22 @@ export const userApi = createApi({
         body: newUser,
       }),
     }),
+    updateUser: builder.mutation<UserData, Partial<UserData> & { id: string }>({
+      query: ({ id, ...patch }) => ({
+        url: `users/${id}`,
+        method: "PATCH",
+        body: patch,
+      }),
+    }),
   }),
 });
 
 // Exporta los hooks generados automáticamente para las consultas y mutaciones
-export const { useGetAllUsersQuery, usePostUserMutation, useListUsersQuery, useGetUserByIdQuery } =
-  userApi;
+export const {
+  useGetAllUsersQuery,
+  usePostUserMutation,
+  useListUsersQuery,
+  useGetUserByIdQuery,
+  useGetUserMeQuery,
+  useUpdateUserMutation,
+} = userApi;

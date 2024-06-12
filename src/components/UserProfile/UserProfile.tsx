@@ -6,21 +6,64 @@ import { FaShareFromSquare } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { BsEye } from "react-icons/bs";
 import { BsEyeSlash } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetUserMeQuery, useUpdateUserMutation } from "@/lib/services/userApi";
+import Modal from "react-modal";
 
 const UserProfile = () => {
+  const { data: user, error: getUserError, isLoading: getUserLoading } = useGetUserMeQuery(null);
+  const [name, setName] = useState("");
+  const [newName, setNewName] = useState("");
+  const [updateUser, { isLoading: updateLoading, isSuccess, isError: updateError }] =
+    useUpdateUserMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [show, setShow] = useState(true);
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+    }
+  }, [user]);
+
+  const handleUpdate = async () => {
+    if (user) {
+      try {
+        await updateUser({ id: user.id, name: newName }).unwrap();
+        setName(newName);
+        console.log("User updated successfully");
+        setIsModalOpen(false);
+      } catch (error) {
+        console.error("Failed to update user", error);
+      }
+    }
+  };
+
+  const openModal = () => {
+    setNewName(name);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (getUserLoading) return <p>Loading...</p>;
+  if (getUserError) return <p>Error loading user data</p>;
+
+  const handleAvailableClick = () => {
+    setIsAvailable(!isAvailable);
+  };
 
   const handleShowClick = () => {
     setShow(!show);
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="w-full h-full">
       <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl">
         <div className="border border-b-gray-300">
           <div className="flex items-center">
-            <div className="absolute z-[1] inset-0 bg-gray-900 opacity-20"></div>
             <div className="relative w-auto m-3 p-1 border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
@@ -35,22 +78,33 @@ const UserProfile = () => {
               <div className="flex justify-between">
                 <div>
                   <div className="flex items-center">
-                    <h2 className="text-[32px] font-bold">Name Lastname</h2>
-                    <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                    <h2 className="text-[32px] font-bold">{user?.name}</h2>
+                    <button onClick={openModal}>
+                      <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                    </button>
                   </div>
                   <div className="flex items-center mb-3">
                     <div className="flex items-center">
                       <IoLocationOutline />
-                      <h2 className="text-xl">City, Country</h2>
+                      <h2 className="text-xl">City, {user?.country}</h2>
                     </div>
                     <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
                   </div>
                   <div className="flex items-center">
-                    <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
-                      <TfiBolt className="text-[#3D63DD] mr-1" />
-                      <h2 className="text-[#3D63DD] text-[12px]">Available Now</h2>
-                    </div>
-                    <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                    {isAvailable ? (
+                      <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
+                        <TfiBolt className="text-[#3D63DD] mr-1" />
+                        <h2 className="text-[#3D63DD] text-[12px]">Available Now</h2>
+                      </div>
+                    ) : (
+                      <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
+                        <TfiBolt className="text-[#3D63DD] mr-1" />
+                        <h2 className="text-[#3D63DD] text-[12px]">Not Available</h2>
+                      </div>
+                    )}
+                    <button onClick={handleAvailableClick}>
+                      <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                    </button>
                   </div>
                 </div>
                 <div className="flex items-center justify-end px-5 pb-14">
@@ -156,6 +210,20 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Name Modal"
+        className="">
+        <div className="bg-red-300 w-96">
+          <h2>Edit Name</h2>
+          <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
+          <button onClick={handleUpdate} disabled={updateLoading}>
+            {updateLoading ? "Updating..." : "Submit"}
+          </button>
+          <button onClick={closeModal}>Close</button>
+        </div>
+      </Modal>
     </div>
   );
 };

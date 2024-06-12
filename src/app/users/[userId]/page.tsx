@@ -42,7 +42,7 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
             <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
-                src={user?.profileImg || "/path/to/default/image.jpg"}
+                src={user?.profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt={`${user.name} ${user.lastName}'s profile image`}
                 width={96}
                 height={96}
@@ -138,18 +138,9 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
           </div>
           <div className="float-right w-[70%] h-auto border-l border-gray-300">
             <div className="border-b border-gray-300 p-5">
-              <div>
-                <h1 className="text-xl font-bold flex">
-                  {user.profesions &&
-                    user.profesions.map((profession) => (
-                      <div className="" key={profession.id}>
-                        {profession.category}
-                      </div>
-                    ))}
-                </h1>
-              </div>
               <div className="mt-5">
-                <h1>{user.description}</h1>
+                <div className="text-xl font-bold mb-4">About {user.name}</div>
+                <h1>{user.bio}</h1>
               </div>
             </div>
             <div className="p-5">
