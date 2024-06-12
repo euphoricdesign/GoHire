@@ -6,6 +6,10 @@ import RetractableUserInfo from "../RetractableUserInfo/RetractableUserInfo";
 import { useListUsersQuery } from "@/lib/services/userApi";
 import { UserData } from "@/types/userTypes";
 import SendMessageModal from "../Modals/SendMessageModal";
+import { useSelector } from "react-redux";
+import { selectUserDetail } from "@/lib/features/slices/userSlice";
+import Toastify from 'toastify-js'
+
 
 const UsersCards = () => {
   const [page, setPage] = useState(1);
@@ -18,6 +22,8 @@ const UsersCards = () => {
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [showModal, setShowModal] = useState(false);
 
+  const userDetail = useSelector(selectUserDetail);
+
   useEffect(() => {
     setPage(page);
   }, [paginatedUsersResponse]);
@@ -26,6 +32,37 @@ const UsersCards = () => {
     setSelectedUser(user);
     setShowDescription(true);
   };
+
+  const totalPages = Math.ceil((paginatedUsersResponse?.count ?? 0) / 10);
+
+  const handleOpenModal = (user: UserData) => {
+    if (!userDetail) {
+      // Crear una instancia de notificación
+      const myToast =   Toastify({
+        text: 'You must be logged in to send a message',
+        className: 'toastify',
+        position: 'left',
+        gravity: 'bottom',
+        duration: 999999999, // Duración muy grande para simular permanencia en pantalla
+        close: true
+      })
+
+      // Mostrar la notificación
+      myToast.showToast() 
+  
+    } else {
+      setSelectedUser(user);
+      setShowModal(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
+
+
+
 
   if (!paginatedUsersResponse?.usersFind || paginatedUsersResponse.usersFind.length === 0) {
     return (
@@ -36,18 +73,6 @@ const UsersCards = () => {
       </div>
     );
   }
-
-  const totalPages = Math.ceil((paginatedUsersResponse.count ?? 0) / 10);
-
-  const handleOpenModal = (user: UserData) => {
-    setSelectedUser(user);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedUser(null);
-  };
 
   return (
     <div className="flex flex-wrap justify-center">

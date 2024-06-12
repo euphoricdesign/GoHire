@@ -165,6 +165,22 @@ select option:checked {
   height: 100%;
 }
 
+.toastify {
+  position: fixed;
+  bottom: 0;
+  left: 0; /* Opcional, si quieres que esté a la izquierda */
+  padding: 15px;
+  color: white;
+  background: #3C65F5;
+  margin: 0 30px 30px 20px; 
+  width: 24rem; 
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  animation: slideInFromLeft 0.5s ease;
+  z-index: 100;
+}
+
 
 /* animations */
 
@@ -192,5 +208,14 @@ select option:checked {
   }
   100% {
     transform: translateY(1.5em);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }

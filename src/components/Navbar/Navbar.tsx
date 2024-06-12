@@ -14,6 +14,8 @@ import { MdOutlineLightMode, MdKeyboardArrowDown, MdOutlineSpaceDashboard, MdOut
 import User from '../../../public/user.svg'
 import Image from "next/image";
 import Link from "next/link";
+import Toastify from 'toastify-js'
+import { useRouter } from "next/navigation";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
@@ -30,6 +32,8 @@ const Navbar: React.FC = () => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const currentClickRef = useRef<EventTarget | null>(null) 
 
+  const router = useRouter()
+
   const handleShowModal = (event: React.MouseEvent<HTMLElement>) => {
     console.log("si se ejecuta el efecto")
     currentClickRef.current = event.target 
@@ -38,6 +42,26 @@ const Navbar: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false) 
+  }
+
+  const handlePostAJob = () => {
+    if (!userDetail) {
+      // Crear una instancia de notificación
+      const myToast =   Toastify({
+        text: 'You must be logged in to make a post',
+        className: 'toastify',
+        position: 'left',
+        gravity: 'bottom',
+        duration: 999999999, // Duración muy grande para simular permanencia en pantalla
+        close: true
+      })
+
+      // Mostrar la notificación
+      myToast.showToast() 
+  
+    } else {
+      router.push('/formJobs')
+    }
   }
 
   useEffect(() => {
@@ -146,7 +170,7 @@ const Navbar: React.FC = () => {
         </div>
         <button
           className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
-          onClick={() => (window.location.href = "/formJobs")}>
+          onClick={handlePostAJob}>
           Post a job
         </button>
         {
