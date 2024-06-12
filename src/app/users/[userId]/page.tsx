@@ -36,7 +36,7 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
 
   return (
     <div className="h-full w-full mt-24 rounded-3xl">
-      <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
+      <div className="flex flex-col mx-[124px] my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
         <div className="border border-b-gray-300">
           <div className="flex items-center">
             <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
