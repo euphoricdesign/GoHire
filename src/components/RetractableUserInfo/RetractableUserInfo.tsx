@@ -6,10 +6,9 @@ import { IoLocationOutline } from "react-icons/io5";
 import { TfiBolt } from "react-icons/tfi";
 import { FaArrowUpRightFromSquare, FaRegStar, FaShareFromSquare } from "react-icons/fa6";
 import { GoHeartFill } from "react-icons/go";
-import WorkHistoryCard from "../WorkHistoryCard/WorkHistoryCard";
-import { IUser } from "@/types";
+import { UserData } from "@/types/userTypes";
 
-const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
+const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
   const [isFavClicked, setIsFavClicked] = useState(false);
 
   const handleFavClicked = () => {
@@ -32,7 +31,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
             <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
-                src={selectedUser.profileImg}
+                src={selectedUser?.profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt={`${selectedUser.name} ${selectedUser.lastName}'s profile image`}
                 width={96}
                 height={96}
@@ -92,60 +91,67 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: IUser }) => {
               </button>
             </div>
             <div className="border-b border-gray-300">
-              <h2 className="font-bold m-5">Professions:</h2>
+              <h2 className="font-bold mt-5 mx-5">Professions:</h2>
               <div className="">
                 <ul className="list-none flex flex-col text-lg pb-4">
-                  {selectedUser.profesions.map((profession, index) => (
-                    <li key={index} className="rounded-lg inline-block m-1 p-2 px-5">
-                      {profession.category}
-                      <div className="flex">
-                        <h6 className="text-sm mr-2">Rate:</h6>
-                        <p className="flex">
-                          <FaRegStar />
-                          <FaRegStar />
-                          <FaRegStar />
-                          <FaRegStar />
-                          <FaRegStar />
-                        </p>
-                      </div>
-                    </li>
-                  ))}
+                  {selectedUser.profesions &&
+                    selectedUser.profesions.map((profession, index) => (
+                      <li key={index} className="rounded-lg inline-block m-1 p-2 px-5">
+                        {profession.category}
+                        <div className="flex">
+                          <h6 className="text-sm mr-2">Rate:</h6>
+                          <p className="flex">
+                            <FaRegStar />
+                            <FaRegStar />
+                            <FaRegStar />
+                            <FaRegStar />
+                            <FaRegStar />
+                          </p>
+                        </div>
+                      </li>
+                    ))}
                 </ul>
               </div>
             </div>
             <div>
               <h2 className="font-bold m-5">Education:</h2>
-              <div>EDUCATION - agregar en el back</div>
-              {/*TODO: AGREGAR EDUCATION AL USER */}
-              {/* {selectedUser.educations.map((education) => (
-                <div className="px-5" key={education}>
-                  {education}
-                </div>
-              ))} */}
+              <div>
+                {selectedUser.educations &&
+                  selectedUser.educations.map((education, index) => (
+                    <div key={index} className="px-5">
+                      {education.title}
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
           <div className="float-right w-[70%] h-auto border-l border-gray-300">
             <div className="border-b border-gray-300 p-5">
-              <div>
-                <h1 className="text-xl font-bold flex">
-                  {selectedUser.profesions.map((profession) => (
-                    <div className="" key={profession.id}>
-                      {profession.category}
-                    </div>
-                  ))}
-                </h1>
-              </div>
-              <div className="mt-5">
-                <h1>{selectedUser.description}</h1>
+              <div className="font-bold">Sobre {selectedUser.name}</div>
+              <div className="mt-2">
+                <h1>{selectedUser.bio}</h1>
               </div>
             </div>
             <div className="p-5">
-              <h1 className="text-xl font-bold">Work History</h1>
-              <div>work history - agregar del back</div>
-              {/*TODO: AGREGAR JOBS AL USER */}
-              {/* {selectedUser.jobs.map((job, index) => (
-                <WorkHistoryCard key={index} {...job} />
-              ))} */}
+              <h1 className="text-xl font-bold mb-4">Work History</h1>
+              <div>
+                {selectedUser.experiences &&
+                  selectedUser.experiences.map((experience) => (
+                    <div key={experience.id} className="border p-4 rounded-md shadow-md mb-4">
+                      <div className="font-bold text-lg">
+                        {experience.title} en {experience.company}
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        since: <span className="italic mr-2">{experience.startDate}</span>- until:{" "}
+                        <span className="italic">{experience.endDate}</span>
+                      </p>
+                      <div className="mt-3">
+                        <h2 className="font-bold">Feedback:</h2>
+                        <p className="mt-2">"{experience.description}"</p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>

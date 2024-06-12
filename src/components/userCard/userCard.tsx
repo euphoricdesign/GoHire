@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
-import { IUser } from "@/types";
+import { UserData } from "@/types/userTypes";
 
 interface TruncateTextParams {
   text: string;
@@ -17,15 +17,22 @@ const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
 };
 
 const UserCard = ({
-  profileImg,
+  id,
   name,
   lastName,
+  dni,
   country,
   city,
-  description,
+  birthdate,
+  bio,
+  profileImg,
   profesions,
+  availableToWork,
+  professionalRate,
+  newMember,
   onClick,
-}: IUser & { onClick: () => void }) => {
+  onMessageClick,
+}: UserData & { onClick: () => void; onMessageClick: () => void }) => {
   const [FavClicked, setFavClicked] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
@@ -37,17 +44,20 @@ const UserCard = ({
     event.stopPropagation();
   };
 
-  const truncatedDescription = truncateText({ text: description, maxLength: 100 });
+  const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
-    <div className="cursor-pointer bg-[ghostwhite] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
+    <div className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem]" onClick={onClick}>
       <div className="flex items-center justify-between md:w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl mobile:w-full">
         <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col">
               <div className="flex items-center">
                 <button
-                  onClick={handleButtonClick}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onMessageClick();
+                  }}
                   className="bg-white border mr-2 w-28 text-[#3C65F5] border-slate-300 font-medium py-2 px-4 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                   Message
                 </button>
@@ -70,19 +80,20 @@ const UserCard = ({
                   </button>
                 )}
               </div>
-              <div className="">
+              <div className="mt-1 min-h-14 flex flex-col justify-center">
                 <span className="text-lg font-bold">
                   {name} {lastName}
                 </span>
                 <span>
-                  - {city}, {country}
+                  {" - "}
+                  {city}, {country}
                 </span>
               </div>
             </div>
             <div>
               <Image
-                className="rounded-full p-[1px] border-2 border-[#3C65F5]"
-                src={profileImg}
+                className="rounded-full p-[1px] border-2 border-[#3C65F5] min-w-20 min-h-20"
+                src={profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt="perfil"
                 width={80}
                 height={80}
@@ -93,15 +104,15 @@ const UserCard = ({
             <p className="text-sm leading-5 mt-1 mb-4">{truncatedDescription}</p>
           </div>
         </div>
-        <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[4rem] mobile:h-[6rem] w-full ">
+        <div className="flex flex-col justify-around p-[10px] font-bold rounded-b-md md:h-[6rem] mobile:h-[6rem] w-full ">
           <div>
             <ul className="list-none text-sm flex flex-wrap">
               {profesions &&
-                profesions.map((profession, index) => (
+                profesions.map((profesion, index) => (
                   <li
                     key={index}
-                    className="border border-slate-300 rounded-lg inline-block m-1 p-1">
-                    {profession.category}
+                    className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    {profesion.category}
                   </li>
                 ))}
             </ul>

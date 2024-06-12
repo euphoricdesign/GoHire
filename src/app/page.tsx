@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Merriweather } from "next/font/google";
 import Home from "@/components/Home/Home";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import {increment, decrement} from "@/lib/features/counter/counterSlice"
 import CategoryCard from "@/components/CategoryCard/CategoryCard";
 import { categories } from '../utils/categories'
 import jobData from '../utils/jobs.json'
@@ -19,7 +18,6 @@ export default function MainPage() {
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
-  const count = useAppSelector(state => state.counterReducer.value)
   const dispatch = useAppDispatch()
 
   const handleDescription = (job: JobsData | null) => {
@@ -53,8 +51,8 @@ export default function MainPage() {
             <div>
               <span className="text-[18px]">Stand out and win more work</span>
               <p className={`${merriweather.className} text-[27px] mt-[10px] max-w-[600px]`}>Ads are a proven way to help you get hired at any stage of your career.</p>
-              <button className="mt-[35px] mb-5 text-sm border-none w-[150px] p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden" onClick={() => window.location.href = '/formJobs'}>
-                Show me how
+              <button className="mt-[35px] mb-5 text-sm border-none w-[150px] p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden">
+                <a href="/ads">Show me how</a>
               </button>
             </div>
               <Image className="w-[240px] justify-self-end" src={Cohete} alt="" />

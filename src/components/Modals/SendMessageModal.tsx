@@ -1,85 +1,111 @@
-import React from "react";
+"use client";
+import { UserData } from "@/types/userTypes";
+import Modal from "react-modal";
+import Image from "next/image";
+import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
-const SendMessageModal = ({ onClose }: { onClose: () => void }) => {
+interface SendMessageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  selectedUser: UserData | null;
+}
+
+const SendMessageModal: React.FC<SendMessageModalProps> = ({
+  isOpen,
+  onRequestClose,
+  selectedUser,
+}) => {
+  const [message, setMessage] = useState("");
+  
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    console.log("Message sent:", message);
+    // lógica para enviar el mensaje.
+    setMessage("");
+    onRequestClose();
+  };
+
   return (
-    <div className="fixed z-50 inset-0 overflow-y-auto">
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-
-        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
-          &#8203;
-        </span>
-
-        <div
-          className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-headline">
-          <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+    <div>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onRequestClose}
+        contentLabel="Send Message Modal"
+        ariaHideApp={false}
+        className="fixed inset-0 flex items-center justify-center z-50 outline-none"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40"
+      >
+        <div className="bg-white rounded-lg shadow-lg p-6 w-auto z-50">
+          <div className="w-full flex items-center justify-between p-1">
+            <h2 className="text-xl font-bold">Send a Message to</h2>
             <button
-              type="button"
-              onClick={onClose}
-              className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              <span className="sr-only">Close</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              onClick={onRequestClose}
+              className="text-[#3D63DD] hover:text-blue-600 hover:bg-[#93B4FF] transition-all duration-300 rounded-full p-1"
+            >
+              <FaTimes size={25} />
             </button>
           </div>
-          <div className="sm:flex sm:items-start">
-            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-              <svg
-                className="h-6 w-6 text-blue-600"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          <div>
+            <div className="flex">
+              <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
+                <Image
+                  className="rounded-full"
+                  src={selectedUser?.profileImg || "/path/to/default/image.jpg"}
+                  alt={`${selectedUser?.name} ${selectedUser?.lastName}'s profile image`}
+                  width={96}
+                  height={96}
                 />
-              </svg>
+              </div>
+              <div className="flex flex-col m-3 justify-between">
+                <div>
+                  <Link
+                    href={`/users/${selectedUser?.id}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <button className="text-[#3D63DD] underline flex items-center">
+                      {selectedUser?.name} {selectedUser?.lastName}{" "}
+                      <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+                    </button>
+                  </Link>
+                  <div>
+                    {selectedUser?.profesions.map((profession, index) => (
+                      <div key={index} className="rounded-lg inline-block">
+                        {profession.category}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                Your Confirmation Message
-              </h3>
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">Your body text goes here.</p>
+            <div>
+              <div>
+                <label className="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                <textarea
+                  value={message}
+                  onChange={handleMessageChange}
+                  className="shadow appearance-none border rounded-xl w-[45rem] h-[12rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder=""
+                />
               </div>
             </div>
           </div>
-          <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+          <div className="flex justify-end">
             <button
-              type="button"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-              Commit
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm">
-              Cancel
+              onClick={handleSendMessage}
+              className="mt-4 bg-[#3D63DD] text-white text-center px-6 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300"
+            >
+              Send your Message
             </button>
           </div>
         </div>
-      </div>
+      </Modal>
     </div>
   );
 };
