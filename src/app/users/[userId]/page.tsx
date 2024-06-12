@@ -35,7 +35,7 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
   console.log(user, "esto es la info de user");
 
   return (
-    <div className="h-full w-full mt-24">
+    <div className="h-full w-full mt-24 rounded-3xl">
       <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
         <div className="border border-b-gray-300">
           <div className="flex items-center">

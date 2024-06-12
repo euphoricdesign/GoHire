@@ -60,11 +60,12 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="w-full h-full">
-      <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl">
-        <div className="border border-b-gray-300">
+    <div className="h-full w-full">
+      <div className="flex flex-col border rounded-3xl">
+        <div className="border-b border-b-gray-300 rounded-t-3xl">
           <div className="flex items-center">
-            <div className="relative w-auto m-3 p-1 border border-gray-300 rounded-full">
+            <div className="absolute inset-0 opacity-20"></div>
+            <div className="relative w-auto mx-[1.5rem]  border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
                 src={"https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
@@ -72,13 +73,13 @@ const UserProfile = () => {
                 width={96}
                 height={96}
               />
-              <HiOutlinePencilSquare className=" absolute top-0 right-[-20px] text-[#3D63DD] size-8 cursor-pointer" />
+              <HiOutlinePencilSquare className=" absolute top-0 right-[-13px] text-[#3C65F5] w-[1.5rem] h-[1.5rem] cursor-pointer" />
             </div>
             <div className="w-full p-5">
               <div className="flex justify-between">
                 <div>
                   <div className="flex items-center">
-                    <h2 className="text-[32px] font-bold">{user?.name}</h2>
+                    <h2 className="text-[32px] font-bold text-[#05264E]">{user?.name}</h2>
                     <button onClick={openModal}>
                       <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
                     </button>
@@ -86,9 +87,9 @@ const UserProfile = () => {
                   <div className="flex items-center mb-3">
                     <div className="flex items-center">
                       <IoLocationOutline />
-                      <h2 className="text-xl">City, {user?.country}</h2>
+                      <h2 className="text-xl text-[#05264E]">City, {user?.country}</h2>
                     </div>
-                    <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                    <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer ml-2" />
                   </div>
                   <div className="flex items-center">
                     {isAvailable ? (
@@ -107,11 +108,11 @@ const UserProfile = () => {
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center justify-end px-5 pb-14">
+                <div className="flex items-center justify-end px-[1.5rem] pb-14">
                   <button className="flex">
-                    <h2 className="mx-4">Share My Profile</h2>
+                    <h2 className="mx-4 text-[#05264E]">Share My Profile</h2>
                     <div>
-                      <FaShareFromSquare className="text-[#3D63DD] size-6" />
+                      <FaShareFromSquare className="text-[#3C65F5] size-6" />
                     </div>
                   </button>
                 </div>
@@ -120,16 +121,16 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="relative">
-          <div className="h-auto border-l border-gray-300">
+          <div className="h-auto ">
             <div className="border-b border-gray-300">
               <div className="mt-5">
                 <div className="flex items-center mb-3 justify-between">
-                  <div className="font-bold mx-5">My Description:</div>
+                  <div className="font-bold mx-[1.5rem]">My Description:</div>
                   <div>
-                    <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer mr-5" />
+                    <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer mr-5" />
                   </div>
                 </div>
-                <div className="px-5 mb-4">
+                <div className="px-[1.5rem] mb-4 text-[#05264E]">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum optio eveniet neque
                   numquam nemo in ad veritatis, accusamus fuga eaque saepe facilis similique ex,
                   necessitatibus, nesciunt ipsa aut! Repellat, sit?
@@ -139,20 +140,20 @@ const UserProfile = () => {
             <div className="h-auto flex flex-col">
               <div className="border-b border-gray-300 mt-5">
                 <div className="flex items-center mb-3 justify-between">
-                  <div className="font-bold mx-5">Professions:</div>
+                  <div className="font-bold mx-[1.5rem] text-[#05264E]">Professions:</div>
                   <div>
-                    <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer mr-5" />
+                    <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer mr-5" />
                   </div>
                 </div>
                 <div className="">
-                  <ul className="list-none flex text-lg pb-4 px-5">
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                  <ul className="list-none flex text-lg pb-4 px-[1.5rem]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Profesión 1
                     </li>
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Profesión 2
                     </li>
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Profesión 3
                     </li>
                   </ul>
@@ -160,20 +161,20 @@ const UserProfile = () => {
               </div>
               <div className="border-b border-gray-300 mt-5">
                 <div className="flex items-center mb-3 justify-between">
-                  <div className="font-bold mx-5">Education:</div>
+                  <div className="font-bold mx-[1.5rem]">Education:</div>
                   <div>
                     <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer mr-5" />
                   </div>
                 </div>
                 <div className="">
-                  <ul className="list-none flex text-lg pb-4 px-5">
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                  <ul className="list-none flex text-lg pb-4 px-[1.5rem]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Education 1
                     </li>
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Education 2
                     </li>
-                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                       Education 3
                     </li>
                   </ul>
@@ -182,7 +183,7 @@ const UserProfile = () => {
             </div>
             <div className="mt-5">
               <div className="flex items-center mb-3 justify-between">
-                <div className="font-bold mx-5">Work History:</div>
+                <div className="font-bold mx-[1.5rem] text-[#05264E]">Work History:</div>
                 <div>
                   <button onClick={handleShowClick}>
                     {show ? (
@@ -194,15 +195,17 @@ const UserProfile = () => {
                 </div>
               </div>
               <div>
-                <div className="border p-4 rounded-md shadow-md mb-4 mx-5">
-                  <div className="font-bold text-lg">experience.title en experience.company</div>
+                <div className="border p-4 rounded-md shadow-md mb-12 mx-[1.5rem]">
+                  <div className="font-bold text-lg text-[#05264E]">
+                    experience.title en experience.company
+                  </div>
                   <p className="text-sm text-gray-600">
-                    since: <span className="italic mr-2">experience.startDate</span>- until:{" "}
-                    <span className="italic">experience.endDate</span>
+                    since: <span className="italic mr-2 text-[#05264E]">experience.startDate</span>-
+                    until: <span className="italic">experience.endDate</span>
                   </p>
                   <div className="mt-3">
-                    <h2 className="font-bold">Feedback:</h2>
-                    <p className="mt-2">"experience.description"</p>
+                    <h2 className="font-bold text-[#05264E]">Feedback:</h2>
+                    <p className="mt-2 text-[#05264E]">"experience.description"</p>
                   </div>
                 </div>
               </div>

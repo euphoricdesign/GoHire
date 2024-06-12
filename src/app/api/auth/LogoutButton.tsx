@@ -10,7 +10,7 @@ function LogOutButton() {
   };
 
   return (
-    <button className="w-full" onClick={handleLogout}>
+    <button onClick={handleLogout}>
       <span className="text-[#05264E]">Log Out</span>
     </button>
   );
