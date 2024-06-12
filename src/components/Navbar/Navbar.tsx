@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const currentClickRef = useRef<EventTarget | null>(null) 
 
-  const handleShowModal = (event: React.MouseEvent<SVGElement>) => {
+  const handleShowModal = (event: React.MouseEvent<HTMLElement>) => {
     console.log("si se ejecuta el efecto")
     currentClickRef.current = event.target 
     setShowModal((prevShowModal) => !prevShowModal) 
