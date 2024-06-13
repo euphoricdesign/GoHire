@@ -7,6 +7,10 @@ import { JobsData } from "@/types/jobsTypes";
 import RetractableJobInfo from "@/components/RetractableJobInfo/RetractableJobInfo";
 import RetractableView from "@/components/RetractableView/RetractableView";
 import BannerCategory from "@/components/BannerCategory/BannerCategory";
+import Toastify from 'toastify-js'
+import { useSelector } from "react-redux";
+import { selectUserDetail } from "@/lib/features/slices/userSlice";
+
 
 const SearchJobs: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -25,9 +29,27 @@ const SearchJobs: React.FC = () => {
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
 
+  const userDetail = useSelector(selectUserDetail);
+
   const handleDescription = (job: JobsData | null) => {
-    setSelectedJobPost(job);
-    setShowDescription(true);
+    if (!userDetail) {
+      // Crear una instancia de notificación
+      const myToast =   Toastify({
+        text: 'You must be logged in to apply for a job',
+        className: 'toastify',
+        position: 'left',
+        gravity: 'bottom',
+        duration: 999999999, // Duración muy grande para simular permanencia en pantalla
+        close: true
+      })
+
+      // Mostrar la notificación
+      myToast.showToast() 
+  
+    } else {
+      setSelectedJobPost(job);
+      setShowDescription(true);
+    }
   };
 
   const handleCloseDescription = () => {
