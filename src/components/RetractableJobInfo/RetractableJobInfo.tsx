@@ -26,9 +26,9 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
               <div className="p-5 border-b border-gray-300">
                 <div className="text-[32px] font-bold">{selectedJob.title}</div>
                 <div className="flex items-center ">
-                  Posted {selectedJob.timelapse} ago -{" "}
-                  <span className="ml-1 flex items-center text-xl">
-                    <IoLocationOutline /> Location
+                  Posted {selectedJob.timelapse}
+                  <span className="ml-1 flex items-center">
+                    - <IoLocationOutline /> {selectedJob.location}
                   </span>
                 </div>
               </div>
