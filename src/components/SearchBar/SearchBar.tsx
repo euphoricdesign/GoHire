@@ -48,7 +48,6 @@ const SearchBar = () => {
       </div>
     </article>
   );
-
   return (
     <form className='relative max-w-[500px] bg-white py-[12px] px-[16px] flex gap-4 items-center rounded shadow-custom'>
         <div className='flex-1 relative'>
@@ -74,5 +73,4 @@ const SearchBar = () => {
     </form>
   );
 }
-
 export default SearchBar;

@@ -3,7 +3,6 @@
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 import React from "react";
 import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
-
 interface BannerCategoryProps {
   selectedCategory: string;
   handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -11,7 +10,6 @@ interface BannerCategoryProps {
   handleCountryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   count: number | undefined;
 }
-
 const BannerCategory: React.FC<BannerCategoryProps> = ({
   selectedCategory,
   handleCategoryChange,
@@ -19,12 +17,9 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
   handleCountryChange,
   count,
 }) => {
-  const { data, isLoading, isError, error } = useGetCategoryQuery(null);
+  const { data: categories, isLoading, isError, error } = useGetCategoryQuery(null);
 
   // Agregar logs para depuración
-  console.log('Categories:', data);
-  console.log('Loading:', isLoading);
-  console.log('Error:', isError, error);
   console.log("Categories:", categories);
   console.log("Loading:", isLoading);
   console.log("Error:", isError, error);
@@ -51,8 +46,8 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 <option value="">Filter by category</option>
                 {isLoading && <option>Loading...</option>}
                 {isError && <option>Error loading categories</option>}
-                {data?.categoryReturn &&
-                  data.categoryReturn.map((category: string, index: number) => (
+                {categories?.categoryReturn &&
+                  categories.categoryReturn.map((category: string, index: number) => (
                     <option key={index} value={category}>
                       {category}
                     </option>
@@ -82,5 +77,4 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
     </div>
   );
 };
-
 export default BannerCategory;
