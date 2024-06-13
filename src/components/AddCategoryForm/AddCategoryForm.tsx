@@ -21,9 +21,9 @@ const AddCategoryForm: React.FC = () => {
     setIsSubmitting(true)
     // try {
     //   await dispatch(addCategory(data.categoryName))
-    //   toast.success('Categoría agregada exitosamente')
+    //   toast.success('Category added successfully')
     // } catch (error) {
-    //   toast.error('Error al agregar categoría. Por favor intenta nuevamente.')
+    //   toast.error('Error adding category. Please try again.')
     // } finally {
     //   setIsSubmitting(false)
     // }
@@ -41,12 +41,12 @@ const AddCategoryForm: React.FC = () => {
           <div className='flex-grow relative'>
             <input
               className='w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer'
-              placeholder='Nombre de la Categoría'
+              placeholder='Category Name'
               type='text'
               id='categoryName'
               {...register('categoryName', {
-                required: 'El nombre de la categoría es obligatorio.',
-                maxLength: { value: 50, message: 'El nombre de la categoría no puede tener más de 50 caracteres.' }
+                required: 'Category name is required.',
+                maxLength: { value: 50, message: 'Category name cannot exceed 50 characters.' }
               })}
             />
             <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
@@ -60,7 +60,7 @@ const AddCategoryForm: React.FC = () => {
             className='w-full text-white px-4 py-3 rounded font-semibold transition duration-300'
             style={{ backgroundColor: '#4537D4' }}
           >
-            {isSubmitting ? 'Agregando...' : 'Agregar Categoría'}
+            {isSubmitting ? 'Adding...' : 'Add Category'}
           </button>
         </div>
       </form>
