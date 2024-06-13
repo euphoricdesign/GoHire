@@ -30,7 +30,7 @@ const AddCategoryForm: React.FC = () => {
   }
 
   return (
-    <div className='relative block overflow-hidden rounded-lg border-gray-100 p-4 sm:pt-6 sm:pr-6 sm:pl-6 lg:pt-8 lg:pr-8 lg:pl-8 form-container shadow-md'>
+    <div className='relative max-w-xl block overflow-hidden rounded-lg border-gray-100 p-4 sm:pt-6 sm:pr-6 sm:pl-6 lg:pt-8 lg:pr-8 lg:pl-8 form-container shadow-md'>
       <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
       <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
