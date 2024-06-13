@@ -1,7 +1,6 @@
 import { UserData } from "@/types/userTypes";
 import Modal from "react-modal";
-import { FaWpforms } from "react-icons/fa6";
-import { FaPencil } from "react-icons/fa6";
+import { FaWpforms, FaPencil } from "react-icons/fa6";
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -9,6 +8,7 @@ interface ProfileModalProps {
   field: string | null;
   user: UserData | undefined;
   onSave: (updatedData: Partial<UserData>) => void;
+  ariaHideApp: boolean;
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({
@@ -17,6 +17,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   field,
   user,
   onSave,
+  ariaHideApp,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,8 +26,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
     const updatedData: Partial<UserData> = {};
 
     formData.forEach((value, key) => {
-      if (typeof value === "string") {
-        updatedData[key as keyof UserData] = value;
+      if (typeof value === "string" && key in user!) {
+        updatedData[key as keyof UserData] = value as any;
       }
     });
 
@@ -78,12 +79,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
         return (
           <div>
             <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-              <FaWpforms />
               <label className="font-bold text-sm">Your City</label>
               <div className="relative flex items-center">
                 <input
                   className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-                  name="name"
+                  name="city"
                   type="text"
                   defaultValue={user?.city}
                 />
@@ -92,7 +92,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
               <label className="font-bold text-sm mt-4">Your Country</label>
               <div className="relative flex items-center">
                 <input
-                  name="lastName"
+                  name="country"
                   type="text"
                   defaultValue={user?.country}
                   className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
@@ -110,8 +110,14 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
       case "bio":
         return (
           <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label>Bio</label>
-            <textarea name="bio" defaultValue={user?.bio}></textarea>
+            <label className="font-bold text-sm mt-4">My Description</label>
+            <div className="relative flex">
+              <textarea
+                className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
+                name="bio"
+                defaultValue={user?.bio}></textarea>
+              <FaPencil className="absolute right-3 top-2 text-gray-400 peer-focus:text-[#3C65F5]" />
+            </div>
             <button
               type="submit"
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
@@ -124,7 +130,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
           <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
             <label>Professions</label>
             <input
-              name="profesions"
+              name="professions"
               type="text"
               defaultValue={user?.profesions.map((prof) => prof.category).join(", ")}
             />
@@ -140,7 +146,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
           <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
             <label>Education</label>
             <input
-              name="educations"
+              name="education"
               type="text"
               defaultValue={user?.educations.map((edu) => edu.title).join(", ")}
             />
@@ -160,6 +166,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
+      ariaHideApp={ariaHideApp}
       style={{
         content: {
           top: "50%",

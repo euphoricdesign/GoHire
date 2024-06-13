@@ -16,6 +16,32 @@ const UserProfile = () => {
   const [currentField, setCurrentField] = useState<string | null>(null);
   const [show, setShow] = useState(true);
   const [isAvailable, setIsAvailable] = useState(false);
+  const [userData, setUserData] = useState<UserData | undefined>(user);
+
+  ////////////// pendiente /////////////////
+
+  const handleEdit = (field: string) => {
+    setCurrentField(field);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setCurrentField(null);
+  };
+
+  const handleSave = async (updatedData: Partial<UserData>) => {
+    if (user) {
+      try {
+        const result = await updateUser({ id: user.id, ...updatedData }).unwrap();
+        setUserData(result); // Actualizar el estado del usuario con la nueva información
+      } catch (error) {
+        console.error("Error updating user:", error);
+      }
+    }
+  };
+
+  /////////////////////////////////////////
 
   const openModal = (field: string) => {
     setCurrentField(field);
@@ -33,8 +59,13 @@ const UserProfile = () => {
     }
   };
 
-  if (getUserLoading) return <p>Loading...</p>;
-  if (getUserError) return <p>Error loading user data</p>;
+  if (getUserLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (getUserError) {
+    return <p>Error fetching user data</p>;
+  }
 
   const handleAvailableClick = () => {
     setIsAvailable(!isAvailable);
@@ -93,9 +124,9 @@ const UserProfile = () => {
                         <h2 className="text-[#3D63DD] text-[12px]">Available Now</h2>
                       </div>
                     ) : (
-                      <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
-                        <TfiBolt className="text-[#3D63DD] mr-1" />
-                        <h2 className="text-[#3D63DD] text-[12px]">Not Available</h2>
+                      <div className="flex items-center border border-[#e44d4d] w-fit px-3 py-1 rounded-xl">
+                        <TfiBolt className="text-[#e44d4d] mr-1" />
+                        <h2 className="text-[#e44d4d] text-[12px]">Not Available</h2>
                       </div>
                     )}
                     <button onClick={handleAvailableClick}>
@@ -181,15 +212,6 @@ const UserProfile = () => {
             <div className="mt-5">
               <div className="flex items-center mb-3 justify-between">
                 <div className="font-bold mx-[1.5rem] text-[#05264E]">Work History:</div>
-                <div>
-                  <button onClick={handleShowClick}>
-                    {show ? (
-                      <BsEye className="text-[#3D63DD] size-6 cursor-pointer mr-5" />
-                    ) : (
-                      <BsEyeSlash className="text-[#3D63DD] size-6 cursor-pointer mr-5" />
-                    )}
-                  </button>
-                </div>
               </div>
               <div>
                 <div className="border p-4 rounded-md shadow-md mb-12 mx-[1.5rem]">
@@ -217,6 +239,7 @@ const UserProfile = () => {
           field={currentField}
           user={user}
           onSave={handleUpdateUser}
+          ariaHideApp={false}
         />
       )}
     </div>
