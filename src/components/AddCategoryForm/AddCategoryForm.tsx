@@ -1,0 +1,71 @@
+'use client'
+
+import React, { useState, ChangeEvent } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useDispatch } from 'react-redux'
+
+import { FaFolder } from 'react-icons/fa'
+
+interface CategoryFormData {
+  categoryName: string
+}
+
+const AddCategoryForm: React.FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<CategoryFormData>()
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const dispatch = useDispatch()
+
+  const onSubmit: SubmitHandler<CategoryFormData> = async (data) => {
+    setIsSubmitting(true)
+    // try {
+    //   await dispatch(addCategory(data.categoryName))
+    //   toast.success('Categoría agregada exitosamente')
+    // } catch (error) {
+    //   toast.error('Error al agregar categoría. Por favor intenta nuevamente.')
+    // } finally {
+    //   setIsSubmitting(false)
+    // }
+  }
+
+  return (
+    <div className='relative block overflow-hidden rounded-lg border-gray-100 p-4 sm:pt-6 sm:pr-6 sm:pl-6 lg:pt-8 lg:pr-8 lg:pl-8 form-container shadow-md'>
+      <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+      <ToastContainer />
+      <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+        <div className='flex items-center'>
+          <div className='w-10 text-[#3C65F5]'>
+            <FaFolder className='w-5 h-5' />
+          </div>
+          <div className='flex-grow relative'>
+            <input
+              className='w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer'
+              placeholder='Nombre de la Categoría'
+              type='text'
+              id='categoryName'
+              {...register('categoryName', {
+                required: 'El nombre de la categoría es obligatorio.',
+                maxLength: { value: 50, message: 'El nombre de la categoría no puede tener más de 50 caracteres.' }
+              })}
+            />
+            <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
+            {errors.categoryName && <span className="text-red-500 text-xs mt-1">{errors.categoryName.message}</span>}
+          </div>
+        </div>
+        <div>
+          <button
+            type='submit'
+            disabled={isSubmitting}
+            className='w-full text-white px-4 py-3 rounded font-semibold transition duration-300'
+            style={{ backgroundColor: '#4537D4' }}
+          >
+            {isSubmitting ? 'Agregando...' : 'Agregar Categoría'}
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default AddCategoryForm
