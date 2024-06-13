@@ -50,6 +50,7 @@ export const userApi = createApi({
     }),
     updateUser: builder.mutation<UserData, Partial<UserData> & { id: string }>({
       query: ({ id, ...patch }) => {
+        console.log(patch);
         const token = localStorage.getItem("token");
         return {
           url: `users/${id}`,
