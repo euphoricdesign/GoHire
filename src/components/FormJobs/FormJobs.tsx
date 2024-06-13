@@ -65,7 +65,8 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
       formData.append('remoteWork', data.remoteWork.toString()); // Convertir a string
       if (data.file) formData.append('file', data.file);
 
-      await postJob(formData).unwrap();
+      const post = await postJob(formData).unwrap();
+      console.log(post)
       toast.success("Post created successfully!");
 
       const nuevoObjeto = Object.assign({}, dataSelect);

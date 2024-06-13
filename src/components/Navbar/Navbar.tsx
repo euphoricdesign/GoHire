@@ -146,7 +146,7 @@ const Navbar: React.FC = () => {
         </label>
         <nav className="navbar">
           <a className="text-sm" href="/users" style={{ "--i": 1 } as AnchorProps}>
-            Users
+            Talents
           </a>
           <a className="text-sm" href="/jobs" style={{ "--i": 3 } as AnchorProps}>
             Jobs
