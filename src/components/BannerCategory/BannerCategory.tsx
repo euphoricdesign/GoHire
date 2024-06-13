@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 import React from "react";
@@ -17,22 +17,19 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
   handleCategoryChange,
   selectedCountry,
   handleCountryChange,
-  count
+  count,
 }) => {
   const { data: categories, isLoading, isError, error } = useGetCategoryQuery(null);
 
   // Agregar logs para depuración
-  console.log('Categories:', categories);
-  console.log('Loading:', isLoading);
-  console.log('Error:', isError, error);
+  console.log("Categories:", categories);
+  console.log("Loading:", isLoading);
+  console.log("Error:", isError, error);
 
   return (
     <div className="bg-bannerBg bg-center flex flex-col justify-center items-center p-[40px] rounded-xl mt-[100px]">
       <h2 className="text-[28px] text-[#05264E] font-[700] z-10">
-        <span className="text-[#3C65F5] relative spanAfterSm">
-          {count || 0} Jobs
-        </span>{" "}
-        Available Now
+        <span className="text-[#3C65F5] relative spanAfterSm">{count || 0} Jobs</span> Available Now
       </h2>
       <p className="leading-custom text-sm font-medium text-[#66789C] text-center mt-[12px]">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero repellendus magni, <br />{" "}
@@ -47,16 +44,16 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 id="category"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                className="py-[0.6rem] px-4 focus:outline-none w-full"
-              >
+                className="py-[0.6rem] px-4 focus:outline-none w-full">
                 <option value="">Filter by category</option>
                 {isLoading && <option>Loading...</option>}
                 {isError && <option>Error loading categories</option>}
-                {categories && categories.map((category: string, index: number) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                ))}
+                {categories?.categoryReturn &&
+                  categories.categoryReturn.map((category: string, index: number) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
               </select>
 
               <FaSearchLocation className="text-[40px]" />
@@ -64,14 +61,16 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 id="city"
                 value={selectedCountry}
                 onChange={handleCountryChange}
-                className="py-[0.6rem] px-4 focus:outline-none w-full"
-              >
-                <option value="">Filter by Country</option>
-                <option value="Brasil">Brasil</option>
-                <option value="Paraguay">Paraguay</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Chile">Chile</option>
-                <option value="Uruguay">Uruguay</option>
+                className="py-[0.6rem] px-4 focus:outline-none w-full">
+                <option value="">Filter by Location</option>
+                {isLoading && <option>Loading...</option>}
+                {isError && <option>Error loading categories</option>}
+                {categories?.locationReturn &&
+                  categories.locationReturn.map((location: string, index: number) => (
+                    <option key={index} value={location}>
+                      {location}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
