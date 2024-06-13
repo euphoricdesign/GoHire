@@ -9,6 +9,8 @@ interface PaymentData {
     title: string,
     quantity: number, // 7 días
     unit_price: number,
+    description: string,
+    idPost: string
     // etc.
 }
 
