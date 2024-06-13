@@ -19,10 +19,10 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
   handleCountryChange,
   count
 }) => {
-  const { data: categories, isLoading, isError, error } = useGetCategoryQuery(null);
+  const { data, isLoading, isError, error } = useGetCategoryQuery(null);
 
   // Agregar logs para depuración
-  console.log('Categories:', categories);
+  console.log('Categories:', data);
   console.log('Loading:', isLoading);
   console.log('Error:', isError, error);
 
@@ -52,7 +52,7 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 <option value="">Filter by category</option>
                 {isLoading && <option>Loading...</option>}
                 {isError && <option>Error loading categories</option>}
-                {categories && categories.map((category: string, index: number) => (
+                {data && data.map((category: string, index: number) => (
                   <option key={index} value={category}>
                     {category}
                   </option>

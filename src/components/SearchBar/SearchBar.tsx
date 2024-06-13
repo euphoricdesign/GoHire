@@ -2,27 +2,27 @@
 
 import React, { useEffect, useState } from 'react'
 import { GoPencil } from "react-icons/go";
-import { useGetAllJobsQuery } from '@/lib/services/jobsApi';
-import { JobsData } from '@/types/jobsTypes';
+import { useGetAllPublicationQuery } from '@/lib/services/jobsApi';
+import {JobsData } from '@/types/jobsTypes';
 import Link from 'next/link';
 
 const SearchBar = () => {
-  const { data, isLoading } = useGetAllJobsQuery(null);
-  const [job, setJob] = useState<JobsData[] | []>([]);
+  const { data, isLoading } = useGetAllPublicationQuery(null);
+  const [job, setJob] = useState<JobsData[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      setJob(data);
+    if (data && data?.publicationsFind?.length > 0) {
+      setJob(data.publicationsFind);
       setLoading(false);
     }
   }, [data]);
 
-  const filteredJobs = job.filter(jobItem =>
+  const filteredJobs = data?.publicationsFind?.filter(jobItem =>
     jobItem.category.includes(searchTerm)
   );
-
+  
   const JobsItem = ({ job }: { job: JobsData }) => (
     <article className="rounded-xl border-2 border-gray-100 bg-white p-2 mb-1">
       <div className="flex items-start gap-2">
@@ -65,7 +65,7 @@ const SearchBar = () => {
           </div>
           {searchTerm.length > 0 && !loading && (
             <div className="absolute z-10 bg-white text-blue-700 w-full rounded-md mt-1 max-h-60 overflow-y-auto">
-              {filteredJobs.map(job => (
+              {filteredJobs?.map(job => (
                 <JobsItem key={job.id} job={job} />
               ))}
             </div>

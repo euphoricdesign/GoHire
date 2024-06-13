@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { JobsData, JobsFindData } from "@/types/jobsTypes";
 import type { RootState } from '@/lib/store';
 import { Category } from "@/types/categoryType";
+
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
   baseQuery: fetchBaseQuery({
@@ -49,19 +50,16 @@ export const jobsApi = createApi({
       query: () => `publication/category`
        
     }),
-
-
-
-
-
-
+    getAllPublication: builder.query<JobsFindData,null>({
+      query: () => `publication/allPublications`
+    }),
   }),
 });
 
 // builder.query es cuando se quiere hacer una peticion tipo GET
 // builder.mutation es cuando se quiere hacer una modificacion de datos POST PUT
 
-export const { useGetAllJobsQuery, useGetJobByIdQuery, usePostJobMutation, useListJobsQuery, useGetCategoryQuery } =
+export const { useGetAllJobsQuery, useGetJobByIdQuery, usePostJobMutation, useListJobsQuery, useGetCategoryQuery, useGetAllPublicationQuery } =
   jobsApi;
 
 // se crean hooks de react desde la configuracion del enrutado de jobsApi con el nombre de hook use+{endpoint}+Query
