@@ -1,24 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { JobsData } from "@/types/jobsTypes";
 import JobInfo from "@/components/JobsInfo/JobsInfo";
 import { ToastContainer } from 'react-toastify';
-import { useGetAllJobsQuery } from '@/lib/services/jobsApi';
+import { useGetJobByIdQuery } from '@/lib/services/jobsApi';
 import 'react-toastify/dist/ReactToastify.css';
 
-const JobDetail: React.FC = () => {
-  const { id } = useParams();
-  const { data, isLoading } = useGetAllJobsQuery(null);
-  const [job, setJob] = useState<JobsData | null>(null);
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      const filteredJob = data.find(jobItem => jobItem.id === id);
-      setJob(filteredJob || null);
-    }
-  }, [data, id]);
-
+const JobDetail= ({ params }: { params: { id: string } }) => {
+  const { data: jobArray, error, isLoading } = useGetJobByIdQuery({ id: params.id });
+  const job = jobArray ? jobArray[0] : null; 
+console.log("job: ", job)
   return (
     <div className="container mx-auto">
       <ToastContainer />

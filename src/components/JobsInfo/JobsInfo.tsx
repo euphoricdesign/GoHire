@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { JobsData } from '@/types/jobsTypes';
 
 const JobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
-  const { data, error, isLoading } = useGetUserByIdQuery({ id: selectedJob.user.id });
-
+  const { data, error, isLoading } = useGetUserByIdQuery({ id: selectedJob.user?.id });
+console.log("jobInfo: ", selectedJob)
   if (error || !data) {
     return <div>User not found</div>;
   }

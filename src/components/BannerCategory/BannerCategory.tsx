@@ -3,7 +3,6 @@
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 import React from "react";
 import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
-
 interface BannerCategoryProps {
   selectedCategory: string;
   handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -11,7 +10,6 @@ interface BannerCategoryProps {
   handleCountryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   count: number | undefined;
 }
-
 const BannerCategory: React.FC<BannerCategoryProps> = ({
   selectedCategory,
   handleCategoryChange,
@@ -79,5 +77,4 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
     </div>
   );
 };
-
 export default BannerCategory;

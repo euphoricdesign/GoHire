@@ -1,5 +1,6 @@
 import React from "react";
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
+import {CategoryResponse} from "@/types/categoryType"
 
 interface CategorySelectProps {
   selectedCategory: string;
@@ -14,7 +15,7 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
 
   return (
     <div>
-      <label htmlFor="category" className="block text-sm font-medium text-gray-700"></label>
+      <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
       <select
         id="category"
         value={selectedCategory}
@@ -24,11 +25,11 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
         {isLoading && <option>Loading...</option>}
         {isError && <option>Error loading categories</option>}
         {categories?.categoryReturn &&
-          categories.categoryReturn.map((category: string, index: number) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
+                  categories.categoryReturn.map((category: string, index: number) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
       </select>
     </div>
   );
