@@ -27,6 +27,8 @@ interface Plan {
   title: string;
   quantity: number;
   unit_price: number;
+  description: string;
+  idPost: string
 }
 
 const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) => {
@@ -55,7 +57,6 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
   };
 
   const onSubmit: SubmitHandler<JobsPostData> = async (data) => {
-    console.log(data);
     try {
       const formData = new FormData();
       formData.append('title', data.title);
@@ -65,11 +66,13 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
       formData.append('remoteWork', data.remoteWork.toString()); // Convertir a string
       if (data.file) formData.append('file', data.file);
 
-      await postJob(formData).unwrap();
+      const post = await postJob(formData).unwrap();
       toast.success("Post created successfully!");
 
       const nuevoObjeto = Object.assign({}, dataSelect);
-      delete nuevoObjeto.id;
+      delete nuevoObjeto.id
+      nuevoObjeto['idPost'] = post?.id
+      console.log(nuevoObjeto)
       const result = await postPayment(nuevoObjeto).unwrap();
 
       dispatch(setPaymentData(result));
