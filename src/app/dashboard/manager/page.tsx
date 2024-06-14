@@ -3,9 +3,9 @@ import JobPostingManagement from '@/components/JobPostingMagement/JobPostingMana
 import Reports from '@/components/Reports/Reports';
 import UserManagement from '@/components/UserManagement/UserManagement';
 import SettingsAdmin from '@/components/SettingsAdmin/SettingsAdmin';
-
 import Image from 'next/image';
 import React, { useState } from 'react';
+import ButtonCategory from '@/components/CategoryAdmin/CategoryAdmin';
 
 const AdminDashboard = () => {
   const [selectedOption, setSelectedOption] = useState('Users');
@@ -28,6 +28,9 @@ const AdminDashboard = () => {
     case 'Settings':
       content = <SettingsAdmin />;
       break;
+      case 'Category':
+        content = <ButtonCategory />;
+        break;
     default:
       content = 'No content available';
   }
@@ -68,6 +71,14 @@ const AdminDashboard = () => {
             onClick={() => handleOptionClick('Settings')}
           >
             Settings
+          </div>
+          <div
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === 'Category' && 'text-[#3C65F5]'
+            }`}
+            onClick={() => handleOptionClick('Category')}
+          >
+            Category
           </div>
         </div>
       </div>
