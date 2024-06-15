@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const UserRegistrationReport = () => {
+const UserRegistrationReport: React.FC = () => {
   // Datos que vendrían del backend
   const data = [
     { month: 'Jan', newUsers: 120 },
