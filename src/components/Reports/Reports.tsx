@@ -1,3 +1,6 @@
+import JobPostingActivity from "../JobPostingActivity/JobPostingActivity";
+import UserRegistrationReport from "../UserRegistrationReport/UserRegistrationReport";
+
 const Reports = () => {
     return (
       <div>
@@ -6,18 +9,12 @@ const Reports = () => {
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-lg font-bold mb-2">User Registration</h3>
             {/* Render user registration report data */}
+            <UserRegistrationReport />
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-lg font-bold mb-2">Job Posting Activity</h3>
             {/* Render job posting activity report data */}
-          </div>
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-2">User Activity</h3>
-            {/* Render user activity report data */}
-          </div>
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-2">Application Statistics</h3>
-            {/* Render application statistics report data */}
+            <JobPostingActivity />
           </div>
         </div>
       </div>
