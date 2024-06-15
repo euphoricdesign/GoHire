@@ -34,4 +34,5 @@ export interface UserData {
   experiences: UserExperiences[];
   description: string;
   token?: string;
+  email?: string;
 }
