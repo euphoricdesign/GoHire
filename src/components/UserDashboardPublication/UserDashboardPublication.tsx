@@ -8,7 +8,6 @@ import {
 } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import CardJobs from "../../components/CardJobs/CardJobs";
-// import EditUserPublication from "@/components/EditUserPublication/EditUserPublication";
 import Toastify from "toastify-js";
 
 const UserDashboardPublication = () => {
@@ -40,9 +39,18 @@ const UserDashboardPublication = () => {
     }
   };
 
-  const handleEdit = (job: JobsData) => {
-    setSelectedJobPost(job);
-    setIsEditing(true);
+  const [updateJob] = useUpdateJobMutation();
+
+  const handleEdit = async (updatedJob: Partial<JobsData>) => {
+    if (selectedJobPost) {
+      try {
+        await updateJob({ id: selectedJobPost.id, updatedJob });
+        setSelectedJobPost(null);
+        setIsEditing(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const filteredJobsByUser = data?.publicationsFind?.filter(
@@ -65,8 +73,8 @@ const UserDashboardPublication = () => {
                 key={job.id}
                 {...job}
                 onClick={() => handleDescription(job)}
-                onEdit={() => handleEdit(job)}
-                isEditable={true} // Pasar la prop isEditable para hacer el componente editable
+                onEdit={handleEdit}
+                isEditable={true}
               />
             ))
           ) : (
@@ -74,9 +82,6 @@ const UserDashboardPublication = () => {
           )}
         </div>
       )}
-      {/* {isEditing && selectedJobPost && (
-        <EditUserPublication job={selectedJobPost} jobId={selectedJobPost.id} />
-      )} */}
     </div>
   );
 };
