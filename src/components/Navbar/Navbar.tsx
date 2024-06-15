@@ -2,12 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import LoginButton from "@/app/api/auth/LoginButton";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import LogOutButton from "@/app/api/auth/LogoutButton";
-import { usePostUserMutation } from "@/lib/services/userApi";
-import { userPostData } from "@/types/userTypes";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserDetail, clearUserDetail, selectUserDetail } from "@/lib/features/slices/userSlice";
 import { MdOutlineLightMode, MdKeyboardArrowDown, MdOutlineSpaceDashboard, MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
 import User from '../../../public/user.svg'
 import Image from "next/image";
@@ -15,6 +10,7 @@ import Link from "next/link";
 import Toastify from 'toastify-js'
 import { useRouter } from "next/navigation";
 import Logo from '../../../public/searchLogo.svg'
+import { useAuth } from '@/providers/AuthProvider';
 import "../../utils/Navbar.css";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -22,20 +18,19 @@ interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const Navbar: React.FC = () => {
-  const { user, isLoading } = useUser();
-  const [postUser] = usePostUserMutation();
-  const dispatch = useDispatch();
-  const userDetail = useSelector(selectUserDetail);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const modalRef = useRef<HTMLDivElement | null>(null)
   const currentClickRef = useRef<EventTarget | null>(null) 
 
+
+  const { user, isLoading, userDetail } = useAuth();
+  
+
   const router = useRouter()
 
   const handleShowModal = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("si se ejecuta el efecto")
     currentClickRef.current = event.target 
     setShowModal((prevShowModal) => !prevShowModal) 
   } 
@@ -63,34 +58,6 @@ const Navbar: React.FC = () => {
       router.push('/formJobs')
     }
   }
-
-  useEffect(() => {
-    const postUserData = async () => {
-      if (user && !userDetail) {
-        console.log("No userDetail found, posting user data");
-        const userData: userPostData = {
-          name: user.name || "",
-          email: user.email || "",
-          email_verified: user.email_verified || false,
-          nickname: user.nickname || "",
-          picture: user.picture || "",
-        };
-
-        try {
-          const result = await postUser(userData).unwrap();
-          console.log("User data posted successfully, result:", result);
-          dispatch(setUserDetail(result));
-        } catch (error) {
-          console.error("Failed to post user data:", error);
-        }
-      } else if (!user) {
-        // console.log("User is not logged in, clearing userDetail");
-        dispatch(clearUserDetail());
-      }
-    };
-
-    postUserData();
-  }, [user, postUser, dispatch, userDetail]);
 
   useEffect(() => {
     const handleScroll = () => {
