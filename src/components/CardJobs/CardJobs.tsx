@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { JobsData } from "@/types/jobsTypes";
+import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 
 const CardJobs = ({
   id,
@@ -18,13 +19,14 @@ const CardJobs = ({
 }: JobsData & { onClick: () => void; onEdit?: (updatedJob: Partial<JobsData>) => void; isEditable?: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ title, description, category });
+  const { data: categories, isLoading, isError } = useGetCategoryQuery(null);
 
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setIsEditing(true);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -93,13 +95,21 @@ const CardJobs = ({
           <h6 className="font-bold text-xs text-[#05264E] text-left">Looking for:</h6>
           <ul className="list-none text-sm text-[#05264E] flex flex-wrap">
             {isEditing ? (
-              <input
-                type="text"
+              <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
                 className="border border-slate-300 rounded-lg inline-block my-4 p-1"
-              />
+              >
+                {isLoading && <option>Loading...</option>}
+                {isError && <option>Error loading categories</option>}
+                {categories?.categoryReturn &&
+                  categories.categoryReturn.map((category: string, index: number) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+              </select>
             ) : (
               <li className="border border-slate-300 rounded-lg inline-block my-4 p-1">
                 {category}
