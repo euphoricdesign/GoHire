@@ -45,6 +45,15 @@ const UserDashboardPublication = () => {
     if (selectedJobPost) {
       try {
         await updateJob({ id: selectedJobPost.id, updatedJob });
+        const myToast = Toastify({
+        text: "The publication was successfully updated",
+        className: "toastify",
+        position: "right",
+        gravity: "bottom",
+        duration: 999999999,
+        close: true,
+      });
+      myToast.showToast();
         setSelectedJobPost(null);
         setIsEditing(false);
       } catch (error) {
