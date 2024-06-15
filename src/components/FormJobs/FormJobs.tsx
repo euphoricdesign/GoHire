@@ -23,12 +23,12 @@ interface FormJobsProps {
 }
 
 interface Plan {
-  id?: number;
+  idPubli?: number;
   title: string;
   quantity: number;
   unit_price: number;
   description: string;
-  idPost: string
+  id: string
 }
 
 const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) => {
@@ -45,7 +45,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
   const router = useRouter();
 
   const handlePlanChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedPlan = plans.find(plan => plan.id === parseInt(e.target.value));
+    const selectedPlan = plans.find(plan => plan.idPubli === parseInt(e.target.value));
     if (selectedPlan) {
       setDataSelect(selectedPlan);
     }
@@ -70,8 +70,8 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
       toast.success("Post created successfully!");
 
       const nuevoObjeto = Object.assign({}, dataSelect);
-      delete nuevoObjeto.id
-      nuevoObjeto['idPost'] = post?.id
+      delete nuevoObjeto.idPubli
+      nuevoObjeto['id'] = post?.id
       console.log(nuevoObjeto)
       const result = await postPayment(nuevoObjeto).unwrap();
 
@@ -258,8 +258,8 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
                     >
                       <option value="">Selecciona un plan</option>
                       {plans.map(plan => (
-                        <option key={plan.id} value={plan.id}>
-                          {plan.title} ({plan.quantity} días - ${plan.unit_price})
+                        <option key={plan.idPubli} value={plan.idPubli}>
+                          {plan.title} (- ${plan.unit_price})
                         </option>
                       ))}
                     </select>
