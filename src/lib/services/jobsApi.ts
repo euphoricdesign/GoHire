@@ -3,10 +3,12 @@ import { JobsData, JobsFindData, JobsPostData } from "@/types/jobsTypes";
 import type { RootState } from '@/lib/store';
 import { Category, CategoryResponse } from "@/types/categoryType";
 
+const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
+
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "RUTA_BACKEND_ONRENDER",
+    baseUrl,
     prepareHeaders: (headers, { getState, endpoint }) => {
       const token = (getState() as RootState).user.userDetail?.token;
       if (token) {

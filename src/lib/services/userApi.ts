@@ -2,11 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData, UsersData } from "@/types/userTypes";
 import type { RootState } from "@/lib/store";
 
-// Define el API con todas las consultas y mutaciones
+
+const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
+
+
 export const userApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "RUTA_BACKEND_ONRENDER",
+    baseUrl,
     prepareHeaders: (headers, { getState, endpoint }) => {
       if (endpoint === "postJob" || "listJobs" || "getUserMe") {
         const token = (getState() as RootState).user.userDetail?.token;

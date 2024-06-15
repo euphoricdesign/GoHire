@@ -31,10 +31,12 @@ export interface PaymentResponse {
   // etc.
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
+
 export const paymentsApi = createApi({
   reducerPath: "paymentsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "RUTA_BACKEND_ONRENDER",
+    baseUrl,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.userDetail?.token;
       if (token) {
