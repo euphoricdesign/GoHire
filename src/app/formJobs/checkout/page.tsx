@@ -23,22 +23,20 @@ const Checkout: React.FC = () => {
 
     switch (item.description) {
         case '7 días':
-            duration = '7 días'
+            duration = item.description
             break;
         
         case '15 días':
-            duration = '15 días'
+            duration = item.description
             break;
 
         case '30 días':
-            duration = '30 días'
+            duration = item.description
             break;
     
         default:
             break;
     }
-
-
 
     const handleMpChange = (event: ChangeEvent<HTMLInputElement>) => {
         setIsMercadoPagoChecked(event.target.checked);
@@ -94,7 +92,11 @@ const Checkout: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <p>Loading...</p>
+                <div className="w-full flex flex-row gap-2 justify-center items-center">
+                    <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+                    <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+                </div>
             )
         }
     </>
