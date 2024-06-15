@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar/Navbar";
 import StoreProvider from "./StoreProvider";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Metadata } from "next";
+
+import AuthProvider from '../providers/AuthProvider';
+
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,8 +22,10 @@ export default function RootLayout({
       <body className={plus_jakarta_sans.className}>
         <StoreProvider>
           <UserProvider>
-            <Navbar />
-            {children}
+            <AuthProvider>
+              <Navbar />
+              {children}
+            </AuthProvider>
           </UserProvider>
         </StoreProvider>
       </body>
