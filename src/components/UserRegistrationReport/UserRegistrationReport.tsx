@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 
 const UserRegistrationReport = () => {
-  // Datos que vendrían del back
+  // Datos que vendrían del backend
   const data = [
     { month: 'Jan', newUsers: 120 },
     { month: 'Feb', newUsers: 150 },
