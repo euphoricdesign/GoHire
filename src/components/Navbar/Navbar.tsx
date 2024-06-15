@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import "../../utils/Navbar.css";
-import { usePathname } from "next/navigation";
 import LoginButton from "@/app/api/auth/LoginButton";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import LogOutButton from "@/app/api/auth/LogoutButton";
@@ -16,6 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Toastify from 'toastify-js'
 import { useRouter } from "next/navigation";
+import Logo from '../../../public/searchLogo.svg'
+import "../../utils/Navbar.css";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
@@ -93,10 +93,6 @@ const Navbar: React.FC = () => {
   }, [user, postUser, dispatch, userDetail]);
 
   useEffect(() => {
-    // console.log("Current userDetail:", userDetail);
-  }, [userDetail]);
-
-  useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.pageYOffset);
     };
@@ -132,9 +128,12 @@ const Navbar: React.FC = () => {
         scrollPosition > 0 ? "scrolled" : ""
       }`}>
       <div className="flex items-center">
-        <a href="/" className="logo mr-10">
-          Logo
-        </a>
+        <div className="flex items-center">
+          <Image className="w-[40px]" src={Logo} alt="" />
+          <a href="/" className="logo mr-10">
+            GoHire
+          </a>
+        </div>
         <input type="checkbox" id="check" />
         <label htmlFor="check" className="icons">
           <i id="menu-icon" className="icon">
