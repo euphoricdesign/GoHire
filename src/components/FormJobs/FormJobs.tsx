@@ -259,7 +259,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
                       <option value="">Selecciona un plan</option>
                       {plans.map(plan => (
                         <option key={plan.idPubli} value={plan.idPubli}>
-                          {plan.title} (- ${plan.unit_price})
+                          {plan.title} (${plan.unit_price})
                         </option>
                       ))}
                     </select>
