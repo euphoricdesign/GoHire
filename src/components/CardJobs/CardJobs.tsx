@@ -13,8 +13,8 @@ const CardJobs = ({
   category,
   user,
   onClick,
-  onEdit,
-  isEditable = false,
+  onEdit, // Prop para la función onEdit
+  isEditable = false, // Prop para indicar si el componente es editable, por defecto es false
 }: JobsData & { onClick: () => void; onEdit?: (updatedJob: Partial<JobsData>) => void; isEditable?: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ title, description, category });
