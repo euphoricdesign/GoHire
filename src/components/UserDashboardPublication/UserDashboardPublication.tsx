@@ -12,8 +12,11 @@ import Toastify from "toastify-js";
 
 const UserDashboardPublication = () => {
   const { user, isLoading: userLoading } = useUser();
-  const { data, isLoading: publicationLoading } =
-    useGetAllPublicationQuery(null);
+  const {
+    data,
+    isLoading: publicationLoading,
+    refetch,
+  } = useGetAllPublicationQuery(null);
 
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
@@ -46,17 +49,29 @@ const UserDashboardPublication = () => {
       try {
         await updateJob({ id: selectedJobPost.id, updatedJob });
         const myToast = Toastify({
-        text: "The publication was successfully updated",
-        className: "toastify",
-        position: "right",
-        gravity: "bottom",
-        duration: 999999999,
-        close: true,
-      });
-      myToast.showToast();
+          text: "The publication was successfully updated",
+          className: "toastify",
+          position: "right",
+          gravity: "bottom",
+          duration: 3000,
+          close: true,
+          backgroundColor: "green",
+        });
+        myToast.showToast();
         setSelectedJobPost(null);
         setIsEditing(false);
+        refetch();
       } catch (error) {
+        const myToast = Toastify({
+          text: "Failed to update the publication!",
+          className: "toastify",
+          position: "right",
+          gravity: "bottom",
+          duration: 3000,
+          close: true,
+          backgroundColor: "red",
+        });
+        myToast.showToast();
         console.log(error);
       }
     }
