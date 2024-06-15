@@ -15,11 +15,16 @@ const CardJobs = ({
   user,
   onClick,
   onEdit, // Prop para la función onEdit
+  onDelete, // Prop para la función onDelete
   isEditable = false, // Prop para indicar si el componente es editable, por defecto es false
-}: JobsData & { onClick: () => void; onEdit?: (updatedJob: Partial<JobsData>) => void; isEditable?: boolean }) => {
+}: JobsData & { onClick: () => void; onEdit?: (updatedJob: Partial<JobsData>) => void; onDelete?: () => void; isEditable?: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ title, description, category });
   const { data: categories, isLoading, isError } = useGetCategoryQuery(null);
+
+  useEffect(() => {
+    setFormData({ title, description, category });
+  }, [title, description, category]);
 
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -36,6 +41,13 @@ const CardJobs = ({
       onEdit(formData);
     }
     setIsEditing(false);
+  };
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (onDelete) {
+      onDelete();
+    }
   };
 
   return (
@@ -59,12 +71,22 @@ const CardJobs = ({
               <h3 className="text-lg font-bold text-[#05264E] sm:text-xl">{title}</h3>
             )}
             {isEditable && (
-              <button
-                onClick={handleEditClick}
-                className="bg-[#ec8d2f] text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300"
-              >
-                Edit
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleEditClick}
+                  className="bg-[#ec8d2f] text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300"
+                >
+                  Edit
+                </button>
+                {onDelete && (
+                  <button
+                    onClick={handleDelete}
+                    className="bg-red-500 text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300"
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             )}
             {!isEditable && (
               <div className="bg-[#3C65F5] text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300">

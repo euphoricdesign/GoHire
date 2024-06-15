@@ -5,6 +5,7 @@ import { selectUserDetail } from "@/lib/features/slices/userSlice";
 import {
   useGetAllPublicationQuery,
   useUpdateJobMutation,
+  useDeleteJobMutation,
 } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import CardJobs from "../../components/CardJobs/CardJobs";
@@ -43,11 +44,12 @@ const UserDashboardPublication = () => {
   };
 
   const [updateJob] = useUpdateJobMutation();
+  const [deleteJob] = useDeleteJobMutation(); // Usa la mutación de eliminación
 
   const handleEdit = async (updatedJob: Partial<JobsData>) => {
     if (selectedJobPost) {
       try {
-        await updateJob({ id: selectedJobPost.id, updatedJob });
+        await updateJob({ id: selectedJobPost.id, updatedJob }).unwrap();
         const myToast = Toastify({
           text: "The publication was successfully updated",
           className: "toastify",
@@ -60,7 +62,7 @@ const UserDashboardPublication = () => {
         myToast.showToast();
         setSelectedJobPost(null);
         setIsEditing(false);
-        refetch();
+        refetch(); // Vuelve a obtener los datos después de la actualización
       } catch (error) {
         const myToast = Toastify({
           text: "Failed to update the publication!",
@@ -74,6 +76,35 @@ const UserDashboardPublication = () => {
         myToast.showToast();
         console.log(error);
       }
+    }
+  };
+
+  const handleDelete = async (jobId: string) => {
+    try {
+      await deleteJob({ id: jobId }).unwrap();
+      const myToast = Toastify({
+        text: "The publication was successfully deleted",
+        className: "toastify",
+        position: "right",
+        gravity: "bottom",
+        duration: 3000,
+        close: true,
+        backgroundColor: "green",
+      });
+      myToast.showToast();
+      refetch(); // Vuelve a obtener los datos después de la eliminación
+    } catch (error) {
+      const myToast = Toastify({
+        text: "Failed to delete the publication!",
+        className: "toastify",
+        position: "right",
+        gravity: "bottom",
+        duration: 3000,
+        close: true,
+        backgroundColor: "red",
+      });
+      myToast.showToast();
+      console.log(error);
     }
   };
 
@@ -98,6 +129,7 @@ const UserDashboardPublication = () => {
                 {...job}
                 onClick={() => handleDescription(job)}
                 onEdit={handleEdit}
+                onDelete={() => handleDelete(job.id)} // Pasa la función de eliminación solo si onEdit está presente
                 isEditable={true}
               />
             ))

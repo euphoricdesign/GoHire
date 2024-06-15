@@ -49,6 +49,12 @@ export const jobsApi = createApi({
         body: updatedJob,
       }),
     }),
+    deleteJob: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `publication/${id}`,
+        method: "DELETE",
+      }),
+    }),
     getCategory: builder.query<CategoryResponse, null>({
       query: () => `publication/category`,
     }),
@@ -66,5 +72,6 @@ export const {
   useListJobsQuery, 
   useGetCategoryQuery, 
   useGetAllPublicationQuery, 
-  useUpdateJobMutation 
+  useUpdateJobMutation,
+  useDeleteJobMutation 
 } = jobsApi;
