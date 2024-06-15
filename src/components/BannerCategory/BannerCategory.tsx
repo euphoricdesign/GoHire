@@ -1,31 +1,33 @@
-import { useListJobsQuery } from "@/lib/services/jobsApi";
-import React, { useState } from "react";
-import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
+"use client";
 
+import { useGetCategoryQuery } from "@/lib/services/jobsApi";
+import React from "react";
+import { FaBriefcase, FaSearchLocation } from "react-icons/fa";
 interface BannerCategoryProps {
   selectedCategory: string;
   handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   selectedCountry: string;
   handleCountryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  count: number | undefined
+  count: number | undefined;
 }
-
 const BannerCategory: React.FC<BannerCategoryProps> = ({
   selectedCategory,
   handleCategoryChange,
   selectedCountry,
   handleCountryChange,
-  count
+  count,
 }) => {
+  const { data: categories, isLoading, isError, error } = useGetCategoryQuery(null);
 
+  // Agregar logs para depuración
+  console.log("Categories:", categories);
+  console.log("Loading:", isLoading);
+  console.log("Error:", isError, error);
 
   return (
     <div className="bg-bannerBg bg-center flex flex-col justify-center items-center p-[40px] rounded-xl mt-[100px]">
       <h2 className="text-[28px] text-[#05264E] font-[700] z-10">
-        <span className="text-[#3C65F5] relative spanAfterSm">
-          {count || 0} Jobs
-        </span>{" "}
-        Available Now
+        <span className="text-[#3C65F5] relative spanAfterSm">{count || 0} Jobs</span> Available Now
       </h2>
       <p className="leading-custom text-sm font-medium text-[#66789C] text-center mt-[12px]">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero repellendus magni, <br />{" "}
@@ -42,16 +44,14 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 onChange={handleCategoryChange}
                 className="py-[0.6rem] px-4 focus:outline-none w-full">
                 <option value="">Filter by category</option>
-                <option value="Enfermera">Enfermera</option>
-                <option value="Chef">Chef</option>
-                <option value="Dentista">Dentista</option>
-                <option value="Psicólogo">Psicólogo</option>
-                <option value="Doctor">Doctor</option>
-                <option value="Fotógrafo">Fotógrafo</option>
-                <option value="Científico">Científico</option>
-                <option value="Maestro">Maestro</option>
-                <option value="Mecánico">Mecánico</option>
-                <option value="Abogado">Abogado</option>
+                {isLoading && <option>Loading...</option>}
+                {isError && <option>Error loading categories</option>}
+                {categories?.categoryReturn &&
+                  categories.categoryReturn.map((category: string, index: number) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
               </select>
 
               <FaSearchLocation className="text-[40px]" />
@@ -60,12 +60,15 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
                 value={selectedCountry}
                 onChange={handleCountryChange}
                 className="py-[0.6rem] px-4 focus:outline-none w-full">
-                <option value="">Filter by Country</option>
-                <option value="Brasil">Brasil</option>
-                <option value="Paraguay">Paraguay</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Chile">Chile</option>
-                <option value="Uruguay">Uruguay</option>
+                <option value="">Filter by Location</option>
+                {isLoading && <option>Loading...</option>}
+                {isError && <option>Error loading categories</option>}
+                {categories?.locationReturn &&
+                  categories.locationReturn.map((location: string, index: number) => (
+                    <option key={index} value={location}>
+                      {location}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
@@ -74,5 +77,4 @@ const BannerCategory: React.FC<BannerCategoryProps> = ({
     </div>
   );
 };
-
 export default BannerCategory;

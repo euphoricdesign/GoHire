@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import "../../utils/Navbar.css";
-import { usePathname } from "next/navigation";
 import LoginButton from "@/app/api/auth/LoginButton";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import LogOutButton from "@/app/api/auth/LogoutButton";
@@ -14,13 +12,17 @@ import { MdOutlineLightMode, MdKeyboardArrowDown, MdOutlineSpaceDashboard, MdOut
 import User from '../../../public/user.svg'
 import Image from "next/image";
 import Link from "next/link";
+import Toastify from 'toastify-js'
+import { useRouter } from "next/navigation";
+import Logo from '../../../public/searchLogo.svg'
+import "../../utils/Navbar.css";
 
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
 }
 
 const Navbar: React.FC = () => {
-  const { user, error, isLoading } = useUser();
+  const { user, isLoading } = useUser();
   const [postUser] = usePostUserMutation();
   const dispatch = useDispatch();
   const userDetail = useSelector(selectUserDetail);
@@ -30,6 +32,8 @@ const Navbar: React.FC = () => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const currentClickRef = useRef<EventTarget | null>(null) 
 
+  const router = useRouter()
+
   const handleShowModal = (event: React.MouseEvent<HTMLElement>) => {
     console.log("si se ejecuta el efecto")
     currentClickRef.current = event.target 
@@ -38,6 +42,26 @@ const Navbar: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false) 
+  }
+
+  const handlePostAJob = () => {
+    if (!userDetail) {
+      // Crear una instancia de notificación
+      const myToast =   Toastify({
+        text: 'You must be logged in to make a post',
+        className: 'toastify',
+        position: 'left',
+        gravity: 'bottom',
+        duration: 999999999, // Duración muy grande para simular permanencia en pantalla
+        close: true
+      })
+
+      // Mostrar la notificación
+      myToast.showToast() 
+  
+    } else {
+      router.push('/formJobs')
+    }
   }
 
   useEffect(() => {
@@ -67,10 +91,6 @@ const Navbar: React.FC = () => {
 
     postUserData();
   }, [user, postUser, dispatch, userDetail]);
-
-  useEffect(() => {
-    // console.log("Current userDetail:", userDetail);
-  }, [userDetail]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,9 +128,12 @@ const Navbar: React.FC = () => {
         scrollPosition > 0 ? "scrolled" : ""
       }`}>
       <div className="flex items-center">
-        <a href="/" className="logo mr-10">
-          Logo
-        </a>
+        <div className="flex items-center">
+          <Image className="w-[40px]" src={Logo} alt="" />
+          <a href="/" className="logo mr-10">
+            GoHire
+          </a>
+        </div>
         <input type="checkbox" id="check" />
         <label htmlFor="check" className="icons">
           <i id="menu-icon" className="icon">
@@ -122,7 +145,7 @@ const Navbar: React.FC = () => {
         </label>
         <nav className="navbar">
           <a className="text-sm" href="/users" style={{ "--i": 1 } as AnchorProps}>
-            Users
+            Talents
           </a>
           <a className="text-sm" href="/jobs" style={{ "--i": 3 } as AnchorProps}>
             Jobs
@@ -146,7 +169,7 @@ const Navbar: React.FC = () => {
         </div>
         <button
           className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
-          onClick={() => (window.location.href = "/formJobs")}>
+          onClick={handlePostAJob}>
           Post a job
         </button>
         {

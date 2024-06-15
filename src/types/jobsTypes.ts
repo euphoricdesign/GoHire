@@ -2,9 +2,10 @@ import { UserData } from "./userTypes";
 // recibir desde el back
 
 export interface JobsFindData {
-  publicationsFind: JobsData[];
+  publicationsFind: JobsData[],
   count: number;
 }
+
 
 export interface JobsData {
   id: string;

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import UserProfile from "../UserProfile/UserProfile";
+import UserDashboardPublication from "../UserDashboardPublication/UserDashboardPublication";
 
 const UserDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("My Info");
@@ -18,7 +19,7 @@ const UserDashboard = () => {
       content = "This is Messages";
       break;
     case "Publications":
-      content = "My Publications";
+      content = <UserDashboardPublication />;
       break;
     case "Notification Settings":
       content = "This is Notification Settings";
