@@ -6,7 +6,7 @@ import type { RootState } from "@/lib/store";
 export const userApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001",
+    baseUrl: "RUTA_BACKEND_ONRENDER",
     prepareHeaders: (headers, { getState, endpoint }) => {
       if (endpoint === "postJob" || "listJobs" || "getUserMe") {
         const token = (getState() as RootState).user.userDetail?.token;

@@ -4,7 +4,7 @@ import { Professions } from "@/types/professionsTypes";
 export const professionsApi = createApi({
   reducerPath: "professionsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001",
+    baseUrl: "RUTA_BACKEND_ONRENDER",
   }),
   endpoints: (builder) => ({
     getAllProfessions: builder.query<Professions[], null>({

@@ -6,7 +6,7 @@ import { Category, CategoryResponse } from "@/types/categoryType";
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001",
+    baseUrl: "RUTA_BACKEND_ONRENDER",
     prepareHeaders: (headers, { getState, endpoint }) => {
       const token = (getState() as RootState).user.userDetail?.token;
       if (token) {

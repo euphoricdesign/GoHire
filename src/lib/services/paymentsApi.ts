@@ -34,7 +34,7 @@ export interface PaymentResponse {
 export const paymentsApi = createApi({
   reducerPath: "paymentsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001",
+    baseUrl: "RUTA_BACKEND_ONRENDER",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.userDetail?.token;
       if (token) {
