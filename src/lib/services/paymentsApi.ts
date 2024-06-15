@@ -10,7 +10,7 @@ interface PaymentData {
     quantity: number, // 7 días
     unit_price: number,
     description: string,
-    idPost: string
+    id: string
     // etc.
 }
 
@@ -19,6 +19,15 @@ export interface PaymentResponse {
   // Aquí deberías definir las propiedades que contiene la respuesta del servidor
   // Por ejemplo:
   url: string;
+  item: {
+    id: string;
+    category_id: string;
+    currency_id: string;
+    description: string;
+    title: string;
+    quantity: number;
+    unit_price: number;
+  }
   // etc.
 }
 
