@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
           <a className="text-sm" href="/jobs" style={{ "--i": 3 } as AnchorProps}>
             Jobs
           </a>
-          <a className="text-sm" href="#" style={{ "--i": 2 } as AnchorProps}>
+          <a className="text-sm" href="/blog" style={{ "--i": 2 } as AnchorProps}>
             Blog
           </a>
           <a className="text-sm" href="#" style={{ "--i": 3 } as AnchorProps}>
