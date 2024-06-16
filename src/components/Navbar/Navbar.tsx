@@ -25,8 +25,7 @@ const Navbar: React.FC = () => {
   const currentClickRef = useRef<EventTarget | null>(null) 
 
 
-  const { user, isLoading, userDetail } = useAuth();
-  
+  const { user, isLoading, userDetail } = useAuth();  
 
   const router = useRouter()
 
@@ -151,7 +150,7 @@ const Navbar: React.FC = () => {
                       <Image onClick={handleShowModal} className="w-[80px] cursor-pointer" src={User} alt="" />
                     </li>
                     <li className="flex flex-col items-center">
-                      <h5 className="text-base font-medium text-[#05264E]">Merlina Villecco</h5>
+                      <h5 className="text-base font-medium text-[#05264E]">{user.name}</h5>
                       <span className="text-[#66789C]">Freelancer</span>
                     </li>
                     
