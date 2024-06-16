@@ -8,7 +8,7 @@ const BlogPage = () => {
 
         <div className="flex flex-wrap mt-[40px] justify-between">
         <div className="w-[32.333333%]">
-            <div className="bg-violet-200 h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
+            <div className="bg-gray-200 h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
             <div className="bg-bgBlog1 bg-center bg-no-repeat h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
                 <div className="bg-grayBg absolute bottom-0 top-[10%] w-full z-[2]">
                 <div className="absolute bottom-[20px] px-[28px] flex flex-col justify-center items-center">
