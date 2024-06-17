@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { FaFolder } from 'react-icons/fa';
 
+
 interface CategoryFormData {
   categoryName: string;
 }
