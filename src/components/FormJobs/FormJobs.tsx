@@ -106,7 +106,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
   }, [dataSelect]);
 
   return (
-    <section className="mt-[100px] mobile:px-[25px] md:px-0">
+    <section className="mt-[100px] mb-[60px]  mobile:px-[25px] md:px-0">
       <ToastContainer />
       <div className="mx-auto max-w-screen-xl pb-8">
         <div className="flex gap-[90px] mobile:flex-col md:flex-row">
