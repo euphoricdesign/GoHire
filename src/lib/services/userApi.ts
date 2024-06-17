@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userPostData, UserData, UsersData } from "@/types/userTypes";
 import type { RootState } from "@/lib/store";
+import { UserEducation } from "@/types/educationsTypes";
+import { Professions } from "@/types/professionsTypes";
 
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
@@ -53,13 +55,40 @@ export const userApi = createApi({
     }),
     updateUser: builder.mutation<UserData, Partial<UserData> & { id: string }>({
       query: ({ id, ...patch }) => {
-        console.log(patch);
+        const bodyFormData = new FormData();
+        bodyFormData.append("file", patch.imgPictureUrl!);
+        delete patch["imgPictureUrl"];
         const token = localStorage.getItem("token");
         return {
           url: `users/${id}`,
           headers: token ? { authorization: `${token}` } : {},
           method: "PATCH",
           body: patch,
+          formData: true,
+        };
+      },
+    }),
+    // Mutación para crear una nueva educación
+    postEducation: builder.mutation<UserEducation, UserEducation>({
+      query: (newEducation) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "education",
+          method: "POST",
+          body: newEducation,
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
+    // Mutación para crear una nueva profesión
+    postProfession: builder.mutation<Professions, Professions>({
+      query: (newProfession) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "profesions",
+          method: "POST",
+          body: newProfession,
+          headers: token ? { authorization: `${token}` } : {},
         };
       },
     }),
@@ -74,4 +103,6 @@ export const {
   useGetUserByIdQuery,
   useGetUserMeQuery,
   useUpdateUserMutation,
+  usePostEducationMutation,
+  usePostProfessionMutation,
 } = userApi;

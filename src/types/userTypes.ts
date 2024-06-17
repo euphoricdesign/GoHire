@@ -28,7 +28,7 @@ export interface UserData {
   availableToWork: boolean;
   professionalRate: string;
   newMember: boolean;
-  profileImg?: string;
+  imgPictureUrl?: string;
   profesions: Professions[];
   educations: UserEducation[];
   experiences: UserExperiences[];
