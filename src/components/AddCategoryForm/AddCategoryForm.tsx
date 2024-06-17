@@ -6,7 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { FaFolder } from 'react-icons/fa';
-
+import { useCreateProfessionMutation } from '@/lib/services/professionsApi';
+import { Professions } from "@/types/professionsTypes";
 
 interface CategoryFormData {
   categoryName: string;
@@ -14,13 +15,14 @@ interface CategoryFormData {
 
 const AddCategoryForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<CategoryFormData>();
+  const [createProfession, { data, isLoading, error }] = useCreateProfessionMutation();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<CategoryFormData> = async (data) => {
     setIsSubmitting(true);
     try {
-      // await dispatch(addCategory(data.categoryName));
+      await createProfession({ category: data.categoryName });
       toast.success('Category added successfully');
     } catch (error) {
       toast.error('Error adding category. Please try again.');

@@ -1,7 +1,12 @@
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
+import { useDeleteProfessionMutation, useUpdateProfessionMutation } from "@/lib/services/professionsApi";
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+
+
+
+
 
 const AdminCategory: React.FC = () => {
   const { data, isLoading, isFetching } = useGetCategoryQuery(null);
