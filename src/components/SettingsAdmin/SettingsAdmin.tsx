@@ -1,6 +1,6 @@
 const SettingsAdmin = () => {
     return (
-      <div>
+      <div className="h-[370px]">
         <h2 className="text-2xl font-bold my-[10px] mx-[1.5rem]">Settings</h2>
         <div className="grid grid-cols-2 gap-4 m-[1.5rem]">
           <div className="bg-white shadow-md rounded-lg p-6">
