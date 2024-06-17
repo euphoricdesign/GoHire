@@ -52,7 +52,7 @@ const ContactForm = () => {
 
   return (
 
-    <div className='mt-[100px] px-[124px]'>
+    <div className='mt-[100px] mb-[60px] px-[124px]'>
         <div className="mx-auto max-w-screen-xl pb-8">
         <div className="flex gap-[90px] mobile:flex-col md:flex-row">
           <div className="lg:col-span-2 flex flex-col gap-[80px]">

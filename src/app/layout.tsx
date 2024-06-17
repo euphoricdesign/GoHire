@@ -6,6 +6,7 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Metadata } from "next";
 
 import AuthProvider from '../providers/AuthProvider';
+import Footer from "@/components/Footer/Footer";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
             <AuthProvider>
               <Navbar />
               {children}
+              <Footer />
             </AuthProvider>
           </UserProvider>
         </StoreProvider>
