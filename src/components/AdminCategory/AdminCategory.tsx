@@ -1,5 +1,5 @@
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
-import { useDeleteProfessionMutation, useUpdateProfessionMutation } from "@/lib/services/professionsApi";
+import {  useUpdateProfessionMutation } from "@/lib/services/professionsApi";
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ const AdminCategory: React.FC = () => {
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState<string>("");
-
+  const [updateProfession, { isLoading: isUpdating }] = useUpdateProfessionMutation();
   const handleEditClick = (index: number, category: string) => {
     setEditIndex(index);
     setEditValue(category);

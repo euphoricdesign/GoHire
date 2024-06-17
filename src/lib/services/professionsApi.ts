@@ -9,7 +9,8 @@ const baseQueryWithAuth = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).user.userDetail?.token;
     if (token) {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set("authorization", `${token}`);
+      console.log('Token added to headers:', token);
     }
     return headers;
   },
@@ -20,24 +21,18 @@ export const professionsApi = createApi({
   baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     getAllProfessions: builder.query<Professions[], null>({
-      query: () => "professions",
+      query: () => "profesions",
     }),
-    createProfession: builder.mutation<Professions, Partial<Professions>>({
+    createProfession: builder.mutation<Professions, { category: string }>({
       query: (newProfession) => ({
-        url: "professions",
+        url: "profesions",
         method: "POST",
         body: newProfession,
       }),
     }),
-    deleteProfession: builder.mutation<{ success: boolean; id: string }, string>({
-      query: (id) => ({
-        url: `professions/${id}`,
-        method: "DELETE",
-      }),
-    }),
     updateProfession: builder.mutation<Professions, Partial<Professions>>({
       query: ({ id, ...patch }) => ({
-        url: `professions/${id}`,
+        url: `profesions/${id}`,
         method: "PATCH",
         body: patch,
       }),
@@ -48,6 +43,5 @@ export const professionsApi = createApi({
 export const {
   useGetAllProfessionsQuery,
   useCreateProfessionMutation,
-  useDeleteProfessionMutation,
   useUpdateProfessionMutation,
 } = professionsApi;

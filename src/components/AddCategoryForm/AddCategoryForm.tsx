@@ -9,20 +9,17 @@ import { FaFolder } from 'react-icons/fa';
 import { useCreateProfessionMutation } from '@/lib/services/professionsApi';
 import { Professions } from "@/types/professionsTypes";
 
-interface CategoryFormData {
-  categoryName: string;
-}
 
 const AddCategoryForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<CategoryFormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<Professions>();
   const [createProfession, { data, isLoading, error }] = useCreateProfessionMutation();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<CategoryFormData> = async (data) => {
+  const onSubmit: SubmitHandler<Professions> = async (data) => {
     setIsSubmitting(true);
     try {
-      await createProfession({ category: data.categoryName });
+      await createProfession({ category: data.category }).unwrap();
       toast.success('Category added successfully');
     } catch (error) {
       toast.error('Error adding category. Please try again.');
@@ -46,13 +43,13 @@ const AddCategoryForm: React.FC = () => {
               placeholder='Category Name'
               type='text'
               id='categoryName'
-              {...register('categoryName', {
+              {...register('category', {
                 required: 'Category name is required.',
                 maxLength: { value: 50, message: 'Category name cannot exceed 50 characters.' }
               })}
             />
             <div className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]" style={{ width: 'calc(100% - 3rem)' }}></div>
-            {errors.categoryName && <span className="text-red-500 text-xs mt-1">{errors.categoryName.message}</span>}
+            {errors.category && <span className="text-red-500 text-xs mt-1">{errors.category.message}</span>}
           </div>
         </div>
         <div>
