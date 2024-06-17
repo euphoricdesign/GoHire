@@ -1,6 +1,8 @@
 'use client'
 import React, { useState } from 'react';
 import { FaBriefcase, FaAlignLeft } from 'react-icons/fa';
+import { FaWpforms, FaPencil } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 import Image from 'next/image';
 import Contact from '../../../public/contact.svg'
 import NewsletterForm from '../NewsletterForm/NewsletterForm';
@@ -67,7 +69,7 @@ const ContactForm = () => {
             <form onSubmit={submitForm} className="space-y-6">
                 <div className="flex items-center">
                     <div className="w-10 text-[#3C65F5]">
-                        <FaBriefcase className="w-5 h-5" />
+                        <FaPencil className="w-5 h-5" />
                     </div>
                     <div className="flex-grow relative">
                         <input
@@ -86,7 +88,7 @@ const ContactForm = () => {
 
                 <div className="flex items-center">
                     <div className="w-10 text-[#3C65F5]">
-                        <FaBriefcase className="w-5 h-5" />
+                        <MdEmail className="w-5 h-5" />
                     </div>
                     <div className="flex-grow relative">
                         <input
