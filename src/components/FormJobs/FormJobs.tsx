@@ -280,7 +280,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
                 <button
                   type="submit"
                   className="w-full text-white px-4 py-3 rounded font-semibold transition duration-300"
-                  style={{ backgroundColor: '#4537D4' }}
+                  style={{ backgroundColor: '#3C65F5' }}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating...' : `${textButton}`}

@@ -16,28 +16,28 @@ console.log("jobInfo: ", selectedJob)
     <div className="h-full w-full mt-24">
       <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
         <div>
-            {error || !data && <div>User not found</div>}
+            {error || !data && <div className='text-[#05264E]'>User not found</div>}
           <div className="float-left w-[70%] h-full flex flex-col border-r border-gray-300">
             <div className="">
               <div className="p-5 border-b border-gray-300">
-                <div className="text-[32px] font-bold">{selectedJob.title}</div>
-                <div className="flex items-center ">
+                <div className="text-[32px] font-bold text-[#05264E]">{selectedJob.title}</div>
+                <div className="flex items-center text-[#05264E]">
                   Posted {selectedJob.timelapse} ago -{" "}
-                  <span className="ml-1 flex items-center text-xl">
+                  <span className="ml-1 flex items-center text-xl text-[#05264E]">
                     <IoLocationOutline /> Location
                   </span>
                 </div>
               </div>
               <div className="border-b border-gray-300 p-5">{selectedJob.description}</div>
-              <div className="p-5">
-                <div className="text-lg font-bold">Professions needed:</div>
-                <div className="mt-2 ">{selectedJob.category}</div>
+              <div className="p-5 text-[#05264E]">
+                <div className="text-lg font-bold text-[#05264E]">Professions needed:</div>
+                <div className="mt-2 text-[#05264E]">{selectedJob.category}</div>
               </div>
             </div>
           </div>
           <div className="float-right w-[30%] h-full flex flex-col">
             <div className="border-b border-gray-300 p-5">
-              <div className="text-lg font-bold">About the client:</div>
+              <div className="text-lg font-bold text-[#05264E]">About the client:</div>
               <div className="flex flex-col items-start">
                 <div className="m-3 p-1 border border-gray-300 rounded-full">
                   {/* <Image
@@ -48,12 +48,12 @@ console.log("jobInfo: ", selectedJob)
                     height={96}
                   /> */}
                 </div>
-                <h2 className="text-[16px] font-bold">
+                <h2 className="text-[16px] font-bold text-[#05264E]">
                   {data.name} {data.lastName}
                 </h2>
                 <div className="flex items-center">
                   <IoLocationOutline />
-                  <h2 className="text-[16px]">
+                  <h2 className="text-[16px] text-[#05264E]">
                     {data.city}, {data.country}
                   </h2>
                 </div>

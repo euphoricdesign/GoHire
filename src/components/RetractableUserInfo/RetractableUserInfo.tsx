@@ -20,7 +20,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
       <div className="flex items-center justify-end w-full text-sm p-3">
         <Link href={`/users/${selectedUser.id}`} rel="noopener noreferrer" target="_blank">
           <button className="flex items-center">
-            <h6>Open profile in a new window</h6>
+            <h6 className="text-[#05264E]">Open profile in a new window</h6>
             <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
           </button>
         </Link>
@@ -40,12 +40,12 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
             <div className="w-full p-5">
               <div className="flex justify-between">
                 <div>
-                  <h2 className="text-[32px] font-bold">
+                  <h2 className="text-[32px] font-bold text-[#05264E]">
                     {selectedUser.name} {selectedUser.lastName}
                   </h2>
                   <div className="flex items-center mb-3">
                     <IoLocationOutline />
-                    <h2 className="text-xl">
+                    <h2 className="text-xl text-[#05264E]">
                       {selectedUser.city}, {selectedUser.country}
                     </h2>
                   </div>
@@ -76,7 +76,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
           </div>
           <div className="flex items-center justify-end px-5 pb-14">
             <button className="flex">
-              <h2 className="mx-4">Share</h2>
+              <h2 className="mx-4 text-[#05264E]">Share</h2>
               <div>
                 <FaShareFromSquare className="text-[#3D63DD] size-6" />
               </div>
@@ -91,7 +91,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
               </button>
             </div>
             <div className="border-b border-gray-300">
-              <h2 className="font-bold mt-5 mx-5">Professions:</h2>
+              <h2 className="font-bold mt-5 mx-5 text-[#05264E]">Professions:</h2>
               <div className="">
                 <ul className="list-none flex flex-col text-lg pb-4">
                   {selectedUser.profesions &&
@@ -114,8 +114,8 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
               </div>
             </div>
             <div>
-              <h2 className="font-bold m-5">Education:</h2>
-              <div>
+              <h2 className="font-bold m-5 text-[#05264E]">Education:</h2>
+              <div className="text-[#05264E]">
                 {selectedUser.educations &&
                   selectedUser.educations.map((education, index) => (
                     <div key={index} className="px-5">
@@ -133,19 +133,19 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
               </div>
             </div>
             <div className="p-5">
-              <h1 className="text-xl font-bold mb-4">Work History</h1>
+              <h1 className="text-xl font-bold mb-4 text-[#05264E]">Work History</h1>
               <div>
                 {selectedUser.experiences &&
                   selectedUser.experiences.map((experience) => (
                     <div key={experience.id} className="border p-4 rounded-md shadow-md mb-4">
-                      <div className="font-bold text-lg">
+                      <div className="font-bold text-lg text-[#05264E]">
                         {experience.title} en {experience.company}
                       </div>
                       <p className="text-sm text-gray-600">
-                        since: <span className="italic mr-2">{experience.startDate}</span>- until:{" "}
-                        <span className="italic">{experience.endDate}</span>
+                        since: <span className="italic mr-2 text-[#05264E]">{experience.startDate}</span>- until:{" "}
+                        <span className="italic text-[#05264E]">{experience.endDate}</span>
                       </p>
-                      <div className="mt-3">
+                      <div className="mt-3 text-[#05264E]">
                         <h2 className="font-bold">Feedback:</h2>
                         <p className="mt-2">"{experience.description}"</p>
                       </div>
