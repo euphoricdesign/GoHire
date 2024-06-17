@@ -1,5 +1,5 @@
-import { useGetCategoryQuery } from "@/lib/services/jobsApi";
-import {  useUpdateProfessionMutation } from "@/lib/services/professionsApi";
+// import { useGetCategoryQuery } from "@/lib/services/jobsApi";
+import {  useUpdateProfessionMutation,useGetAllProfessionsQuery } from "@/lib/services/professionsApi";
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -9,8 +9,8 @@ import { useDispatch } from "react-redux";
 
 
 const AdminCategory: React.FC = () => {
-  const { data, isLoading, isFetching } = useGetCategoryQuery(null);
-  const dispatch = useDispatch();
+  const { data, isLoading, isFetching } = useGetAllProfessionsQuery(null);
+  
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState<string>("");
   const [updateProfession, { isLoading: isUpdating }] = useUpdateProfessionMutation();
@@ -38,20 +38,19 @@ const AdminCategory: React.FC = () => {
               <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
             </div>
         )}
-        {data?.categoryReturn &&
-          data.categoryReturn.map((category: string, index: number) => (
-            <div key={index} className="flex items-center justify-between p-2 border-b">
-              <span>{category}</span>
-              <div className="flex space-x-2">
-                <button onClick={() => handleEditClick(index, category)} className="text-blue-500">
-                  <FaEdit />
-                </button>
-                <button onClick={() => handleDeleteClick(String(index))} className="text-purple-500">
-                  <FaTrash />
-                </button>
-              </div>
+        {data && data.map((profession, index) => (
+          <div key={profession.id} className="flex items-center justify-between p-2 border-b">
+            <span>{profession.category}</span>
+            <div className="flex space-x-2">
+              <button onClick={() => handleEditClick(index, profession.category)} className="text-blue-500">
+                <FaEdit />
+              </button>
+              <button onClick={() => handleDeleteClick(profession.id)} className="text-purple-500">
+                <FaTrash />
+              </button>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
       <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
     </div>
