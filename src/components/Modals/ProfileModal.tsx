@@ -23,9 +23,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   onSave,
   ariaHideApp,
 }) => {
-  const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
   const { data: categoryData, isLoading, error } = useGetCategoryQuery(null); // Usar el hook de RTK Query
 
+  const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {

@@ -14,15 +14,20 @@ import ProfileModal from "../Modals/ProfileModal";
 import { UserData } from "@/types/userTypes";
 import { UserEducation } from "@/types/educationsTypes";
 import { Professions } from "@/types/professionsTypes";
-import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 
 const UserProfile = () => {
-  const { data: user, error: getUserError, isLoading: getUserLoading } = useGetUserMeQuery(null);
+  const {
+    data: user,
+    error: getUserError,
+    isLoading: getUserLoading,
+    refetch,
+  } = useGetUserMeQuery(null);
   const [updateUser] = useUpdateUserMutation();
   const [postEducation] = usePostEducationMutation();
   const [postProfession] = usePostProfessionMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentField, setCurrentField] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isAvailable, setIsAvailable] = useState(false);
 
@@ -39,17 +44,19 @@ const UserProfile = () => {
   const handleSave = async (
     updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserData>
   ) => {
+    setIsLoading(true);
     try {
       if (currentField === "education") {
         await postEducation(updatedData as UserEducation).unwrap();
-      } else if (currentField === "professions") {
-        await postProfession(updatedData as Professions).unwrap();
       } else if (user) {
         await updateUser({ id: user.id, ...updatedData }).unwrap();
       }
+      refetch();
       closeModal();
     } catch (error) {
       console.error("Error saving data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
