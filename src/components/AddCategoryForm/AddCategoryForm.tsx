@@ -57,7 +57,7 @@ const AddCategoryForm: React.FC = () => {
             type='submit'
             disabled={isSubmitting}
             className='w-full text-white px-4 py-3 rounded font-semibold transition duration-300'
-            style={{ backgroundColor: '#4537D4' }}
+            style={{ backgroundColor: '#3C65F5' }}
           >
             {isSubmitting ? 'Adding...' : 'Add Category'}
           </button>

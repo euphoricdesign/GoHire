@@ -66,7 +66,7 @@ const UsersCards = () => {
 
   if (!paginatedUsersResponse?.usersFind || paginatedUsersResponse.usersFind.length === 0) {
     return (
-      <div className="w-full flex flex-row gap-2 justify-center items-center">
+      <div className="w-full flex flex-row gap-2 justify-center items-center my-[200px]">
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>

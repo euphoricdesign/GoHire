@@ -18,8 +18,10 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-24">
-        <h2>Loading...</h2>
+      <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
       </div>
     );
   }

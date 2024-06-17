@@ -31,7 +31,13 @@ const AdminCategory: React.FC = () => {
   return (
     <div className="relative w-full">
       <div className="h-96 overflow-y-scroll border border-gray-300 rounded-lg p-4">
-        {isLoading && <div>Loading...</div>}
+        {isLoading && (
+            <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+            </div>
+        )}
         {data?.categoryReturn &&
           data.categoryReturn.map((category: string, index: number) => (
             <div key={index} className="flex items-center justify-between p-2 border-b">
