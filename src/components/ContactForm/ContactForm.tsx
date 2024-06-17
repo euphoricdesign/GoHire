@@ -38,15 +38,15 @@ const ContactForm = () => {
       });
       
       if (response.ok) {
-        setStatus("¡Gracias por tu mensaje!");
+        setStatus("Thank you for your message!");
         setData({ name: '', email: '', message: '' }); // Limpiar el estado
       } else {
         const errorData = await response.json();
-        setStatus(`Oops! Hubo un problema al enviar el formulario: ${errorData.error || response.statusText}`);
+        setStatus(`Oops, there was a problem submitting the form: ${errorData.error || response.statusText}`);
       }
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      setStatus("Oops! Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo más tarde.");
+      console.error('Error sending the form:', error);
+      setStatus("Oops, there was a problem submitting the form. Please try again later.");
     }
   };
 
@@ -73,7 +73,7 @@ const ContactForm = () => {
                         <input
                             onChange={handleChange} 
                             className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
-                            placeholder="Nombre"
+                            placeholder="Name"
                             value={data.name}
                             type="text"
                             name='name'
@@ -111,7 +111,7 @@ const ContactForm = () => {
                   <textarea
                     onChange={handleChange}
                     className="w-full h-[80px] text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 resize-none peer"
-                    placeholder="Mensaje"
+                    placeholder="Message"
                     value={data.message}
                     id="message"
                     name="message"
@@ -127,7 +127,7 @@ const ContactForm = () => {
                     className="w-full text-white px-4 py-3 rounded font-semibold transition duration-300"
                     style={{ backgroundColor: '#4537D4' }}
                     >
-                        Enviar
+                        Send
                     </button>
                 </div>
                 {status && <div className="text-green-500 text-center">{status}</div>}
