@@ -81,10 +81,10 @@ const UserCard = ({
                 )}
               </div>
               <div className="mt-1 min-h-14 flex flex-col justify-center">
-                <span className="text-lg font-bold">
+                <span className="text-lg font-bold text-[#05264E]">
                   {name} {lastName}
                 </span>
-                <span>
+                <span className="text-[#05264E]">
                   {" - "}
                   {city}, {country}
                 </span>
@@ -111,7 +111,7 @@ const UserCard = ({
                 profesions.map((profesion, index) => (
                   <li
                     key={index}
-                    className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px]">
+                    className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
                     {profesion.category}
                   </li>
                 ))}
