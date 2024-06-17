@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
   const currentClickRef = useRef<EventTarget | null>(null) 
 
 
-  const { user, isLoading, userDetail } = useAuth();  
+  const { user, isLoading } = useAuth();  
 
   const router = useRouter()
 
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
   }
 
   const handlePostAJob = () => {
-    if (!userDetail) {
+    if (!user) {
       // Crear una instancia de notificación
       const myToast =   Toastify({
         text: 'You must be logged in to make a post',
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
           <a className="text-sm" href="/blog" style={{ "--i": 2 } as AnchorProps}>
             Blog
           </a>
-          <a className="text-sm" href="#" style={{ "--i": 3 } as AnchorProps}>
+          <a className="text-sm" href="/contact" style={{ "--i": 3 } as AnchorProps}>
             Contact
           </a>
         </nav>
