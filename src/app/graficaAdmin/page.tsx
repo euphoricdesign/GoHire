@@ -8,10 +8,12 @@ const GraficaPage: NextPage = () => {
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="container mx-auto p-4 mt-20">
-        <h1 className="text-3xl font-bold mb-6 text-center">Monthly Earnings</h1>
-        <GraficaAdmin data={earningsData} labels={labels} />
+    <div className="bg-gray-100 min-h-screen pt-20"> {/* Ajuste aquí */}
+      <h2 className="text-2xl font-bold my-4 mx-6">Monthly Earnings</h2>
+      <div className="grid grid-cols-1 m-6">
+        <div className="p-4 bg-white shadow-md rounded-lg">
+          <GraficaAdmin data={earningsData} labels={labels} />
+        </div>
       </div>
     </div>
   );
