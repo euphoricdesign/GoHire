@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 
-// Asegurarse de que las variables de entorno están definidas
+// Asegúrate de que las variables de entorno están definidas
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY as string;
 const MAILCHIMP_API_SERVER = process.env.MAILCHIMP_API_SERVER as string;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID as string;
