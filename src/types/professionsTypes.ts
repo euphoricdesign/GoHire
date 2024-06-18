@@ -1,5 +1,4 @@
-
 export interface Professions {
-    id: string;
-    category: string;
-  }
+  id: string;
+  category: string;
+}

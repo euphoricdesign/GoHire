@@ -106,7 +106,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
   }, [dataSelect]);
 
   return (
-    <section className="mt-[100px] mobile:px-[25px] md:px-0">
+    <section className="mt-[100px] mb-[60px]  mobile:px-[25px] md:px-0">
       <ToastContainer />
       <div className="mx-auto max-w-screen-xl pb-8">
         <div className="flex gap-[90px] mobile:flex-col md:flex-row">
@@ -280,7 +280,7 @@ const FormJobs: React.FC<FormJobsProps> = ({ title, img, width, textButton }) =>
                 <button
                   type="submit"
                   className="w-full text-white px-4 py-3 rounded font-semibold transition duration-300"
-                  style={{ backgroundColor: '#4537D4' }}
+                  style={{ backgroundColor: '#3C65F5' }}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating...' : `${textButton}`}

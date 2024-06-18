@@ -18,8 +18,10 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-24">
-        <h2>Loading...</h2>
+      <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
       </div>
     );
   }
@@ -42,7 +44,7 @@ const DetailProfile = ({ params }: { params: { userId: string } }) => {
             <div className="w-auto m-3 p-1 border border-gray-300 rounded-full">
               <Image
                 className="rounded-full"
-                src={user?.profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
+                src={user?.imgPictureUrl || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt={`${user.name} ${user.lastName}'s profile image`}
                 width={96}
                 height={96}

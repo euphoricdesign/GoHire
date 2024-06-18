@@ -18,6 +18,11 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         bannerBg:
           'url("https://jthemes.com/themes/wp/jobbox/wp-content/themes/jobbox/assets/imgs/banner.png")',
+        grayBg: 'url("https://jthemes.com/themes/wp/jobbox/wp-content/themes/jobbox/assets/imgs/page/blog/bg-black-trans.png")',
+        bgBlog1: 'url("https://i.pinimg.com/originals/4a/9d/0e/4a9d0e50c2d9e43135e92d47f57b3c24.jpg")',
+        bgBlog2: 'url("https://i.pinimg.com/564x/cd/5b/29/cd5b2982e5bc61f0b73e8e1e09830388.jpg")',
+        bgBlog3: 'url("https://i.pinimg.com/originals/00/24/8d/00248d10b5184a57ce3c522533c6397f.jpg")',
+        bgNewsletter: 'url("https://jthemes.com/themes/wp/jobbox/wp-content/themes/jobbox/assets/imgs/template/bg-newsletter.svg")'
       },
       screens: {
         // Breakpoints predefinidos
@@ -39,7 +44,7 @@ const config: Config = {
         custom: "0px 0px 30px 0px #007bff26",
       },
       colors: {
-        "custom-purple": "#4537D4",
+        "custom-purple": "#3C65F5",
         "custom-focus": "#383A8F",
       },
     },
