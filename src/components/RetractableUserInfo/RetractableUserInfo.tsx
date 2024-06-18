@@ -21,7 +21,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
         <Link href={`/users/${selectedUser.id}`} rel="noopener noreferrer" target="_blank">
           <button className="flex items-center">
             <h6 className="text-[#05264E]">Open profile in a new window</h6>
-            <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+            <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
           </button>
         </Link>
       </div>
@@ -49,16 +49,16 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
                       {selectedUser.city}, {selectedUser.country}
                     </h2>
                   </div>
-                  <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
-                    <TfiBolt className="text-[#3D63DD] mr-1" />
-                    <h2 className="text-[#3D63DD] text-[12px]">Available Now</h2>
+                  <div className="flex items-center border border-[#3C65F5] w-fit px-3 py-1 rounded-xl">
+                    <TfiBolt className="text-[#3C65F5] mr-1" />
+                    <h2 className="text-[#3C65F5] text-[12px]">Available Now</h2>
                   </div>
                 </div>
                 <div className="flex h-fit items-center">
                   <button>
-                    <BsChatDots className="text-[#3D63DD] border-2 border-[#3D63DD] hover:bg-[#D5E2FF] transition-all duration-300 size-10 p-1 rounded-full" />
+                    <BsChatDots className="text-[#3C65F5] border-2 border-[#3C65F5] hover:bg-[#D5E2FF] transition-all duration-300 size-10 p-1 rounded-full" />
                   </button>
-                  <button className="bg-[#3D63DD] text-white text-center px-5 py-2 rounded-xl mx-2 hover:bg-[#93B4FF] transition-all duration-300">
+                  <button className="bg-[#3C65F5] text-white text-center px-5 py-2 rounded-xl mx-2 hover:bg-[#93B4FF] transition-all duration-300">
                     Hire
                   </button>
                   <button onClick={handleFavClicked} className="transition-all duration-300">
@@ -66,7 +66,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
                       className={`${
                         isFavClicked
                           ? "text-red-500 border-red-500"
-                          : "text-[#3D63DD] border-[#3D63DD]"
+                          : "text-[#3C65F5] border-[#3C65F5]"
                       } hover:bg-[#D5E2FF] transition-all duration-300 size-10 border-2 p-1 rounded-full`}
                     />
                   </button>
@@ -78,7 +78,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
             <button className="flex">
               <h2 className="mx-4 text-[#05264E]">Share</h2>
               <div>
-                <FaShareFromSquare className="text-[#3D63DD] size-6" />
+                <FaShareFromSquare className="text-[#3C65F5] size-6" />
               </div>
             </button>
           </div>
@@ -86,7 +86,7 @@ const RetractableUserInfo = ({ selectedUser }: { selectedUser: UserData }) => {
         <div className="relative">
           <div className="float-left w-[30%] h-auto flex flex-col">
             <div className="p-5 py-10 flex items-center justify-center border-b border-gray-300">
-              <button className="bg-[#3D63DD] text-white text-center px-5 py-2 rounded-xl mx-2 hover:bg-[#93B4FF] transition-all duration-300">
+              <button className="bg-[#3C65F5] text-white text-center px-5 py-2 rounded-xl mx-2 hover:bg-[#93B4FF] transition-all duration-300">
                 Jobs Publications
               </button>
             </div>
