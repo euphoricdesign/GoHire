@@ -5,6 +5,9 @@ export default function NewsletterForm() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
+  console.log(JSON.stringify({ email }));
+  
+
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     setMessage('Suscribiendo...');
@@ -16,7 +19,7 @@ export default function NewsletterForm() {
         body: JSON.stringify({ email })
       });
 
-      const data = await response.json();
+      const data = await response.json()
       if (response.ok) {
         setEmail('');
         setMessage('¡Te has suscrito correctamente!');

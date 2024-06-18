@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 
 // Asegurarse de que las variables de entorno están definidas
@@ -11,18 +11,19 @@ mailchimp.setConfig({
   server: MAILCHIMP_API_SERVER,
 });
 
-type Data = {
-  error?: string;
-};
+type Data = { error?: string; message?: string };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-): Promise<void> {
-  const { email } = req.body;
+export const POST = async (req: NextRequest) => {
+  if (req.method !== 'POST') {
+    const errorMessage = JSON.stringify({ error: 'Method Not Allowed' });
+    return new NextResponse(errorMessage, { status: 405 });
+  }
+
+  const { email = "" } = await req.json();
 
   if (!email) {
-    return res.status(400).json({ error: 'El correo electrónico es requerido' });
+    const errorMessage = JSON.stringify({ error: 'El correo electrónico es requerido' });
+    return new NextResponse(errorMessage, { status: 400 });
   }
 
   try {
@@ -30,15 +31,11 @@ export default async function handler(
       email_address: email,
       status: 'subscribed',
     });
-
-    return res.status(201).json({ error: '' });
+    const successMessage = JSON.stringify({ message: 'Te has suscrito correctamente' });
+    return new NextResponse(successMessage, { status: 201 });
   } catch (error) {
-    let errorMessage = 'Unknown error';
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === 'string') {
-      errorMessage = error;
-    }
-    return res.status(500).json({ error: errorMessage });
+    console.error('Error subscribing to Mailchimp:', error);
+    const errorMessage = JSON.stringify({ error: 'Ocurrió un error. Intenta de nuevo.' });
+    return new NextResponse(errorMessage, { status: 500 });
   }
-}
+};
