@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 
-// Asegurarse de que las variables de entorno están definidas
+// Asegúrate de que las variables de entorno están definidas
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY as string;
 const MAILCHIMP_API_SERVER = process.env.MAILCHIMP_API_SERVER as string;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID as string;
@@ -11,18 +11,11 @@ mailchimp.setConfig({
   server: MAILCHIMP_API_SERVER,
 });
 
-type Data = {
-  error?: string;
-};
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-): Promise<void> {
-  const { email } = req.body;
+export async function POST(request: Request) {
+  const { email } = await request.json();
 
   if (!email) {
-    return res.status(400).json({ error: 'El correo electrónico es requerido' });
+    return NextResponse.json({ error: 'El correo electrónico es requerido' }, { status: 400 });
   }
 
   try {
@@ -31,7 +24,7 @@ export default async function handler(
       status: 'subscribed',
     });
 
-    return res.status(201).json({ error: '' });
+    return NextResponse.json({ error: '' }, { status: 201 });
   } catch (error) {
     let errorMessage = 'Unknown error';
     if (error instanceof Error) {
@@ -39,6 +32,6 @@ export default async function handler(
     } else if (typeof error === 'string') {
       errorMessage = error;
     }
-    return res.status(500).json({ error: errorMessage });
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
