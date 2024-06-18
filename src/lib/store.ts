@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/slices/userSlice";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { paymentsApi } from "./services/paymentsApi";
+import paymentsReducer from "./features/slices/paymentsSlice";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
-import { paymentsApi } from "./services/paymentsApi";
-import { professionsApi } from "./services/professionsApi"; // Importa tu API de profesiones
-import paymentsReducer from "./features/slices/paymentsSlice"; 
-import { setupListeners } from "@reduxjs/toolkit/query";
+import { professionsApi } from "./services/professionsApi";
 
 // Configurar el store
 export const makeStore = () => {
@@ -14,8 +14,8 @@ export const makeStore = () => {
       user: userReducer,
       [jobsApi.reducerPath]: jobsApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
+      [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
-      [professionsApi.reducerPath]: professionsApi.reducer, // Agrega el nuevo reducer
       payments: paymentsReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -23,7 +23,7 @@ export const makeStore = () => {
         .concat(jobsApi.middleware)
         .concat(userApi.middleware)
         .concat(paymentsApi.middleware)
-        .concat(professionsApi.middleware), // Agrega el nuevo middleware
+        .concat(professionsApi.middleware),
   });
 };
 

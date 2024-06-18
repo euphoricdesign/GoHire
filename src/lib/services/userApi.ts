@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userPostData, UserData, UsersData } from "@/types/userTypes";
+import { userPostData, UserData, UsersData, UserPatchData } from "@/types/userTypes";
 import type { RootState } from "@/lib/store";
-
+import { UserEducation } from "@/types/educationsTypes";
+import { Professions } from "@/types/professionsTypes";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
-
 
 export const userApi = createApi({
   reducerPath: "usersApi",
@@ -51,15 +51,47 @@ export const userApi = createApi({
         body: newUser,
       }),
     }),
-    updateUser: builder.mutation<UserData, Partial<UserData> & { id: string }>({
+    updateUser: builder.mutation<UserPatchData, Partial<UserPatchData> & { id: string }>({
       query: ({ id, ...patch }) => {
-        console.log(patch);
         const token = localStorage.getItem("token");
+        if (patch.imgPictureUrl) {
+          const formData = new FormData();
+          formData.append("imgPictureUrl", patch.imgPictureUrl!);
+          return {
+            url: `users/${id}`,
+            headers: token ? { authorization: `${token}` } : {},
+            method: "PATCH",
+            body: formData,
+            formData: true,
+          };
+        }
         return {
           url: `users/${id}`,
           headers: token ? { authorization: `${token}` } : {},
           method: "PATCH",
           body: patch,
+        };
+      },
+    }),
+    postEducation: builder.mutation<UserEducation, UserEducation>({
+      query: (newEducation) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "education",
+          method: "POST",
+          body: newEducation,
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
+    postProfession: builder.mutation<Professions, Professions>({
+      query: (newProfession) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "profesions/me",
+          method: "PATCH",
+          body: newProfession,
+          headers: token ? { authorization: `${token}` } : {},
         };
       },
     }),
@@ -74,4 +106,6 @@ export const {
   useGetUserByIdQuery,
   useGetUserMeQuery,
   useUpdateUserMutation,
+  usePostEducationMutation,
+  usePostProfessionMutation,
 } = userApi;

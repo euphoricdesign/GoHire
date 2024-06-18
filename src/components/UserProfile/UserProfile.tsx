@@ -3,45 +3,33 @@ import { IoLocationOutline } from "react-icons/io5";
 import { TfiBolt } from "react-icons/tfi";
 import { FaShareFromSquare } from "react-icons/fa6";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
-import { useGetUserMeQuery, useUpdateUserMutation } from "@/lib/services/userApi";
+import {
+  useGetUserMeQuery,
+  usePostEducationMutation,
+  usePostProfessionMutation,
+  useUpdateUserMutation,
+} from "@/lib/services/userApi";
 import ProfileModal from "../Modals/ProfileModal";
-import { UserData } from "@/types/userTypes";
+import { UserData, UserPatchData } from "@/types/userTypes";
+import { UserEducation } from "@/types/educationsTypes";
+import { Professions } from "@/types/professionsTypes";
 
 const UserProfile = () => {
-  const { data: user, error: getUserError, isLoading: getUserLoading } = useGetUserMeQuery(null);
+  const {
+    data: user,
+    error: getUserError,
+    isLoading: getUserLoading,
+    refetch,
+  } = useGetUserMeQuery(null);
   const [updateUser] = useUpdateUserMutation();
+  const [postEducation] = usePostEducationMutation();
+  const [postProfession] = usePostProfessionMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentField, setCurrentField] = useState<string | null>(null);
-  const [show, setShow] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isAvailable, setIsAvailable] = useState(false);
-  const [userData, setUserData] = useState<UserData | undefined>(user);
-
-  ////////////// pendiente /////////////////
-
-  const handleEdit = (field: string) => {
-    setCurrentField(field);
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setCurrentField(null);
-  };
-
-  const handleSave = async (updatedData: Partial<UserData>) => {
-    if (user) {
-      try {
-        const result = await updateUser({ id: user.id, ...updatedData }).unwrap();
-        setUserData(result); // Actualizar el estado del usuario con la nueva información
-      } catch (error) {
-        console.error("Error updating user:", error);
-      }
-    }
-  };
-
-  /////////////////////////////////////////
 
   const openModal = (field: string) => {
     setCurrentField(field);
@@ -53,9 +41,24 @@ const UserProfile = () => {
     setCurrentField(null);
   };
 
-  const handleUpdateUser = async (updatedData: Partial<UserData>) => {
-    if (user) {
-      await updateUser({ id: user.id, ...updatedData });
+  const handleSave = async (
+    updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserPatchData> | FormData
+  ) => {
+    setIsLoading(true);
+    try {
+      if (currentField === "education") {
+        await postEducation(updatedData as UserEducation).unwrap();
+      } else if (currentField === "professions") {
+        await postProfession(updatedData as Professions).unwrap();
+      } else if (user) {
+        await updateUser({ id: user.id, ...updatedData }).unwrap();
+      }
+      refetch();
+      closeModal();
+    } catch (error) {
+      console.error("Error saving data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,12 +76,23 @@ const UserProfile = () => {
     return <p>Error fetching user data</p>;
   }
 
-  const handleAvailableClick = () => {
-    setIsAvailable(!isAvailable);
-  };
-
-  const handleShowClick = () => {
-    setShow(!show);
+  const handleAvailableClick = async () => {
+    if (
+      !user?.bio ||
+      !user?.city ||
+      !user?.country ||
+      (user?.profesions && user.profesions.length === 0)
+    ) {
+      openModal("completeProfile");
+    } else {
+      try {
+        const updatedData = { availableToWork: !isAvailable };
+        await updateUser({ id: user.id, ...updatedData }).unwrap();
+        setIsAvailable(!isAvailable);
+      } catch (error) {
+        console.error("Error updating user:", error);
+      }
+    }
   };
 
   return (
@@ -87,13 +101,15 @@ const UserProfile = () => {
         <div className="border-b border-b-gray-300 rounded-t-3xl">
           <div className="flex items-center">
             <div className="relative w-auto mx-[1.5rem] border border-gray-300 rounded-full">
-              <Image
-                className="rounded-full"
-                src={"https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
-                alt={""}
-                width={96}
-                height={96}
-              />
+              {user?.imgPictureUrl && (
+                <Image
+                  className="rounded-full"
+                  src={user.imgPictureUrl}
+                  alt={""}
+                  width={96}
+                  height={96}
+                />
+              )}
               <HiOutlinePencilSquare
                 className="absolute top-0 right-[-13px] text-[#3C65F5] w-[1.5rem] h-[1.5rem] cursor-pointer"
                 onClick={() => openModal("profileImg")}
@@ -244,7 +260,7 @@ const UserProfile = () => {
           onRequestClose={closeModal}
           field={currentField}
           user={user}
-          onSave={handleUpdateUser}
+          onSave={handleSave}
           ariaHideApp={false}
         />
       )}

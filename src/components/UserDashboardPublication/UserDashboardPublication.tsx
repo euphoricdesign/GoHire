@@ -13,11 +13,7 @@ import Toastify from "toastify-js";
 
 const UserDashboardPublication = () => {
   const { user, isLoading: userLoading } = useUser();
-  const {
-    data,
-    isLoading: publicationLoading,
-    refetch,
-  } = useGetAllPublicationQuery(null);
+  const { data, isLoading: publicationLoading, refetch } = useGetAllPublicationQuery(null);
 
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
@@ -109,7 +105,7 @@ const UserDashboardPublication = () => {
   };
 
   const filteredJobsByUser = data?.publicationsFind?.filter(
-    (jobItem) => jobItem.user.email === user?.email
+    (jobItem) => jobItem.user?.email === user?.email
   );
 
   console.log("jobs en search all: ", filteredJobsByUser);
@@ -120,7 +116,7 @@ const UserDashboardPublication = () => {
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
-      </div> 
+      </div>
     );
   }
 

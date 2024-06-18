@@ -1,13 +1,21 @@
-import { UserData } from "@/types/userTypes";
+"use client";
 import Modal from "react-modal";
-import { FaWpforms, FaPencil } from "react-icons/fa6";
+import React, { useState } from "react";
+import CustomModal from "./CustomModal";
+import { UserData, UserPatchData } from "@/types/userTypes";
+import { useGetAllProfessionsQuery } from "@/lib/services/professionsApi";
+import axios from "axios";
+import { UserEducation } from "@/types/educationsTypes";
+import { Professions } from "@/types/professionsTypes";
 
 interface ProfileModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   field: string | null;
   user: UserData | undefined;
-  onSave: (updatedData: Partial<UserData>) => void;
+  onSave: (
+    updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserPatchData>
+  ) => void;
   ariaHideApp: boolean;
 }
 
@@ -19,143 +27,169 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   onSave,
   ariaHideApp,
 }) => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const updatedData: Partial<UserData> = {};
+  const { data: categoryData, isLoading, error } = useGetAllProfessionsQuery(null);
+  const [selectedProfession, setSelectedProfession] = useState("");
 
-    formData.forEach((value, key) => {
-      if (typeof value === "string" && key in user!) {
-        updatedData[key as keyof UserData] = value as any;
-      }
-    });
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-    onSave(updatedData);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    console.log(file, "ESTO ES FILE = EVENT.TARGET");
+    if (file) {
+      setSelectedImage(file);
+      console.log(selectedImage, "ESTO ES SELECTED IMAGE, DESPUÉS DEL SET");
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageSave = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (selectedImage) {
+      // const formData = new FormData();
+      // const blob = new Blob([selectedImage], { type: selectedImage.type });
+      // formData.append("imgPictureUrl", blob, selectedImage.name);
+
+      onSave({ imgPictureUrl: selectedImage });
+      onRequestClose();
+      setSelectedImage(null);
+      setPreviewImage(null);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading categories</div>;
+  }
+
+  const categories = categoryData?.map((profession) => profession.category) || [];
+
+  const handleSave = () => {
+    onSave({ category: selectedProfession });
     onRequestClose();
+  };
+
+  const handleFieldChange = (fieldName: string, value: string) => {
+    if (fieldName === "profession") {
+      setSelectedProfession(value);
+    }
   };
 
   const renderField = () => {
     switch (field) {
       case "profileImg":
         return (
-          <form onSubmit={handleSubmit}>
-            <label>Profile Image URL</label>
-            <input name="profileImg" type="text" defaultValue={user?.profileImg} />
-            <button type="submit">Save</button>
+          <form onSubmit={(e) => handleImageSave(e)} className="p-4">
+            <h2 className="text-xl font-bold mb-4">Change Profile Image</h2>
+            <input name="image" type="file" accept="image/*" onChange={handleImageChange} />
+            {previewImage && (
+              <div className="mt-4">
+                <h3 className="text-lg">Preview:</h3>
+                <img src={previewImage} alt="Preview" className="w-full h-auto mt-2" />
+              </div>
+            )}
+            <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+              Save
+            </button>
           </form>
         );
       case "nameAndLastName":
         return (
-          <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label className="font-bold text-sm">Your Name</label>
-            <div className="relative flex items-center">
-              <input
-                className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-                name="name"
-                type="text"
-                defaultValue={user?.name}
-              />
-              <FaPencil className="absolute right-3 text-gray-400 peer-focus:text-[#3C65F5]" />
-            </div>
-            <label className="font-bold text-sm mt-4">Your Last Name</label>
-            <div className="relative flex items-center">
-              <input
-                name="lastName"
-                type="text"
-                defaultValue={user?.lastName}
-                className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-              />
-              <FaPencil className="absolute right-3 text-gray-400 peer-focus:text-[#3C65F5]" />
-            </div>
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
-              Save
-            </button>
-          </form>
+          <CustomModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            ariaHideApp={ariaHideApp}
+            title="Edit Name and Last Name"
+            fields={[
+              { name: "name", label: "Your Name", type: "text", defaultValue: user?.name },
+              {
+                name: "lastName",
+                label: "Your Last Name",
+                type: "text",
+                defaultValue: user?.lastName,
+              },
+            ]}
+            onSave={onSave}
+          />
         );
       case "location":
         return (
-          <div>
-            <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-              <label className="font-bold text-sm">Your City</label>
-              <div className="relative flex items-center">
-                <input
-                  className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-                  name="city"
-                  type="text"
-                  defaultValue={user?.city}
-                />
-                <FaPencil className="absolute right-3 text-gray-400 peer-focus:text-[#3C65F5]" />
-              </div>
-              <label className="font-bold text-sm mt-4">Your Country</label>
-              <div className="relative flex items-center">
-                <input
-                  name="country"
-                  type="text"
-                  defaultValue={user?.country}
-                  className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-                />
-                <FaPencil className="absolute right-3 text-gray-400 peer-focus:text-[#3C65F5]" />
-              </div>
-              <button
-                type="submit"
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
-                Save
-              </button>
-            </form>
-          </div>
+          <CustomModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            ariaHideApp={ariaHideApp}
+            title="Edit Location"
+            fields={[
+              { name: "city", label: "Your City", type: "text", defaultValue: user?.city },
+              { name: "country", label: "Your Country", type: "text", defaultValue: user?.country },
+            ]}
+            onSave={onSave}
+          />
         );
       case "bio":
         return (
-          <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label className="font-bold text-sm mt-4">My Description</label>
-            <div className="relative flex">
-              <textarea
-                className="w-full text-gray-700 text-base pl-0 pr-3 py-2 peer border-b-2 border-gray-300 focus:border-[#3C65F5]"
-                name="bio"
-                defaultValue={user?.bio}></textarea>
-              <FaPencil className="absolute right-3 top-2 text-gray-400 peer-focus:text-[#3C65F5]" />
-            </div>
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
-              Save
-            </button>
-          </form>
+          <CustomModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            ariaHideApp={ariaHideApp}
+            title="Edit Bio"
+            fields={[
+              { name: "bio", label: "My Description", type: "textarea", defaultValue: user?.bio },
+            ]}
+            onSave={onSave}
+          />
         );
       case "professions":
         return (
-          <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label>Professions</label>
-            <input
-              name="professions"
-              type="text"
-              defaultValue={user?.profesions.map((prof) => prof.category).join(", ")}
-            />
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
-              Save
-            </button>
-          </form>
+          <CustomModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            ariaHideApp={ariaHideApp}
+            title="Add Profession"
+            fields={[
+              {
+                name: "profession",
+                label: "Profession",
+                type: "select",
+                options: categories,
+              },
+            ]}
+            onFieldChange={handleFieldChange}
+            onSave={handleSave}
+          />
         );
       case "education":
         return (
-          <form onSubmit={handleSubmit} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label>Education</label>
-            <input
-              name="education"
-              type="text"
-              defaultValue={user?.educations.map((edu) => edu.title).join(", ")}
-            />
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
-              Save
-            </button>
-          </form>
+          <CustomModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            ariaHideApp={ariaHideApp}
+            title="Add Education"
+            fields={[
+              { name: "title", label: "Tittle", type: "text" },
+              { name: "educationalEntity", label: "Educational Entity", type: "text" },
+              { name: "description", label: "Description", type: "textarea" },
+              { name: "studiesState", label: "Studies State", type: "text" },
+              { name: "startDate", label: "Start Date", type: "text" },
+              { name: "endDate", label: "End Date", type: "text" },
+            ]}
+            onSave={onSave}
+          />
+        );
+      case "completeProfile":
+        return (
+          <div>
+            <h2>Do you want to be part of our Talents?</h2>
+            <h3>It's very easy!</h3>
+            <h3>All you need to do is complete your information</h3>
+          </div>
         );
       default:
         return null;
@@ -183,7 +217,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
       }}>
-      <div>{renderField()}</div>
+      {renderField()}
     </Modal>
   );
 };
