@@ -1,6 +1,7 @@
+"use client"
 import React from "react";
-import { useGetCategoryQuery } from "@/lib/services/jobsApi";
-import {CategoryResponse} from "@/types/categoryType"
+import { useGetAllProfessionsQuery } from "@/lib/services/professionsApi";
+import { Professions } from "@/types/professionsTypes";
 
 interface CategorySelectProps {
   selectedCategory: string;
@@ -11,7 +12,7 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
   selectedCategory,
   handleCategoryChange,
 }) => {
-  const { data: categories, isLoading, isError } = useGetCategoryQuery(null);
+  const { data, isLoading, isError } = useGetAllProfessionsQuery(null);
 
   return (
     <div>
@@ -19,16 +20,16 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
         id="category"
         value={selectedCategory}
         onChange={handleCategoryChange}
-        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer">
+        className="w-full text-gray-700 text-base focus:outline-none pl-0 pr-3 py-2 peer"
+      >
         <option value="">Select a category</option>
         {isLoading && <option>Loading...</option>}
         {isError && <option>Error loading categories</option>}
-        {categories?.categoryReturn &&
-                  categories.categoryReturn.map((category: string, index: number) => (
-                    <option key={index} value={category}>
-                      {category}
-                    </option>
-                  ))}
+        {data && data.map((profession: Professions, index: number) => (
+          <option key={profession.id} value={profession.category}>
+            {profession.category}
+          </option>
+        ))}
       </select>
     </div>
   );
