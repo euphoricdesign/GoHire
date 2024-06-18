@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Logo from '../../../public/searchLogo.svg'
 import { useAuth } from '@/providers/AuthProvider';
 import "../../utils/Navbar.css";
-
+import { useGetUserMeQuery } from "@/lib/services/userApi";
 interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
 }
@@ -20,6 +20,8 @@ interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const Navbar: React.FC = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showModal, setShowModal] = useState<boolean>(false)
+
+const { data, isFetching }=useGetUserMeQuery(null)
 
   const modalRef = useRef<HTMLDivElement | null>(null)
   const currentClickRef = useRef<EventTarget | null>(null) 
@@ -133,11 +135,13 @@ const Navbar: React.FC = () => {
             </div>
           )}
         </div>
-        <button
-          className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
-          onClick={handlePostAJob}>
-          Post a job
-        </button>
+        {data?.role !== "ADMIN" && (
+          <button
+            className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0 md:block hidden"
+            onClick={handlePostAJob}>
+            Post a job
+          </button>
+        )}
         {
           user && (
           <div>

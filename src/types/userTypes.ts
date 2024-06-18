@@ -36,6 +36,7 @@ export interface UserData {
   token?: string;
   email?: string;
   profileImg?: string;
+  role?:string;
 }
 
 export interface UserPatchData {
