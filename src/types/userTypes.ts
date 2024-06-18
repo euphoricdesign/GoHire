@@ -35,6 +35,7 @@ export interface UserData {
   description: string;
   token?: string;
   email?: string;
+  profileImg?: string;
 }
 
 export interface UserPatchData {
