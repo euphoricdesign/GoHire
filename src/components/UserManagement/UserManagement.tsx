@@ -1,6 +1,6 @@
 const UserManagement = () => {
     return (
-      <div>
+      <div className="h-[370px]">
         <h2 className="text-2xl font-bold my-[10px] mx-[1.5rem]">User Management</h2>
         <div className="overflow-x-auto rounded-3xl">
           <table className="w-full table-auto">

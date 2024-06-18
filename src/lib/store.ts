@@ -16,7 +16,8 @@ export const makeStore = () => {
       [userApi.reducerPath]: userApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
-      payments: paymentsReducer, // Agrega el nuevo reducer
+      [professionsApi.reducerPath]: professionsApi.reducer, // Agrega el nuevo reducer
+      payments: paymentsReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
@@ -33,13 +34,8 @@ const store = makeStore();
 // Configura los listeners con la instancia del store
 setupListeners(store.dispatch);
 
-// Middleware se agregan para
-
-// Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;
-// Se extrae el tipo de dato del Store del estado raíz
 export type RootState = ReturnType<AppStore["getState"]>;
-// Se extrae el tipo de las funciones que se van a poder ejecutar
 export type AppDispatch = AppStore["dispatch"];
 
 export default store;

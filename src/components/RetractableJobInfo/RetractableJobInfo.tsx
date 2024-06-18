@@ -1,4 +1,3 @@
-import { usersPreload } from "@/utils/users";
 import Link from "next/link";
 import React from "react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
@@ -10,38 +9,38 @@ import { useGetUserByIdQuery } from "@/lib/services/userApi";
 const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
   const { data: user } = useGetUserByIdQuery({ id: selectedJob.user.id });
   return (
-    <div className="h-full w-full">
-      <div className="flex items-center justify-end w-full text-sm p-3">
+    <div className="h-full w-full text-[#05264E]">
+      <div className="flex items-center justify-end w-full text-sm p-3 text-[#05264E]">
         <Link href={``} rel="noopener noreferrer" target="_blank">
           <button className="flex items-center">
-            <h6>Open job in a new window</h6>
+            <h6 className="text-[#05264E]">Open job in a new window</h6>
             <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
           </button>
         </Link>
       </div>
-      <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
+      <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto text-[#05264E]">
         <div>
-          <div className="float-left w-[70%] h-full flex flex-col border-r border-gray-300">
+          <div className="float-left w-[70%] h-full flex flex-col border-r border-gray-300 text-[#05264E]">
             <div className="">
               <div className="p-5 border-b border-gray-300">
-                <div className="text-[32px] font-bold">{selectedJob.title}</div>
-                <div className="flex items-center ">
+                <div className="text-[32px] font-bold text-[#05264E]">{selectedJob.title}</div>
+                <div className="flex items-center text-[#05264E]">
                   Posted {selectedJob.timelapse}
-                  <span className="ml-1 flex items-center">
+                  <span className="ml-1 flex items-center text-[#05264E]">
                     - <IoLocationOutline /> {selectedJob.location}
                   </span>
                 </div>
               </div>
-              <div className="border-b border-gray-300 p-5">{selectedJob.description}</div>
+              <div className="border-b border-gray-300 p-5 text-[#05264E]">{selectedJob.description}</div>
               <div className="p-5">
-                <div className="text-lg font-bold">Professions needed:</div>
-                <div className="mt-2 ">{selectedJob.category}</div>
+                <div className="text-lg font-bold text-[#05264E]">Professions needed:</div>
+                <div className="mt-2 text-[#05264E]">{selectedJob.category}</div>
               </div>
             </div>
           </div>
           <div className="float-right w-[30%] h-full flex flex-col">
             <div className="border-b border-gray-300 p-5">
-              <div className="text-lg font-bold">About the client:</div>
+              <div className="text-lg font-bold text-[#05264E]">About the client:</div>
               {user ? (
                 <div className="flex flex-col items-start">
                   <div className="m-3 p-1 border border-gray-300 rounded-full">
@@ -53,12 +52,12 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
                       height={96}
                     />
                   </div>
-                  <h2 className="text-[16px] font-bold">
+                  <h2 className="text-[16px] font-bold text-[#05264E]">
                     {user.name} {user.lastName}
                   </h2>
                   <div className="flex items-center">
                     <IoLocationOutline />
-                    <h2 className="text-[16px]">
+                    <h2 className="text-[16px] text-[#05264E]">
                       {user.city}, {user.country}
                     </h2>
                   </div>

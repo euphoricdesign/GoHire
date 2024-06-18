@@ -1,6 +1,6 @@
 const JobPostingManagement = () => {
     return (
-      <div>
+      <div className="h-[370px]">
         <div className="flex justify-between mb-4 items-center">
           <h2 className="text-2xl font-bold my-[10px] mx-[1.5rem]">Job Posting Management</h2>
           <button className="bg-[#3C65F5] hover:bg-blue-400 text-white font-medium py-2 px-4 rounded mr-[1.5rem] my-[10px]">
