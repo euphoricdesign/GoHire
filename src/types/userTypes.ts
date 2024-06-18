@@ -28,11 +28,25 @@ export interface UserData {
   availableToWork: boolean;
   professionalRate: string;
   newMember: boolean;
-  profileImg?: string;
+  imgPictureUrl?: string;
   profesions: Professions[];
   educations: UserEducation[];
   experiences: UserExperiences[];
   description: string;
   token?: string;
   email?: string;
+  profileImg?: string;
+}
+
+export interface UserPatchData {
+  id: string;
+  name: string;
+  lastName: string;
+  dni: string;
+  country: string;
+  city: string;
+  birthdate: Date;
+  bio: string;
+  availableToWork: boolean;
+  imgPictureUrl?: File;
 }

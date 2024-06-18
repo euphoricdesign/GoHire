@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/slices/userSlice";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { paymentsApi } from "./services/paymentsApi";
+import paymentsReducer from "./features/slices/paymentsSlice";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
 import { paymentsApi } from "./services/paymentsApi";
@@ -15,6 +18,7 @@ export const makeStore = () => {
       user: userReducer,
       [jobsApi.reducerPath]: jobsApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
+      [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer, // Agrega el nuevo reducer
       [statisticsApi.reducerPath]: statisticsApi.reducer,

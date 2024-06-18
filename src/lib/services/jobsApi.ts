@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { JobsData, JobsFindData, JobsPostData } from "@/types/jobsTypes";
-import type { RootState } from '@/lib/store';
+import type { RootState } from "@/lib/store";
 import { Category, CategoryResponse } from "@/types/categoryType";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
@@ -10,10 +10,12 @@ export const jobsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers, { getState, endpoint }) => {
-      const token = (getState() as RootState).user.userDetail?.token;
-      if (token) {
-        headers.set("authorization", `${token}`);
-        console.log('Token added to headers:', token);
+      if (endpoint === "postJob" || "listJobs") {
+        const token = (getState() as RootState).user.userDetail?.token;
+        if (token) {
+          headers.set("authorization", `${token}`);
+          console.log("Token added to headers:", token);
+        }
       }
       return headers;
     },
@@ -31,7 +33,9 @@ export const jobsApi = createApi({
         if (city) {
           url += `&city=${city}`;
         }
-        return { url };
+        return {
+          url,
+        };
       },
     }),
     getJobById: builder.query<JobsData[], { id: string }>({
@@ -63,17 +67,16 @@ export const jobsApi = createApi({
     getAllPublication: builder.query<JobsFindData, null>({
       query: () => `publication/allPublications`,
     }),
-   
   }),
 });
 
-export const { 
-  useGetAllJobsQuery, 
-  useGetJobByIdQuery, 
-  usePostJobMutation, 
-  useListJobsQuery, 
-  useGetCategoryQuery, 
-  useGetAllPublicationQuery, 
+export const {
+  useGetAllJobsQuery,
+  useGetJobByIdQuery,
+  usePostJobMutation,
+  useListJobsQuery,
+  useGetCategoryQuery,
+  useGetAllPublicationQuery,
   useUpdateJobMutation,
-  useDeleteJobMutation 
+  useDeleteJobMutation,
 } = jobsApi;
