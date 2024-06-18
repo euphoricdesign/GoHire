@@ -2,13 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/slices/userSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { paymentsApi } from "./services/paymentsApi";
-import paymentsReducer from "./features/slices/paymentsSlice";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
-import { paymentsApi } from "./services/paymentsApi";
 import { professionsApi } from "./services/professionsApi"; // Importa tu API de profesiones
 import paymentsReducer from "./features/slices/paymentsSlice"; 
-import { setupListeners } from "@reduxjs/toolkit/query";
 import { statisticsApi } from "./services/statisticsApi";
 
 // Configurar el store
@@ -20,7 +17,6 @@ export const makeStore = () => {
       [userApi.reducerPath]: userApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
-      [professionsApi.reducerPath]: professionsApi.reducer, // Agrega el nuevo reducer
       [statisticsApi.reducerPath]: statisticsApi.reducer,
       payments: paymentsReducer,
     },
