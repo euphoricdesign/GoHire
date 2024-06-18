@@ -6,6 +6,7 @@ import { paymentsApi } from "./services/paymentsApi";
 import { professionsApi } from "./services/professionsApi"; // Importa tu API de profesiones
 import paymentsReducer from "./features/slices/paymentsSlice"; 
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { statisticsApi } from "./services/statisticsApi";
 
 // Configurar el store
 export const makeStore = () => {
@@ -16,6 +17,7 @@ export const makeStore = () => {
       [userApi.reducerPath]: userApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer, // Agrega el nuevo reducer
+      [statisticsApi.reducerPath]: statisticsApi.reducer,
       payments: paymentsReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -23,7 +25,8 @@ export const makeStore = () => {
         .concat(jobsApi.middleware)
         .concat(userApi.middleware)
         .concat(paymentsApi.middleware)
-        .concat(professionsApi.middleware), // Agrega el nuevo middleware
+        .concat(professionsApi.middleware)
+        .concat(statisticsApi.middleware),
   });
 };
 
