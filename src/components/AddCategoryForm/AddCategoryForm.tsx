@@ -21,6 +21,7 @@ const AddCategoryForm: React.FC = () => {
     try {
       await createProfession({ category: data.category }).unwrap();
       toast.success('Category added successfully');
+      window.location.reload()
     } catch (error) {
       toast.error('Error adding category. Please try again.');
     } finally {

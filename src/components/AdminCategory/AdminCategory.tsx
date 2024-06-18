@@ -19,6 +19,7 @@ const AdminCategory: React.FC = () => {
     try {
       await updateProfession({ id: professionId, category: editValue }).unwrap();
       setEditIndex(null);
+      window.location.reload()
     } catch (error) {
       console.error("Failed to update category", error);
     }
