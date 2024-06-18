@@ -11,7 +11,7 @@ import {
   useUpdateUserMutation,
 } from "@/lib/services/userApi";
 import ProfileModal from "../Modals/ProfileModal";
-import { UserData } from "@/types/userTypes";
+import { UserData, UserPatchData } from "@/types/userTypes";
 import { UserEducation } from "@/types/educationsTypes";
 import { Professions } from "@/types/professionsTypes";
 
@@ -42,12 +42,14 @@ const UserProfile = () => {
   };
 
   const handleSave = async (
-    updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserData>
+    updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserPatchData> | FormData
   ) => {
     setIsLoading(true);
     try {
       if (currentField === "education") {
         await postEducation(updatedData as UserEducation).unwrap();
+      } else if (currentField === "professions") {
+        await postProfession(updatedData as Professions).unwrap();
       } else if (user) {
         await updateUser({ id: user.id, ...updatedData }).unwrap();
       }
@@ -69,7 +71,12 @@ const UserProfile = () => {
   }
 
   const handleAvailableClick = async () => {
-    if (!user?.bio || !user?.city || !user?.country || !user?.dni) {
+    if (
+      !user?.bio ||
+      !user?.city ||
+      !user?.country ||
+      (user?.profesions && user.profesions.length === 0)
+    ) {
       openModal("completeProfile");
     } else {
       try {

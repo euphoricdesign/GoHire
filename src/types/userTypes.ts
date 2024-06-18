@@ -36,3 +36,16 @@ export interface UserData {
   token?: string;
   email?: string;
 }
+
+export interface UserPatchData {
+  id: string;
+  name: string;
+  lastName: string;
+  dni: string;
+  country: string;
+  city: string;
+  birthdate: Date;
+  bio: string;
+  availableToWork: boolean;
+  imgPictureUrl?: File;
+}

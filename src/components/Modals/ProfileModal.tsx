@@ -2,16 +2,20 @@
 import Modal from "react-modal";
 import React, { useState } from "react";
 import CustomModal from "./CustomModal";
-import { UserData } from "@/types/userTypes";
-import { FaPencil } from "react-icons/fa6";
-import { useGetCategoryQuery } from "@/lib/services/jobsApi";
+import { UserData, UserPatchData } from "@/types/userTypes";
+import { useGetAllProfessionsQuery } from "@/lib/services/professionsApi";
+import axios from "axios";
+import { UserEducation } from "@/types/educationsTypes";
+import { Professions } from "@/types/professionsTypes";
 
 interface ProfileModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   field: string | null;
   user: UserData | undefined;
-  onSave: (updatedData: Record<string, string | number>) => void;
+  onSave: (
+    updatedData: Partial<UserEducation> | Partial<Professions> | Partial<UserPatchData>
+  ) => void;
   ariaHideApp: boolean;
 }
 
@@ -23,29 +27,58 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   onSave,
   ariaHideApp,
 }) => {
-  const { data: categoryData, isLoading, error } = useGetCategoryQuery(null); // Usar el hook de RTK Query
+  const { data: categoryData, isLoading, error } = useGetAllProfessionsQuery(null);
+  const [selectedProfession, setSelectedProfession] = useState("");
 
-  const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    console.log(file, "ESTO ES FILE = EVENT.TARGET");
     if (file) {
+      setSelectedImage(file);
+      console.log(selectedImage, "ESTO ES SELECTED IMAGE, DESPUÉS DEL SET");
       const reader = new FileReader();
       reader.onloadend = () => {
-        if (typeof reader.result === "string") {
-          const base64String = reader.result.split(",")[1];
-          setPreviewImage(base64String);
-        }
+        setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSaveImage = () => {
-    if (previewImage) {
-      console.log(previewImage, "osapdfksapofksadfa");
+  const handleImageSave = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (selectedImage) {
+      // const formData = new FormData();
+      // const blob = new Blob([selectedImage], { type: selectedImage.type });
+      // formData.append("imgPictureUrl", blob, selectedImage.name);
 
-      onSave({ imgPictureUrl: previewImage });
+      onSave({ imgPictureUrl: selectedImage });
       onRequestClose();
+      setSelectedImage(null);
+      setPreviewImage(null);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading categories</div>;
+  }
+
+  const categories = categoryData?.map((profession) => profession.category) || [];
+
+  const handleSave = () => {
+    onSave({ category: selectedProfession });
+    onRequestClose();
+  };
+
+  const handleFieldChange = (fieldName: string, value: string) => {
+    if (fieldName === "profession") {
+      setSelectedProfession(value);
     }
   };
 
@@ -53,38 +86,16 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
     switch (field) {
       case "profileImg":
         return (
-          <form onSubmit={handleSaveImage} className="flex flex-col shadow-xl rounded-xl p-4">
-            <label className="font-bold text-sm">Choose your Profile Image</label>
-            <div className="flex flex-col items-center">
-              <div className="flex-grow relative w-full text-center">
-                <input
-                  type="file"
-                  id="image"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageChange}
-                />
-                <FaPencil className="absolute right-3 text-gray-400 peer-focus:text-[#3C65F5]" />
-                <label
-                  htmlFor="image"
-                  className="w-full text-gray-700 text-lg focus:outline-none pl-0 pr-3 py-2 peer cursor-pointer flex items-center">
-                  <span className="text-gray-500">
-                    {previewImage ? "Change image" : "Add image"}
-                  </span>
-                </label>
-                {previewImage && (
-                  <div className="mt-4">
-                    <img src={previewImage} alt="Profile Preview" className="max-w-full max-h-60" />
-                  </div>
-                )}
-                <div
-                  className="absolute bottom-0 left-0 h-0.5 bg-gray-300 transition-all duration-300 peer-focus:w-full peer-focus:bg-[#3C65F5]"
-                  style={{ width: "calc(100% - 3rem)" }}></div>
+          <form onSubmit={(e) => handleImageSave(e)} className="p-4">
+            <h2 className="text-xl font-bold mb-4">Change Profile Image</h2>
+            <input name="image" type="file" accept="image/*" onChange={handleImageChange} />
+            {previewImage && (
+              <div className="mt-4">
+                <h3 className="text-lg">Preview:</h3>
+                <img src={previewImage} alt="Preview" className="w-full h-auto mt-2" />
               </div>
-            </div>
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[#93B4FF] transition-all duration-300">
+            )}
+            <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
               Save
             </button>
           </form>
@@ -136,16 +147,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
           />
         );
       case "professions":
-        if (isLoading) {
-          return <div>Loading...</div>;
-        }
-
-        if (error) {
-          return <div>Error loading categories</div>;
-        }
-
-        const categories = categoryData?.categoryReturn.map((category) => category) || [];
-
         return (
           <CustomModal
             isOpen={isOpen}
@@ -160,7 +161,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
                 options: categories,
               },
             ]}
-            onSave={onSave}
+            onFieldChange={handleFieldChange}
+            onSave={handleSave}
           />
         );
       case "education":
@@ -183,32 +185,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
         );
       case "completeProfile":
         return (
-          <CustomModal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
-            ariaHideApp={ariaHideApp}
-            title="Complete Profile"
-            fields={[
-              { name: "name", label: "Your Name", type: "text", defaultValue: user?.name },
-              {
-                name: "lastName",
-                label: "Your Last Name",
-                type: "text",
-                defaultValue: user?.lastName,
-              },
-              { name: "city", label: "Your City", type: "text", defaultValue: user?.city },
-              { name: "country", label: "Your Country", type: "text", defaultValue: user?.country },
-              { name: "dni", label: "DNI", type: "number", defaultValue: user?.dni },
-              { name: "bio", label: "Description", type: "textarea", defaultValue: user?.bio },
-              {
-                name: "professions",
-                label: "Professions",
-                type: "text",
-                defaultValue: user?.profesions.map((prof) => prof.category).join(", "),
-              },
-            ]}
-            onSave={onSave}
-          />
+          <div>
+            <h2>Do you want to be part of our Talents?</h2>
+            <h3>It's very easy!</h3>
+            <h3>All you need to do is complete your information</h3>
+          </div>
         );
       default:
         return null;
