@@ -10,7 +10,7 @@ export const statisticsApi = createApi({
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+        headers.set("Authorization", `${token}`);
       }
       headers.set("Content-Type", "application/json");
       return headers;
