@@ -6,15 +6,15 @@ import { useEffect, useState } from 'react';
 import { StatisticsData } from '@/types/statisticsTypes';
 
 const GraficaPage: NextPage = () => {
-  const { data: statisticsData, error, isLoading } = useGetStatisticsQuery(null);
+  const { data, error, isLoading } = useGetStatisticsQuery(null);
   const [earningsData, setEarningsData] = useState<number[]>([]);
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   useEffect(() => {
-    if (statisticsData) {
+    if (data) {
       // Crear un objeto para almacenar los valores de earnings por mes
       const earningsMap: { [key: string]: number } = {};
-      statisticsData.forEach((item: StatisticsData) => {
+      data.forEach((item: StatisticsData) => {
         earningsMap[item.month] = item.totalValue;
       });
 
@@ -22,7 +22,7 @@ const GraficaPage: NextPage = () => {
       const formattedData = labels.map((month) => earningsMap[month] || 0);
       setEarningsData(formattedData);
     }
-  }, [statisticsData, labels]);
+  }, [data]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) {

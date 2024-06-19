@@ -8,11 +8,9 @@ export const statistics = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
-      console.log("Token from localStorage:", token); // Depuración
+      const token = localStorage.getItem("token"); // Ajusta la clave según cómo almacenes el token en localStorage
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-        console.log("Authorization header set:", headers.get("Authorization")); // Depuración
+        headers.set("Authorization", `${token}`);
       }
       headers.set("Content-Type", "application/json");
       return headers;
@@ -20,10 +18,7 @@ export const statistics = createApi({
   }),
   endpoints: (builder) => ({
     getStatistics: builder.query<StatisticsData[], null>({
-      query: () => ({
-        url: "statistics/payment/month",
-        method: "GET"
-      }),
+      query: () => "statistics/payment/month",
     }),
   }),
 });
