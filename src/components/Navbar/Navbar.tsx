@@ -122,6 +122,9 @@ const Navbar: React.FC = () => {
           <a className="text-sm" href="/contact" style={{ "--i": 3 } as AnchorProps}>
             Contact
           </a>
+          <a className="text-sm" href="/carrousel" style={{ "--i": 3 } as AnchorProps}>
+            Carrousel
+          </a>
         </nav>
       </div>
       <div className="flex items-center gap-3 text-sm">
