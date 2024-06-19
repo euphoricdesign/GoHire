@@ -37,7 +37,6 @@ export interface UserData {
   email?: string;
   profileImg?: string;
   role?:string;
-  role: string;
   isBlocked:boolean;
 
 }
