@@ -6,6 +6,7 @@ import paymentsReducer from "./features/slices/paymentsSlice";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
 import { professionsApi } from "./services/professionsApi";
+import { statistics } from "./services/statisticsApi";  // Importa statisticsApi
 
 // Configurar el store
 export const makeStore = () => {
@@ -16,6 +17,7 @@ export const makeStore = () => {
       [userApi.reducerPath]: userApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
+      [statistics.reducerPath]: statistics.reducer,  // Añade el reducer del statisticsApi
       payments: paymentsReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -23,7 +25,8 @@ export const makeStore = () => {
         .concat(jobsApi.middleware)
         .concat(userApi.middleware)
         .concat(paymentsApi.middleware)
-        .concat(professionsApi.middleware),
+        .concat(professionsApi.middleware)
+        .concat(statistics.middleware),  // Añade el middleware del statisticsApi
   });
 };
 
