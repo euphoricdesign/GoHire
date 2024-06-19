@@ -8,47 +8,15 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
 } from 'recharts';
+import { StatisticsData } from '@/types/statisticsTypes';
 
 const JobPostingActivity = () => {
   const [timeFrame, setTimeFrame] = useState('monthly'); // 'daily', 'weekly', 'monthly'
 
-  const {data: monthlyPostings} = useGetPostStatisticsQuery(null)
-  const {data: weeklyPostings} = useGetPostWeeklyStatisticsQuery(null)
-  const {data: dailyPostings} = useGetPostDailyStatisticsQuery(null)
-
-
-
-  // Datos que vendrían del back
-  // const dailyPostings = [
-  //   { date: '2023-06-01', newPostings: 5 },
-  //   { date: '2023-06-02', newPostings: 7 },
-  //   { date: '2023-06-03', newPostings: 3 },
-  //   { date: '2023-06-04', newPostings: 8 },
-  //   { date: '2023-06-05', newPostings: 12 },
-  //   { date: '2023-06-06', newPostings: 10 },
-  //   { date: '2023-06-07', newPostings: 6 },
-  // ];
-
-  // const weeklyPostings = [
-  //   { week: 'Week 1', newPostings: 35 },
-  //   { week: 'Week 2', newPostings: 42 },
-  //   { week: 'Week 3', newPostings: 28 },
-  //   { week: 'Week 4', newPostings: 50 },
-  // ];
-
-  // const monthlyPostings = [
-  //   { month: 'Jan', newPostings: 120 },
-  //   { month: 'Feb', newPostings: 150 },
-  //   { month: 'Mar', newPostings: 200 },
-  //   { month: 'Apr', newPostings: 180 },
-  //   { month: 'May', newPostings: 210 },
-  //   { month: 'Jun', newPostings: 250 },
-  // ];
+  const { data: monthlyPostings } = useGetPostStatisticsQuery(null);
+  const { data: weeklyPostings } = useGetPostWeeklyStatisticsQuery(null);
+  const { data: dailyPostings } = useGetPostDailyStatisticsQuery(null);
 
   const getPostingsData = () => {
     switch(timeFrame) {
@@ -112,13 +80,13 @@ const JobPostingActivity = () => {
             <div className="bg-gray-100 p-4 rounded">
               <p className="text-sm text-gray-600">Total New Postings (Last 30 days)</p>
               <p className="text-2xl font-bold">
-                {dailyPostings?.reduce((sum, day) => sum + day.countPublications, 0)}
+                {dailyPostings.reduce((sum, day) => sum + (day.countPublications ?? 0), 0)}
               </p>
             </div>
             <div className="bg-gray-100 p-4 rounded">
               <p className="text-sm text-gray-600">Average Postings per Day (Last 30 days)</p>
               <p className="text-2xl font-bold">
-                {(dailyPostings.reduce((sum, day) => sum + day.countPublications, 0) / dailyPostings.length).toFixed(1)}
+                {(dailyPostings.reduce((sum, day) => sum + (day.countPublications ?? 0), 0) / dailyPostings.length).toFixed(1)}
               </p>
             </div>
           </div>

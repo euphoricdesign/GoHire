@@ -1,25 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { RootState } from '@/lib/store';
-
-interface MonthlyUsersCount {
-  month: string,
-  countUsers: number
-}
-
-interface MonthlyPostsCount {
-  month: string,
-  countPublications: number
-}
-
-interface WeeklyPostsCount {
-  week: string,
-  countPublications: number
-}
-
-interface DailyPostsCount {
-  day: string,
-  countPublications: number
-}
+import { StatisticsData } from "@/types/statisticsTypes";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
 
@@ -27,34 +7,38 @@ export const statisticsApi = createApi({
   reducerPath: "statisticsApi",
   baseQuery: fetchBaseQuery({
     baseUrl,
-    prepareHeaders: (headers, { getState, endpoint }) => {
-      const token = (getState() as RootState).user.userDetail?.token;
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
       if (token) {
-        headers.set("authorization", `${token}`)
-        console.log('Token added to headers:', token)
+        headers.set("Authorization", `${token}`);
       }
+      headers.set("Content-Type", "application/json");
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getUsersStatistics: builder.query<MonthlyUsersCount[], null>({
-      query: () => "statistics/month",
+    getStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/payment/month",
     }),
-    getPostStatistics: builder.query<MonthlyPostsCount[], null>({
-      query: () => "statistics/publication/month"
+    getPostStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/month",
     }),
-    getPostWeeklyStatistics: builder.query<WeeklyPostsCount[], null>({
-      query: () => "statistics/publication/week"
+    getPostWeeklyStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/weekly",
     }),
-    getPostDailyStatistics: builder.query<DailyPostsCount[], null>({
-      query: () => "statistics/publication/days"
-    })
-  })
-})
+    getPostDailyStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/daily",
+    }),
+    getUsersStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/users",
+    }),
+  }),
+});
 
-export const { 
-  useGetUsersStatisticsQuery,
+export const {
+  useGetStatisticsQuery,
   useGetPostStatisticsQuery,
   useGetPostWeeklyStatisticsQuery,
-  useGetPostDailyStatisticsQuery
-} = statisticsApi
+  useGetPostDailyStatisticsQuery,
+  useGetUsersStatisticsQuery,
+} = statisticsApi;
