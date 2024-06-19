@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/slices/userSlice";
+import paymentsReducer from "./features/slices/paymentsSlice"; // Importa paymentsReducer
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { paymentsApi } from "./services/paymentsApi";
 import { jobsApi } from "./services/jobsApi";
@@ -12,6 +13,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       user: userReducer,
+      payments: paymentsReducer, // Asegúrate de tener definido e importado paymentsReducer
       [jobsApi.reducerPath]: jobsApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer,
