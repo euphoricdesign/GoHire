@@ -14,7 +14,7 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
         <Link href={``} rel="noopener noreferrer" target="_blank">
           <button className="flex items-center">
             <h6 className="text-[#05264E]">Open job in a new window</h6>
-            <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+            <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
           </button>
         </Link>
       </div>
@@ -71,7 +71,7 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
                 <div className="flex items-center justify-center w-full text-sm p-5 border-b border-gray-300">
                   <Link href={`/users/${user.id}`} rel="noopener noreferrer" target="_blank">
                     <button className="flex items-center">
-                      <h6 className="text-[#3C65F5] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3D63DD]">
+                      <h6 className="text-[#3C65F5] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3C65F5]">
                         View Profile
                       </h6>
                       <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />

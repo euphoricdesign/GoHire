@@ -1,4 +1,6 @@
-import React from 'react';
+import { RootState } from '@/lib/store';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   BarChart,
   Bar,
@@ -9,19 +11,25 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { useGetUsersStatisticsQuery } from '@/lib/services/statisticsApi';
 
 const UserRegistrationReport: React.FC = () => {
-  // Datos que vendrían del backend
-  const data = [
-    { month: 'Jan', newUsers: 120 },
-    { month: 'Feb', newUsers: 150 },
-    { month: 'Mar', newUsers: 200 },
-    { month: 'Apr', newUsers: 180 },
-    { month: 'May', newUsers: 210 },
-    { month: 'Jun', newUsers: 250 },
-  ];
+  // const [data, setData] = useState()
+  const token = useSelector((state: RootState) => state.user.userDetail?.token)
 
-  const totalUsers = 15000;
+  const {data: statitstics} = useGetUsersStatisticsQuery(null)  
+
+  // Datos que vendrían del backend
+  // const data = [
+  //   { month: 'Jan', newUsers: 120 },
+  //   { month: 'Feb', newUsers: 150 },
+  //   { month: 'Mar', newUsers: 200 },
+  //   { month: 'Apr', newUsers: 180 },
+  //   { month: 'May', newUsers: 210 },
+  //   { month: 'Jun', newUsers: 250 },
+  // ];
+
+  const totalUsers = 20;
   const growthRate = 8.5; // porcentaje
 
   const authenticationMethods = [
@@ -30,6 +38,25 @@ const UserRegistrationReport: React.FC = () => {
   ];
 
   const totalAuthUsers = authenticationMethods.reduce((acc, curr) => acc + curr.value, 0);
+
+  // const fetchData = async () => {
+  //   const data = await fetch("http://localhost:3001/statistics/month", {
+  //     method: 'GET', // Método HTTP
+  //     headers: {
+  //         'Authorization': `${token}`, // Encabezado de autorización
+  //         'Content-Type': 'application/json'  // Tipo de contenido (opcional, puede variar según tu API)
+  //     }
+  //   })
+
+  //   const response = await data.json()
+
+  //   setData(response)
+    
+  // }
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
@@ -51,13 +78,13 @@ const UserRegistrationReport: React.FC = () => {
       <div className="mb-6">
         <h4 className="text-md font-semibold mb-2">New Users by Month</h4>
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={data}>
+          <BarChart data={statitstics}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="newUsers" fill="#3C65F5" name="New Users" />
+            <Bar dataKey="countUsers" fill="#3C65F5" name="New Users" />
           </BarChart>
         </ResponsiveContainer>
       </div>

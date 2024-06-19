@@ -7,13 +7,12 @@ import { JobsData } from '@/types/jobsTypes';
 
 const JobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
   const { data, error, isLoading } = useGetUserByIdQuery({ id: selectedJob.user?.id });
-console.log("jobInfo: ", selectedJob)
   if (error || !data) {
     return <div>User not found</div>;
   }
 
   return (
-    <div className="h-full w-full mt-24">
+    <div className="h-full w-full mt-24 mb-[170px]">
       <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
         <div>
             {error || !data && <div className='text-[#05264E]'>User not found</div>}
@@ -62,21 +61,21 @@ console.log("jobInfo: ", selectedJob)
             <div className="flex items-center justify-center w-full text-sm p-5 border-b border-gray-300">
               <Link href={`/users/${data.id}`} rel="noopener noreferrer" target="_blank">
                 <button className="flex items-center">
-                  <h6 className="text-[#3D63DD] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3D63DD]">
+                  <h6 className="text-[#3C65F5] font-bold border-b-2 border-transparent hover:border-solid hover:border-[#3C65F5]">
                     View Profile
                   </h6>
-                  <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+                  <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
                 </button>
               </Link>
             </div>
             <div className="p-5 flex items-center justify-around">
               <div>
-                <button className="bg-white text-sm border w-24 text-[#5049e5] border-slate-300 font-medium px-3 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
+                <button className="bg-white text-sm border w-24 text-[#3C65F5] border-slate-300 font-medium px-3 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300">
                   Message
                 </button>
               </div>
               <div>
-                <button className="bg-[#5049e5] text-sm text-white w-24 text-center px-3 py-2 rounded-xl hover:opacity-80 transition-all duration-300">
+                <button className="bg-[#3C65F5] text-sm text-white w-24 text-center px-3 py-2 rounded-xl hover:opacity-80 transition-all duration-300">
                   Apply Now
                 </button>
               </div>

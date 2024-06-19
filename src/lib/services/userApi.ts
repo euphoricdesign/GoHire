@@ -24,8 +24,14 @@ export const userApi = createApi({
   }),
   endpoints: (builder) => ({
     // Consulta para obtener todos los usuarios
-    getAllUsers: builder.query<UserData[], null>({
+    getAllUsers: builder.query<UsersData, null>({
       query: () => "users",
+    }),
+    getAllActiveUsers: builder.query<any, null>({
+      query: () => "users/all",
+    }),
+    getAllBlockedUsers: builder.query<any, null>({
+      query: () => "users/blocks",
     }),
     getUserById: builder.query<UserData, { id: string }>({
       query: ({ id }) => `users/${id}`,
@@ -101,6 +107,8 @@ export const userApi = createApi({
 // Exporta los hooks generados automáticamente para las consultas y mutaciones
 export const {
   useGetAllUsersQuery,
+  useGetAllActiveUsersQuery,
+  useGetAllBlockedUsersQuery,
   usePostUserMutation,
   useListUsersQuery,
   useGetUserByIdQuery,

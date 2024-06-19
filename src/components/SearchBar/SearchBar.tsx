@@ -22,6 +22,8 @@ const SearchBar = () => {
   const filteredJobs = data?.publicationsFind?.filter(jobItem =>
     jobItem.category.includes(searchTerm)
   );
+
+  console.log(filteredJobs)
   
   const JobsItem = ({ job }: { job: JobsData }) => (
     <article className="rounded-xl border-2 border-gray-100 bg-white p-2 mb-1">
@@ -29,7 +31,7 @@ const SearchBar = () => {
           <a href={`/jobs/${job.id}`} className="block shrink-0">
             <img
               alt=""
-              src={job.image}
+              src={job.imgUrl}
               className="w-14 h-14 rounded-lg object-cover cursor-pointer"
             />
           </a>
