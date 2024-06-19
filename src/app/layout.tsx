@@ -29,7 +29,7 @@ export default function RootLayout({
             <AuthProvider>
               <Navbar />
               {children}
-              {/* <Footer /> */}
+              <Footer />
             </AuthProvider>
           </UserProvider>
         </StoreProvider>
