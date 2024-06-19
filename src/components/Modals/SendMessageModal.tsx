@@ -46,7 +46,7 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({
             <h2 className="text-xl font-bold">Send a Message to</h2>
             <button
               onClick={onRequestClose}
-              className="text-[#3D63DD] hover:text-blue-600 hover:bg-[#93B4FF] transition-all duration-300 rounded-full p-1"
+              className="text-[#3C65F5] hover:text-blue-600 hover:bg-[#93B4FF] transition-all duration-300 rounded-full p-1"
             >
               <FaTimes size={25} />
             </button>
@@ -69,9 +69,9 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <button className="text-[#3D63DD] underline flex items-center">
+                    <button className="text-[#3C65F5] underline flex items-center">
                       {selectedUser?.name} {selectedUser?.lastName}{" "}
-                      <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+                      <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
                     </button>
                   </Link>
                   <div>
@@ -99,7 +99,7 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({
           <div className="flex justify-end">
             <button
               onClick={handleSendMessage}
-              className="mt-4 bg-[#3D63DD] text-white text-center px-6 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300"
+              className="mt-4 bg-[#3C65F5] text-white text-center px-6 py-2 rounded-xl hover:bg-[#93B4FF] transition-all duration-300"
             >
               Send your Message
             </button>

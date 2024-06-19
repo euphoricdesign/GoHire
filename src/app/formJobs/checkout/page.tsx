@@ -19,6 +19,8 @@ const Checkout: React.FC = () => {
     
     const { data } = useGetJobByIdQuery({ id: item.id });
 
+    console.log(data)
+
     let duration = ''
 
     switch (item.description) {
@@ -46,7 +48,7 @@ const Checkout: React.FC = () => {
     <>
         {
             data && item ? (
-                <div className='mt-[100px] px-[124px] gap-[200px] flex justify-between'>
+                <div className='mt-[100px] mb-[132px] px-[124px] gap-[200px] flex justify-between'>
                     <div className='w-full rounded h-[174px] border border-[#0612241a]'>
                         <table className='w-full bg-white  '>
                             <thead className='flex flex-col'>
@@ -73,7 +75,10 @@ const Checkout: React.FC = () => {
                     </div>
                     <div className='border border-[#0612241a] rounded'>
                         <div className='bg-[#0612240e] text-[#4a4a4a] w-[400px] p-5'>
-                            <h4 className='font-semibold text-left mb-[4px] text-base'>{data[0].title}</h4>
+                            <div className='flex gap-3 w-[60px] items-center mb-[10px]'>
+                                <Image className='w-full h-full' width={100} height={1} src={data[0].imgUrl} alt='' />
+                                <h4 className='font-semibold text-left mb-[4px] text-base'>{data[0].title}</h4>
+                            </div>
                             <p className='text-sm mb-[10px]'>{data[0].description}</p>
                             <div className='flex justify-between mb-4'>
                                 <span className='font-[700] w-[265px] text-base'>Pago publicación destacada</span>
