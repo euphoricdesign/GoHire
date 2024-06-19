@@ -5,7 +5,7 @@ import { paymentsApi } from "./services/paymentsApi";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
 import { professionsApi } from "./services/professionsApi";
-import { statistics } from "./services/statisticsApi";  // Importa statisticsApi
+import { statisticsApi } from "./services/statisticsApi";  // Importa statisticsApi correctamente
 
 // Configurar el store
 export const makeStore = () => {
@@ -16,7 +16,7 @@ export const makeStore = () => {
       [userApi.reducerPath]: userApi.reducer,
       [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
-      [statistics.reducerPath]: statistics.reducer,  // Añade el reducer del statisticsApi
+      [statisticsApi.reducerPath]: statisticsApi.reducer,  // Añade el reducer del statisticsApi
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
@@ -24,7 +24,7 @@ export const makeStore = () => {
         .concat(userApi.middleware)
         .concat(paymentsApi.middleware)
         .concat(professionsApi.middleware)
-        .concat(statistics.middleware),  // Añade el middleware del statisticsApi
+        .concat(statisticsApi.middleware),  // Añade el middleware del statisticsApi
   });
 };
 
