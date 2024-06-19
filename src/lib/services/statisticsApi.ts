@@ -3,14 +3,14 @@ import { StatisticsData } from "@/types/statisticsTypes";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
 
-export const statistics = createApi({
+export const statisticsApi = createApi({
   reducerPath: "statisticsApi",
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token"); // Ajusta la clave según cómo almacenes el token en localStorage
+      const token = localStorage.getItem("token");
       if (token) {
-        headers.set("Authorization", `${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       headers.set("Content-Type", "application/json");
       return headers;
@@ -20,7 +20,25 @@ export const statistics = createApi({
     getStatistics: builder.query<StatisticsData[], null>({
       query: () => "statistics/payment/month",
     }),
+    getPostStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/month",
+    }),
+    getPostWeeklyStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/weekly",
+    }),
+    getPostDailyStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/post/daily",
+    }),
+    getUsersStatistics: builder.query<StatisticsData[], null>({
+      query: () => "statistics/users",
+    }),
   }),
 });
 
-export const { useGetStatisticsQuery } = statistics;
+export const {
+  useGetStatisticsQuery,
+  useGetPostStatisticsQuery,
+  useGetPostWeeklyStatisticsQuery,
+  useGetPostDailyStatisticsQuery,
+  useGetUsersStatisticsQuery,
+} = statisticsApi;
