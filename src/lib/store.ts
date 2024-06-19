@@ -17,7 +17,6 @@ export const makeStore = () => {
       [professionsApi.reducerPath]: professionsApi.reducer,
       [paymentsApi.reducerPath]: paymentsApi.reducer,
       [statistics.reducerPath]: statistics.reducer,  // Añade el reducer del statisticsApi
-      payments: paymentsReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
