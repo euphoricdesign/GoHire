@@ -13,17 +13,10 @@ console.log("job: ", job)
     <div className="container mx-auto">
       <ToastContainer />
       <div className="max-w-4xl mx-auto">
-        {isLoading || !job &&  (
-            <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
-              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
-              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
-              <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
-            </div>
-        )}
         {job ? (
           <JobInfo selectedJob={job} />
         ) : (
-          <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
+          <div className="w-full flex flex-row gap-2 justify-center items-center my-[278px]">
             <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
             <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
             <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>

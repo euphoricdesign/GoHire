@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, AnyAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import { UserData } from "@/types/userTypes";
 import { userApi } from "@/lib/services/userApi";

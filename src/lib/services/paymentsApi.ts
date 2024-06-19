@@ -2,22 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
-// Define the type for the data you will send in the body
 interface PaymentData {
-    // Aquí deberías definir las propiedades que contiene `dataSelect`
-    // Por ejemplo:
     title: string,
-    quantity: number, // 7 días
+    quantity: number,
     unit_price: number,
     description: string,
     id: string
     // etc.
 }
 
-// Define the response type if you expect any response
 export interface PaymentResponse {
-  // Aquí deberías definir las propiedades que contiene la respuesta del servidor
-  // Por ejemplo:
   url: string;
   item: {
     id: string;

@@ -4,12 +4,8 @@ import { JobsData } from "@/types/jobsTypes";
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 
 const CardJobs = ({
-  id,
   title,
   description,
-  image,
-  date,
-  time,
   timelapse,
   category,
   user,

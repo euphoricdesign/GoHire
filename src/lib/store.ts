@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/slices/userSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { paymentsApi } from "./services/paymentsApi";
-import paymentsReducer from "./features/slices/paymentsSlice";
 import { jobsApi } from "./services/jobsApi";
 import { userApi } from "./services/userApi";
 import { professionsApi } from "./services/professionsApi";
