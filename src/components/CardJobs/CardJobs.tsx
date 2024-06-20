@@ -66,8 +66,10 @@ const CardJobs = ({
 
   const handleApplyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    if (onApply) {
-      onApply(id);
+    if (userMe?.id && onApply) {
+      onApply(userMe.id);
+    } else {
+      console.error("User ID is not available");
     }
   };
 
