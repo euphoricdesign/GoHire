@@ -149,7 +149,10 @@ const UserDashboardPublication = () => {
               </div>
             ))
           ) : (
-            <p>No publications found.</p>
+            <div>
+              <h2 className="font-bold text-2xl py-2">Your Publications:</h2>
+              <div>You don't have publications</div>
+            </div>
           )}
         </div>
       )}
