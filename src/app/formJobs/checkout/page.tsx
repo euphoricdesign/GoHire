@@ -35,15 +35,15 @@ const Checkout: React.FC = () => {
   let duration = "";
 
   switch (item.description) {
-    case "7 días":
+    case "7 days":
       duration = item.description;
       break;
 
-    case "15 días":
+    case "15 days":
       duration = item.description;
       break;
 
-    case "30 días":
+    case "30 days":
       duration = item.description;
       break;
 
@@ -63,14 +63,14 @@ const Checkout: React.FC = () => {
             <table className="w-full bg-white  ">
               <thead className="flex flex-col">
                 <tr className="bg-[#0612240e] text-[#4a4a4a] font-normal text-sm text-start">
-                  <th className=" p-4 text-left text-[#05264E]">Opciones de pago</th>
+                  <th className=" p-4 text-left text-[#05264E]">Payment options</th>
                 </tr>
               </thead>
               <tbody className="font-normal text-gray-600 text-sm">
                 <tr className="">
                   <td className="p-4 flex items-center gap-2 text-[#05264E]">
                     <input type="checkbox" />
-                    Tarjetas de débito y crédito
+                    Debit and credit cards
                     <Image src={Cards} alt="" className="w-[150px]" />
                   </td>
                 </tr>
@@ -103,14 +103,14 @@ const Checkout: React.FC = () => {
               </div>
               <p className="text-sm mb-[10px]">{data.publicationsFind[0].description}</p>
               <div className="flex justify-between mb-4">
-                <span className="font-[700] w-[265px] text-base">Pago publicación destacada</span>
+                <span className="font-[700] w-[265px] text-base">Payment spotlight publication</span>
                 <span>${item.unit_price}</span>
               </div>
               <span className="flex items-center gap-2">
-                <FaCheck className="text-[15px]" /> Destacada por <span>{duration}</span>
+                <FaCheck className="text-[15px]" /> Highlighted for <span>{duration}</span>
               </span>
               <span className="flex items-center gap-2">
-                <FaCheck className="text-[15px]" /> Etiqueta de contratación urgente
+                <FaCheck className="text-[15px]" /> Urgent hiring label
               </span>
             </div>
             <div className="bg-white text-[#4a4a4a] w-[400px] p-5">
@@ -126,7 +126,7 @@ const Checkout: React.FC = () => {
                 {isMercadoPagoChecked ? (
                   <SiMercadopago className="text-[40px] text-center text-white" />
                 ) : (
-                  "Ir a pagar"
+                  "Go to checkout"
                 )}
               </button>
             </div>
