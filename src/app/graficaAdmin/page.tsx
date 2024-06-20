@@ -24,10 +24,16 @@ const GraficaPage: NextPage = () => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return (
+    <div className="w-full flex flex-row gap-2 justify-center items-center mt-[200px] mb-[60px]">
+      <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+      <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+      <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+    </div>
+  )
   if (error) {
     console.error("Error fetching statistics:", error); // Depuración: verificar el error
-    return <div>Error loading data</div>;
+    return <div className='mt-[150px] mb-[390px] text-lg text-center'>Error loading data</div>;
   }
 
   return (
