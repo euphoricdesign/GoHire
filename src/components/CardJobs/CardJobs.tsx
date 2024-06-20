@@ -108,7 +108,7 @@ const CardJobs = ({
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="text-lg font-bold text-[#05264E] sm:text-xl"
+                className="text-lg font-bold text-[#05264E] sm:text-xl w-[160px]"
               />
             ) : (
               <h3 className="text-lg font-bold text-[#05264E] sm:text-xl">{title}</h3>
@@ -187,7 +187,7 @@ const CardJobs = ({
           {isEditing && (
             <button
               onClick={handleSave}
-              className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition">
+              className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition mb-[15px]">
               Save
             </button>
           )}

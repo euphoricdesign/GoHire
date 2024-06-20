@@ -149,7 +149,7 @@ const UserDashboardPublication = () => {
               </div>
             ))
           ) : (
-            <p>No publications found.</p>
+            <p className="mb-[350px] text-lg">You have not made any publications yet.</p>
           )}
         </div>
       )}

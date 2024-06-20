@@ -17,7 +17,7 @@ const Notifications: React.FC<NotificationsProps> = ({ handleOptionClick }) => {
   }
 
   if (!notifications?.length) {
-    return <div>No notifications</div>;
+    return <div className="mb-[350px] text-lg">You have not received any notification yet.</div>;
   }
 
   return (
