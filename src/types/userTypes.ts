@@ -37,6 +37,10 @@ export interface UserData {
   publicactions: PublicationData[];
   token?: string;
   email?: string;
+  profileImg?: string;
+  role?:string;
+  isBlocked:boolean;
+
 }
 
 export interface UserPatchData {

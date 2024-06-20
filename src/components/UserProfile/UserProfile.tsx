@@ -124,7 +124,7 @@ const UserProfile = () => {
                     </h2>
                     <div>
                       <button onClick={() => openModal("nameAndLastName")}>
-                        <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                        <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer ml-2" />
                       </button>
                     </div>
                   </div>
@@ -141,9 +141,9 @@ const UserProfile = () => {
                   </div>
                   <div className="flex items-center">
                     {isAvailable ? (
-                      <div className="flex items-center border border-[#3D63DD] w-fit px-3 py-1 rounded-xl">
-                        <TfiBolt className="text-[#3D63DD] mr-1" />
-                        <h2 className="text-[#3D63DD] text-[12px]">Available Now</h2>
+                      <div className="flex items-center border border-[#3C65F5] w-fit px-3 py-1 rounded-xl">
+                        <TfiBolt className="text-[#3C65F5] mr-1" />
+                        <h2 className="text-[#3C65F5] text-[12px]">Available Now</h2>
                       </div>
                     ) : (
                       <div className="flex items-center border border-[#e44d4d] w-fit px-3 py-1 rounded-xl">
@@ -152,7 +152,7 @@ const UserProfile = () => {
                       </div>
                     )}
                     <button onClick={handleAvailableClick}>
-                      <HiOutlinePencilSquare className="text-[#3D63DD] size-6 cursor-pointer ml-2" />
+                      <HiOutlinePencilSquare className="text-[#3C65F5] size-6 cursor-pointer ml-2" />
                     </button>
                   </div>
                 </div>
@@ -212,7 +212,7 @@ const UserProfile = () => {
                   <div className="font-bold mx-[1.5rem]">Education:</div>
                   <div>
                     <HiOutlinePencilSquare
-                      className="text-[#3D63DD] size-6 cursor-pointer mr-5"
+                      className="text-[#3C65F5] size-6 cursor-pointer mr-5"
                       onClick={() => openModal("education")}
                     />
                   </div>

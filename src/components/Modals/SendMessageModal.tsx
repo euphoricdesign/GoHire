@@ -71,7 +71,7 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({
                     target="_blank">
                     <button className="text-[#3D63DD] underline flex items-center">
                       {selectedUser?.name} {selectedUser?.lastName}{" "}
-                      <FaArrowUpRightFromSquare className="ml-2 text-[#3D63DD] text-lg" />
+                      <FaArrowUpRightFromSquare className="ml-2 text-[#3C65F5] text-lg" />
                     </button>
                   </Link>
                   <div>

@@ -5,12 +5,8 @@ import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 import { useGetUserMeQuery } from "@/lib/services/userApi";
 
 const CardJobs = ({
-  id,
   title,
   description,
-  image,
-  date,
-  time,
   timelapse,
   category,
   user,

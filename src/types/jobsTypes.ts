@@ -12,7 +12,7 @@ export interface JobsData {
   title: string;
   location: string;
   description: string;
-  image: string;
+  imgUrl: string;
   date: string;
   time: string;
   timelapse: string;
