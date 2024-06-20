@@ -194,12 +194,12 @@ const UserProfile = () => {
                     />
                   </div>
                 </div>
-                <div className="">
+                <div className="flex items-center p-5">
                   {user?.profesions &&
                     user?.profesions.map((profession) => (
-                      <div key={profession.id}>
-                        <ul className="list-none flex text-lg pb-4 px-[1.5rem]">
-                          <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
+                      <div key={profession.id} className="">
+                        <ul className="list-none flex text-lg">
+                          <li className="border border-slate-300 rounded-lg inline-block m-1 p-2 px-4 text-[12px] text-[#05264E]">
                             {profession.category}
                           </li>
                         </ul>
@@ -222,8 +222,13 @@ const UserProfile = () => {
                     user?.educations.map((education) => (
                       <div key={education.id}>
                         <ul className="list-none flex text-lg pb-4 px-[1.5rem]">
-                          <li className="border border-slate-300 rounded-lg inline-block m-1 p-1 text-[12px] text-[#05264E]">
-                            {education.title}
+                          <li className="border border-slate-300 rounded-lg inline-block m-1 p-4 text-[12px] text-[#05264E]">
+                            <div className="font-bold text-[#05264E] text-xl">
+                              {education.title}
+                            </div>
+                            <div className="text-lg text-[#05264E]">{education.description}</div>
+                            <div className="">Entity: {education.educationalEntity}</div>
+                            <div className="">{education.studiesState}</div>
                           </li>
                         </ul>
                       </div>

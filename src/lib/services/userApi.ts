@@ -39,7 +39,13 @@ export const userApi = createApi({
       query: ({ id }) => `users/${id}`,
     }),
     getUserMe: builder.query<UserData, null>({
-      query: () => "users/me",
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "users/me",
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
     }),
     getNotificationsMe: builder.query<NotificationData[], null>({
       query: () => {
