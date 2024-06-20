@@ -1,15 +1,13 @@
 'use client'
-import { useGetAllActiveUsersQuery, useGetAllBlockedUsersQuery, useGetAllUsersQuery } from "@/lib/services/userApi";
-import { UserData, UsersData } from "@/types/userTypes";
+import { useGetAllActiveUsersQuery, useGetAllBlockedUsersQuery } from "@/lib/services/userApi";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-// users verbo DELETE
-
 const UserManagement = () => {
-  const [refresh, setRefresh] = useState(false); // Estado para forzar recarga
-  const [viewBlocked, setViewBlocked] = useState(false); // Estado para cambiar entre usuarios activos y bloqueados
+  const [refresh, setRefresh] = useState(false);
+  const [viewBlocked, setViewBlocked] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data: activeUsers, refetch: refetchActive } = useGetAllActiveUsersQuery(null);
   const { data: blockedUsers, refetch: refetchBlocked } = useGetAllBlockedUsersQuery(null);
@@ -23,7 +21,7 @@ const UserManagement = () => {
         'Content-Type': 'application/json',
       }
     });
-    setRefresh(prev => !prev); // Actualiza el estado para forzar recarga
+    setRefresh(prev => !prev);
   };
 
   const handleUnblock = async (id: any) => {
@@ -33,7 +31,7 @@ const UserManagement = () => {
         'Content-Type': 'application/json',
       }
     });
-    setRefresh(prev => !prev); // Actualiza el estado para forzar recarga
+    setRefresh(prev => !prev);
   };
 
   const confirmBlock = (id: any) => {
@@ -80,24 +78,42 @@ const UserManagement = () => {
     });
   };
 
+  const filteredUsers = (users: any[]) => {
+    return users.filter((user) => 
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   useEffect(() => {
     if (viewBlocked) {
-      refetchBlocked(); // Vuelve a cargar los datos de usuarios bloqueados cuando cambia el estado refresh
+      refetchBlocked();
     } else {
-      refetchActive(); // Vuelve a cargar los datos de usuarios activos cuando cambia el estado refresh
+      refetchActive();
     }
   }, [refresh, viewBlocked, refetchActive, refetchBlocked]);
+
+
 
   return (
     <div className="">
       <div className="flex justify-between items-center mx-[1.5rem] mb-[10px]">
-      <h2 className="text-2xl font-bold my-[10px] mr-[1.5rem]">User Management</h2>
+        <h2 className="text-2xl font-bold my-[10px] mr-[1.5rem]">User Management</h2>
         <button
           onClick={() => setViewBlocked(!viewBlocked)}
-          className="bg-[#3C65F5] hover:bg-blue-400 text-white font-medium py-2 px-4 rounded mr-[1.5rem] my-[10px]"
+          className="bg-[#3C65F5] hover:bg-blue-400 text-white font-medium py-2 px-4 rounded my-[10px]"
         >
-          {viewBlocked ? 'Ver Usuarios Activos' : 'Ver Usuarios Bloqueados'}
+          {viewBlocked ? 'View Active Users' : 'View Blocked Users'}
         </button>
+      </div>
+      <div className="mx-[1.5rem] mb-[10px]">
+        <input 
+          type="text" 
+          placeholder="Search by name or email..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
       </div>
       {
         viewBlocked ? (
@@ -113,7 +129,7 @@ const UserManagement = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {blockedUsers.map((user:any) => (
+                  {filteredUsers(blockedUsers).map((user: any) => (
                     <tr key={user.id}>
                       <td className="border px-4 py-2">{user.name}</td>
                       <td className="border px-4 py-2">{user.email}</td>
@@ -148,7 +164,7 @@ const UserManagement = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {activeUsers.map((user:any) => (
+                  {filteredUsers(activeUsers).map((user: any) => (
                     <tr key={user.id}>
                       <td className="border px-4 py-2">{user.name}</td>
                       <td className="border px-4 py-2">{user.email}</td>
@@ -164,7 +180,7 @@ const UserManagement = () => {
               </table>
             </div>
           ) : (
-            <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
+            <div className="w-full flex flex-row gap-2 justify-center items-center mt-[40px] mb-[60px]">
               <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
               <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
               <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>

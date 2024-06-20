@@ -6,6 +6,7 @@ import SettingsAdmin from '@/components/SettingsAdmin/SettingsAdmin';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import ButtonCategory from '@/components/CategoryAdmin/CategoryAdmin';
+import ButtonGrafic from '@/components/grafAdminDashboar/graficoDashboard';
 
 const AdminDashboard = () => {
   const [selectedOption, setSelectedOption] = useState('Users');
@@ -31,6 +32,9 @@ const AdminDashboard = () => {
       case 'Category':
         content = <ButtonCategory />;
         break;
+        case 'Economic chart':
+          content = <ButtonGrafic />;
+          break;
     default:
       content = 'No content available';
   }
@@ -79,6 +83,14 @@ const AdminDashboard = () => {
             onClick={() => handleOptionClick('Category')}
           >
             Category
+          </div>
+          <div
+            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
+              selectedOption === 'Economic chart' && 'text-[#3C65F5]'
+            }`}
+            onClick={() => handleOptionClick('Economic chart')}
+          >
+            Economic chart
           </div>
         </div>
       </div>

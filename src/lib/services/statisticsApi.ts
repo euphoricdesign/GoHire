@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { StatisticsData } from "@/types/statisticsTypes";
+import { DailyPostsCount, MonthlyPostsCount, MonthlyUsersCount, StatisticsData, WeeklyPostsCount } from "@/types/statisticsTypes";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
 
@@ -20,18 +20,18 @@ export const statisticsApi = createApi({
     getStatistics: builder.query<StatisticsData[], null>({
       query: () => "statistics/payment/month",
     }),
-    getPostStatistics: builder.query<StatisticsData[], null>({
-      query: () => "statistics/post/month",
+    getUsersStatistics: builder.query<MonthlyUsersCount[], null>({
+      query: () => "statistics/month",
     }),
-    getPostWeeklyStatistics: builder.query<StatisticsData[], null>({
-      query: () => "statistics/post/weekly",
+    getPostStatistics: builder.query<MonthlyPostsCount[], null>({
+      query: () => "statistics/publication/month"
     }),
-    getPostDailyStatistics: builder.query<StatisticsData[], null>({
-      query: () => "statistics/post/daily",
+    getPostWeeklyStatistics: builder.query<WeeklyPostsCount[], null>({
+      query: () => "statistics/publication/week"
     }),
-    getUsersStatistics: builder.query<StatisticsData[], null>({
-      query: () => "statistics/users",
-    }),
+    getPostDailyStatistics: builder.query<DailyPostsCount[], null>({
+      query: () => "statistics/publication/days"
+    })
   }),
 });
 
