@@ -70,7 +70,7 @@ const AdminCategory: React.FC = () => {
           </div>
         ))}
       </div>
-      <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+      <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 rounded-lg"></span>
     </div>
   );
 };
