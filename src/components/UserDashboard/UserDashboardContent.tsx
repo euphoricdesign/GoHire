@@ -9,7 +9,6 @@ import { useSearchParams } from "next/navigation";
 const UserDashboardContent = () => {
   const params = useSearchParams();
   const prefferedTab = params.get("tab");
-  console.log(prefferedTab, "esto es prefferedtab");
   const [selectedOption, setSelectedOption] = useState(prefferedTab || "my-info");
   const [selectedNotificationType, setSelectedNotificationType] = useState<string | null>(null);
 
