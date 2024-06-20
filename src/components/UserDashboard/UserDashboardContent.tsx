@@ -9,7 +9,6 @@ import { useSearchParams } from "next/navigation";
 const UserDashboardContent = () => {
   const params = useSearchParams();
   const prefferedTab = params.get("tab");
-  console.log(prefferedTab, "esto es prefferedtab");
   const [selectedOption, setSelectedOption] = useState(prefferedTab || "my-info");
   const [selectedNotificationType, setSelectedNotificationType] = useState<string | null>(null);
 
@@ -32,7 +31,7 @@ const UserDashboardContent = () => {
       content = <UserProfile />;
       break;
     case "messages":
-      content = "This is Messages";
+      content = <div className="text-lg mb-[350px]">You have no messages yet.</div>;
       break;
     case "publications":
       content = <UserDashboardPublication />;
@@ -48,7 +47,7 @@ const UserDashboardContent = () => {
   }
 
   return (
-    <div className="px-[124px] my-[100px] justify-start gap-[80px] flex relative">
+    <div className="px-[124px] mt-[100px] mb-[180px] justify-start gap-[80px] flex relative">
       <div className="relative float-left w-[20%]">
         <div className="text-3xl font-bold text-[#05264E]">User Settings</div>
         <div className="flex flex-col mt-10 font-bold">

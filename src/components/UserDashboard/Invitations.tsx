@@ -13,7 +13,14 @@ const Invitations = () => {
     return <p>Error</p>;
   }
 
-  console.log("ESTO ES LA INFO DE INVITACIÓN", invitationOffers);
+  if (!Invitations?.length) {
+    return (
+      <div>
+        <h2 className="font-bold text-2xl py-2">Invitations received:</h2>
+        <div>You don't have invitations</div>
+      </div>
+    );
+  }
 
   return (
     <div>

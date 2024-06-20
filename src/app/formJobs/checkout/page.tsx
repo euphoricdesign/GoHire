@@ -24,15 +24,15 @@ const Checkout: React.FC = () => {
 
     switch (item.description) {
         case '7 días':
-            duration = '7 días'
+            duration = '7 days'
             break;
         
         case '15 días':
-            duration = '15 días'
+            duration = '15 days'
             break;
 
         case '30 días':
-            duration = '30 días'
+            duration = '30 days'
             break;
     
         default:
@@ -52,14 +52,14 @@ const Checkout: React.FC = () => {
                             <table className='w-full bg-white  '>
                                 <thead className='flex flex-col'>
                                     <tr className='bg-[#0612240e] text-[#4a4a4a] font-normal text-sm text-start'>
-                                        <th className=' p-4 text-left text-[#05264E]'>Opciones de pago</th>
+                                        <th className=' p-4 text-left text-[#05264E]'>Payment options</th>
                                     </tr>
                                 </thead>
                                 <tbody className='font-normal text-gray-600 text-sm'>
                                     <tr className=''>
                                         <td className='p-4 flex items-center gap-2 text-[#05264E]'>
                                             <input type="checkbox" />
-                                            Tarjetas de débito y crédito
+                                            Debit and credit cards
                                             <Image src={Cards} alt='' className='w-[150px]' />
                                         </td>
                                     </tr>
@@ -92,11 +92,11 @@ const Checkout: React.FC = () => {
                                     </>
                                 )}
                                 <div className='flex justify-between mb-4'>
-                                    <span className='font-[700] w-[265px] text-base'>Pago publicación destacada</span>
+                                    <span className='font-[700] w-[265px] text-base'>Payment highlighted publication</span>
                                     <span>${item.unit_price}</span>
                                 </div>
-                                <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Destacada por <span>{duration}</span></span>
-                                <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Etiqueta de contratación urgente</span>
+                                <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Highlighted for <span>{duration}</span></span>
+                                <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Urgent hiring label</span>
                             </div>
                             <div className='bg-white text-[#4a4a4a] w-[400px] p-5'>
                                 <div className='flex justify-between font-[700] text-[18px]'>
@@ -108,7 +108,11 @@ const Checkout: React.FC = () => {
                         </div>
                     </div>
                 ) : (
-                    <p>Loading...</p>
+                    <div className="w-full flex flex-row gap-2 justify-center items-center mt-[100px] mb-[60px]">
+                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+                    </div>
                 )
             }
         </>

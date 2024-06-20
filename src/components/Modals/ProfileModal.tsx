@@ -50,10 +50,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   const handleImageSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedImage) {
-      // const formData = new FormData();
-      // const blob = new Blob([selectedImage], { type: selectedImage.type });
-      // formData.append("imgPictureUrl", blob, selectedImage.name);
-
       onSave({ imgPictureUrl: selectedImage });
       onRequestClose();
       setSelectedImage(null);
@@ -69,7 +65,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
     return <div>Error loading categories</div>;
   }
 
-  const categories = categoryData?.map((profession) => profession.category) || [];
+  // Transform categories to the expected format
+  const categories =
+    categoryData?.map((profession) => ({
+      value: profession.category,
+      label: profession.category,
+    })) || [];
 
   const handleSave = () => {
     onSave({ category: selectedProfession });
@@ -173,10 +174,19 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
             ariaHideApp={ariaHideApp}
             title="Add Education"
             fields={[
-              { name: "title", label: "Tittle", type: "text" },
+              { name: "title", label: "Title", type: "text" },
               { name: "educationalEntity", label: "Educational Entity", type: "text" },
               { name: "description", label: "Description", type: "textarea" },
-              { name: "studiesState", label: "Studies State", type: "text" },
+              {
+                name: "studiesState",
+                label: "Studies State",
+                type: "select",
+                options: [
+                  { value: "FINISHED", label: "Finished" },
+                  { value: "INPROGRESS", label: "In Progress" },
+                  { value: "ABANDONED", label: "Abandoned" },
+                ],
+              },
               { name: "startDate", label: "Start Date", type: "text" },
               { name: "endDate", label: "End Date", type: "text" },
             ]}

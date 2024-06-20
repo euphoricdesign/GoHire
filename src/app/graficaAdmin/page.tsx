@@ -37,9 +37,9 @@ const GraficaPage: NextPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-20">
-      <h2 className="text-2xl font-bold my-4 mx-6">Monthly Earnings</h2>
-      <div className="grid grid-cols-1 m-6">
+    <div className="bg-gray-100 min-h-screen py-[100px] px-[124px]">
+      <h2 className="text-2xl font-bold my-4">Monthly Earnings</h2>
+      <div className="grid grid-cols-1">
         <div className="p-4 bg-white shadow-md rounded-lg">
           <GraficaAdmin data={earningsData} labels={labels} />
         </div>
