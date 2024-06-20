@@ -1,13 +1,12 @@
 import React from "react";
 import Modal from "react-modal";
-import { FaPencil } from "react-icons/fa6";
 
 interface Field {
   name: string;
   label: string;
   type: string;
   defaultValue?: string;
-  options?: string[];
+  options?: { value: string; label: string }[];
 }
 
 interface CustomModalProps {
@@ -91,10 +90,10 @@ const CustomModal: React.FC<CustomModalProps> = ({
             {field.type === "select" && field.options && (
               <select
                 onChange={(e) => handleChange(e, field.name)}
-                className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-1">
                 {field.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
               </select>
