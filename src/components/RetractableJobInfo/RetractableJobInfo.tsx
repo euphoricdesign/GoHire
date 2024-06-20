@@ -31,7 +31,9 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
                   </span>
                 </div>
               </div>
-              <div className="border-b border-gray-300 p-5 text-[#05264E]">{selectedJob.description}</div>
+              <div className="border-b border-gray-300 p-5 text-[#05264E]">
+                {selectedJob.description}
+              </div>
               <div className="p-5">
                 <div className="text-lg font-bold text-[#05264E]">Professions needed:</div>
                 <div className="mt-2 text-[#05264E]">{selectedJob.category}</div>
@@ -46,7 +48,7 @@ const RetractableJobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
                   <div className="m-3 p-1 border border-gray-300 rounded-full">
                     <Image
                       className="rounded-full"
-                      src={user.profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
+                      src={user.imgPictureUrl || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                       alt="profile img"
                       width={96}
                       height={96}

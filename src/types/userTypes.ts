@@ -2,6 +2,7 @@ import { UserEducation } from "./educationsTypes";
 import { UserExperiences } from "./experiencesTypes";
 import { JobsData } from "./jobsTypes";
 import { Professions } from "./professionsTypes";
+import { PublicationData } from "./publicationTypes";
 
 export interface userPostData {
   name: string;
@@ -33,6 +34,7 @@ export interface UserData {
   educations: UserEducation[];
   experiences: UserExperiences[];
   description: string;
+  publicactions: PublicationData[];
   token?: string;
   email?: string;
   profileImg?: string;

@@ -25,14 +25,19 @@ const UserCard = ({
   city,
   birthdate,
   bio,
-  profileImg,
+  imgPictureUrl,
   profesions,
   availableToWork,
   professionalRate,
   newMember,
   onClick,
   onMessageClick,
-}: UserData & { onClick: () => void; onMessageClick: () => void }) => {
+  onInvitationClick,
+}: UserData & {
+  onClick: () => void;
+  onMessageClick: () => void;
+  onInvitationClick: () => void;
+}) => {
   const [FavClicked, setFavClicked] = useState(false);
 
   const handleFavClick = (event: React.MouseEvent) => {
@@ -40,14 +45,12 @@ const UserCard = ({
     setFavClicked(!FavClicked);
   };
 
-  const handleButtonClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
-
   const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
 
   return (
-    <div className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem] rounded-xl" onClick={onClick}>
+    <div
+      className="cursor-pointer bg-[#f2f6fd] mobile:w-full md:w-[25.8rem] rounded-xl"
+      onClick={onClick}>
       <div className="flex items-center justify-between md:w-[25.8rem] flex-col shadow-md transition-all duration-300 border rounded-xl mobile:w-full">
         <div className="w-full border-b border-gray-300">
           <div className="flex justify-between w-full p-5">
@@ -62,7 +65,10 @@ const UserCard = ({
                   Message
                 </button>
                 <button
-                  onClick={handleButtonClick}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onInvitationClick();
+                  }}
                   className="bg-[#3C65F5] text-white text-center px-5 py-2 rounded-xl mr-2 hover:opacity-80 transition-all duration-300">
                   Hire
                 </button>
@@ -93,7 +99,7 @@ const UserCard = ({
             <div>
               <Image
                 className="rounded-full p-[1px] border-2 border-[#3C65F5] min-w-20 min-h-20"
-                src={profileImg || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
+                src={imgPictureUrl || "https://i.ibb.co/StS3yL7/Default-Profile-Img.png"}
                 alt="perfil"
                 width={80}
                 height={80}
