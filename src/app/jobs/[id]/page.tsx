@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const JobDetail = ({ params }: { params: { id: string } }) => {
   const { data: jobArray, error, isLoading } = useGetJobByIdQuery({ id: params.id });
-  const job = jobArray ? jobArray.publicationsFind[0] : null;
+  const job = jobArray ? jobArray[0] : null;
   console.log("job: ", job);
   return (
     <div className="container mx-auto">

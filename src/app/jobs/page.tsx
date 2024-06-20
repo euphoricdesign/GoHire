@@ -29,6 +29,8 @@ const SearchJobs: React.FC = () => {
   const [showDescription, setShowDescription] = useState(false);
   const userDetail = useSelector(selectUserDetail);
 
+  console.log(data)
+
   useEffect(() => {
     setPage(page);
   }, [data]);
