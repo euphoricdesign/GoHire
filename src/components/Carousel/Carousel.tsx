@@ -18,7 +18,7 @@ const Carousel = () => {
   const [data, setData] = useState<DataElement[] | null>(null)
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3001/publication/premium")
+    const response = await fetch("https://pf-henry-cc4j.onrender.com/publication/premium")
     const data: DataElement[] = await response.json()
     setData(data)
   }

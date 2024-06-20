@@ -15,7 +15,7 @@ const UserManagement = () => {
   const MySwal = withReactContent(Swal);
 
   const handleDelete = async (id: any) => {
-    await fetch(`http://localhost:3001/users/${id}`, {
+    await fetch(`https://pf-henry-cc4j.onrender.com/users/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const UserManagement = () => {
   };
 
   const handleUnblock = async (id: any) => {
-    await fetch(`http://localhost:3001/users/${id}`, {
+    await fetch(`https://pf-henry-cc4j.onrender.com/users/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
