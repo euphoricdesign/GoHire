@@ -13,7 +13,6 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({
   handleOptionClick,
 }) => {
   const { data: notifications } = useGetNotificationsMeQuery(null);
-  console.log(notifications, "ESTO ES NOTIFICATIONS");
 
   return (
     <>
