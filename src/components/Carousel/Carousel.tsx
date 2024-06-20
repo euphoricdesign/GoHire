@@ -1,11 +1,32 @@
 'use client'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import data from "../../utils/mock-publication.json";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useEffect, useState } from "react";
+
+// Define the interface for the data
+interface DataElement {
+  title: string;
+  description: string;
+  category: string;
+  // Add other properties if needed
+}
 
 const Carousel = () => {
+
+  const [data, setData] = useState<DataElement[] | null>(null)
+
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:3001/publication/premium")
+    const data: DataElement[] = await response.json()
+    setData(data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div className="mb-[100px] relative">
       <Swiper
@@ -20,7 +41,7 @@ const Carousel = () => {
           prevEl: ".swiper-button-prev",
         }}
       >
-        {data.map((element, index) => (
+        {data && data.map((element: DataElement, index: number) => (
           <SwiperSlide key={index} className="bg-[ghostwhite] rounded-lg border border-gray-100 h-full">
             <div className="relative block overflow-hidden h-full cursor-pointer rounded-lg">
               <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>

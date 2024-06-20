@@ -14,20 +14,7 @@ import {
 import { useGetUsersStatisticsQuery } from '@/lib/services/statisticsApi';
 
 const UserRegistrationReport: React.FC = () => {
-  // const [data, setData] = useState()
-  const token = useSelector((state: RootState) => state.user.userDetail?.token)
-
   const {data: statitstics} = useGetUsersStatisticsQuery(null)  
-
-  // Datos que vendrían del backend
-  // const data = [
-  //   { month: 'Jan', newUsers: 120 },
-  //   { month: 'Feb', newUsers: 150 },
-  //   { month: 'Mar', newUsers: 200 },
-  //   { month: 'Apr', newUsers: 180 },
-  //   { month: 'May', newUsers: 210 },
-  //   { month: 'Jun', newUsers: 250 },
-  // ];
 
   const totalUsers = 20;
   const growthRate = 8.5; // porcentaje
@@ -38,25 +25,6 @@ const UserRegistrationReport: React.FC = () => {
   ];
 
   const totalAuthUsers = authenticationMethods.reduce((acc, curr) => acc + curr.value, 0);
-
-  // const fetchData = async () => {
-  //   const data = await fetch("http://localhost:3001/statistics/month", {
-  //     method: 'GET', // Método HTTP
-  //     headers: {
-  //         'Authorization': `${token}`, // Encabezado de autorización
-  //         'Content-Type': 'application/json'  // Tipo de contenido (opcional, puede variar según tu API)
-  //     }
-  //   })
-
-  //   const response = await data.json()
-
-  //   setData(response)
-    
-  // }
-
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
