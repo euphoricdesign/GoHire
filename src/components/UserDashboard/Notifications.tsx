@@ -20,7 +20,7 @@ const Notifications: React.FC<NotificationsProps> = ({ handleOptionClick }) => {
     return (
       <div>
         <h2 className="font-bold text-2xl py-2">Your Notifications:</h2>
-        <div>You don't have notifications</div>
+        <div className="mb-[350px] text-lg">You have not received any notification yet.</div>
       </div>
     );
   }

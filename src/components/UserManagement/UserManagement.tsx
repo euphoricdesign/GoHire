@@ -36,19 +36,19 @@ const UserManagement = () => {
 
   const confirmBlock = (id: any) => {
     MySwal.fire({
-      title: '¿Estás seguro de bloquear a este usuario?',
-      text: "Dicho usuario no podrá volver a loguearse en la aplicación",
+      title: 'Are you sure to block this user?',
+      text: 'This user will not be able to log in to the application again.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#60D394',
       cancelButtonColor: '#EE6055',
-      confirmButtonText: 'Sí, deseo realizar esta acción'
+      confirmButtonText: 'Yes, I want to perform this action'
     }).then((result) => {
       if (result.isConfirmed) {
         handleDelete(id).then(() => {
           Swal.fire(
-            '¡Usuario bloqueado!',
-            'Has deshabilitado a este usuario.',
+            'Blocked user!',
+            'You have disabled this user.',
             'success'
           );
         });
@@ -58,19 +58,19 @@ const UserManagement = () => {
 
   const confirmUnblock = (id: any) => {
     MySwal.fire({
-      title: '¿Estás seguro de desbloquear a este usuario?',
-      text: "Dicho usuario podrá volver a loguearse en la aplicación",
+      title: 'Are you sure to unblock this user?',
+      text: "This user can log in to the application again.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#60D394',
       cancelButtonColor: '#EE6055',
-      confirmButtonText: 'Sí, deseo realizar esta acción'
+      confirmButtonText: 'Yes, I want to perform this action'
     }).then((result) => {
       if (result.isConfirmed) {
         handleUnblock(id).then(() => {
           Swal.fire(
-            '¡Usuario desbloqueado!',
-            'Has habilitado a este usuario.',
+            'Unlocked user!',
+            'You have enabled this user.',
             'success'
           );
         });
