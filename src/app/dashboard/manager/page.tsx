@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import ButtonCategory from '@/components/CategoryAdmin/CategoryAdmin';
 import ButtonGrafic from '@/components/grafAdminDashboar/graficoDashboard';
+
 const AdminDashboard = () => {
   const [selectedOption, setSelectedOption] = useState('Users');
 
