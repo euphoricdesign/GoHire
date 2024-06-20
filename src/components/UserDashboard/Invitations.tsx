@@ -13,14 +13,14 @@ const Invitations = () => {
     return <p>Error</p>;
   }
 
-  if (!Invitations?.length) {
-    return (
-      <div>
-        <h2 className="font-bold text-2xl py-2">Invitations received:</h2>
-        <div>You don't have invitations</div>
-      </div>
-    );
-  }
+  // if (!Invitations?.length) {
+  //   return (
+  //     <div>
+  //       <h2 className="font-bold text-2xl py-2">Invitations received:</h2>
+  //       <div>You don't have invitations</div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
