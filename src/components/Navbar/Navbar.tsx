@@ -124,10 +124,6 @@ const Navbar: React.FC = () => {
     }
   };
 
-  if (!notifications?.length) {
-    return <div>You don't have notifications</div>;
-  }
-
   return (
     <header
       className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${
