@@ -3,6 +3,8 @@ import { userPostData, UserData, UsersData, UserPatchData } from "@/types/userTy
 import type { RootState } from "@/lib/store";
 import { UserEducation } from "@/types/educationsTypes";
 import { Professions } from "@/types/professionsTypes";
+import { invitationsData } from "@/types/invitationsTypes";
+import { NotificationData } from "@/types/notificationsType";
 
 const baseUrl = process.env.NEXT_PUBLIC_RUTA_BACKEND_ONRENDER;
 
@@ -35,6 +37,25 @@ export const userApi = createApi({
         const token = localStorage.getItem("token");
         return {
           url: "users/me",
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
+    getNotificationsMe: builder.query<NotificationData[], null>({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "notifications/me",
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
+    getInvitationOffers: builder.query<invitationsData[], null>({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: "invitation/offers",
+          method: "GET",
           headers: token ? { authorization: `${token}` } : {},
         };
       },
@@ -108,4 +129,6 @@ export const {
   useUpdateUserMutation,
   usePostEducationMutation,
   usePostProfessionMutation,
+  useGetNotificationsMeQuery,
+  useGetInvitationOffersQuery,
 } = userApi;

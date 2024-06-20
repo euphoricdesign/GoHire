@@ -2,30 +2,46 @@
 import React, { useState } from "react";
 import UserProfile from "../UserProfile/UserProfile";
 import UserDashboardPublication from "../UserDashboardPublication/UserDashboardPublication";
+import Notifications from "./Notifications";
+import Invitations from "./Invitations";
+import { useSearchParams } from "next/navigation";
 
 const UserDashboard = () => {
-  const [selectedOption, setSelectedOption] = useState("My Info");
+  const params = useSearchParams();
+  const prefferedTab = params.get("tab");
+  console.log(prefferedTab, "esto es prefferedtab");
+  const [selectedOption, setSelectedOption] = useState(prefferedTab || "My Info");
+  const [selectedNotificationType, setSelectedNotificationType] = useState<string | null>(null);
 
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+  const handleOptionClick = (option: string, notificationType?: string) => {
+    if (option === "HandleNotification" && notificationType) {
+      if (notificationType === "SEND_APPLY_REQUEST") {
+        setSelectedOption("publications");
+      } else if (notificationType === "OFFER_JOB") {
+        setSelectedOption("my-invitations");
+      }
+      setSelectedNotificationType(null);
+    } else {
+      setSelectedOption(option);
+    }
   };
 
   let content;
   switch (selectedOption) {
-    case "My Info":
+    case "my-info":
       content = <UserProfile />;
       break;
-    case "Messages":
+    case "messages":
       content = "This is Messages";
       break;
-    case "Publications":
+    case "publications":
       content = <UserDashboardPublication />;
       break;
-    case "Notification Settings":
-      content = "This is Notification Settings";
+    case "notifications":
+      content = <Notifications handleOptionClick={handleOptionClick} notifications={[]} />;
       break;
-    case "Password And Security":
-      content = "This is Password And Security";
+    case "my-invitations":
+      content = <Invitations />;
       break;
     default:
       content = "No content available";
@@ -38,38 +54,38 @@ const UserDashboard = () => {
         <div className="flex flex-col mt-10 font-bold">
           <div
             className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "My Info" && "text-[#3C65F5]"
+              selectedOption === "my-info" && "text-[#3C65F5]"
             }`}
-            onClick={() => handleOptionClick("My Info")}>
+            onClick={() => handleOptionClick("my-info")}>
             My Info
           </div>
           <div
             className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "Messages" && "text-[#3C65F5]"
+              selectedOption === "messages" && "text-[#3C65F5]"
             }`}
-            onClick={() => handleOptionClick("Messages")}>
+            onClick={() => handleOptionClick("messages")}>
             Messages
           </div>
           <div
             className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "Publications" && "text-[#3C65F5]"
+              selectedOption === "publications" && "text-[#3C65F5]"
             }`}
-            onClick={() => handleOptionClick("Publications")}>
+            onClick={() => handleOptionClick("publications")}>
             Publications
           </div>
           <div
             className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "Notification Settings" && "text-[#3C65F5]"
+              selectedOption === "notifications" && "text-[#3C65F5]"
             }`}
-            onClick={() => handleOptionClick("Notification Settings")}>
-            Notification Settings
+            onClick={() => handleOptionClick("notifications")}>
+            Notifications
           </div>
           <div
             className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "Password And Security" && "text-[#3C65F5]"
+              selectedOption === "my-invitations" && "text-[#3C65F5]"
             }`}
-            onClick={() => handleOptionClick("Password And Security")}>
-            Password And Security
+            onClick={() => handleOptionClick("my-invitations")}>
+            My Invitations
           </div>
         </div>
       </div>

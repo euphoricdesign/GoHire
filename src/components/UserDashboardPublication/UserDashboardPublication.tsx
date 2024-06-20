@@ -10,14 +10,23 @@ import {
 import { JobsData } from "@/types/jobsTypes";
 import CardJobs from "../../components/CardJobs/CardJobs";
 import Toastify from "toastify-js";
+import { useGetUserMeQuery } from "@/lib/services/userApi";
+import Link from "next/link";
 
 const UserDashboardPublication = () => {
   const { user, isLoading: userLoading } = useUser();
   const { data, isLoading: publicationLoading, refetch } = useGetAllPublicationQuery(null);
+  const {
+    data: userMe,
+    error: getUserError,
+    isLoading: getUserLoading,
+    refetch: reload,
+  } = useGetUserMeQuery(null);
 
   const [selectedJobPost, setSelectedJobPost] = useState<JobsData | null>(null);
   const [showDescription, setShowDescription] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showUsers, setShowUsers] = useState(false);
 
   const dispatch = useDispatch();
   const userDetail = useSelector(selectUserDetail);
@@ -108,9 +117,7 @@ const UserDashboardPublication = () => {
     (jobItem) => jobItem.user?.email === user?.email
   );
 
-  console.log("jobs en search all: ", filteredJobsByUser);
-
-  if (userLoading || publicationLoading) {
+  if (userLoading || publicationLoading || getUserLoading) {
     return (
       <div className="w-full flex flex-row gap-2 justify-center items-center mb-[60px]">
         <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
@@ -120,20 +127,26 @@ const UserDashboardPublication = () => {
     );
   }
 
+  if (getUserError) {
+    return <div>Error: {getUserError.toString()}</div>;
+  }
+
   return (
     <div>
       {user && userDetail && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
           {filteredJobsByUser && filteredJobsByUser.length > 0 ? (
             filteredJobsByUser.map((job) => (
-              <CardJobs
-                key={job.id}
-                {...job}
-                onClick={() => handleDescription(job)}
-                onEdit={handleEdit}
-                onDelete={() => handleDelete(job.id)} // Pasa la función de eliminación solo si onEdit está presente
-                isEditable={true}
-              />
+              <div key={job.id} className="">
+                <CardJobs
+                  key={job.id}
+                  {...job}
+                  onClick={() => handleDescription(job)}
+                  onEdit={handleEdit}
+                  onDelete={() => handleDelete(job.id)}
+                  isEditable={true}
+                />
+              </div>
             ))
           ) : (
             <p>No publications found.</p>

@@ -15,6 +15,7 @@ export const jobsApi = createApi({
         if (token) {
           headers.set("authorization", `${token}`);
           console.log("Token added to headers:", token);
+          localStorage.setItem("token", token);
         }
       }
       return headers;
@@ -38,7 +39,7 @@ export const jobsApi = createApi({
         };
       },
     }),
-    getJobById: builder.query<JobsData[], { id: string }>({
+    getJobById: builder.query<JobsFindData, { id: string }>({
       query: ({ id }) => `publication/${id}`,
     }),
     postJob: builder.mutation<JobsData, FormData>({
@@ -48,6 +49,45 @@ export const jobsApi = createApi({
         body: newJob,
       }),
     }),
+    postListMe: builder.mutation<JobsData, { id: string }>({
+      query: ({ id }) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `publication/listMe/${id}`,
+          method: "POST",
+          headers: token ? { authorization: `${token}` } : {},
+        };
+      },
+    }),
+
+    postInvitation: builder.mutation<
+      JobsData,
+      {
+        id: string;
+        jobDescription: string;
+        payPerHour: number;
+        issue: string;
+        location: string;
+        startDate: string;
+      }
+    >({
+      query: ({ id, jobDescription, payPerHour, issue, location, startDate }) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `invitation/${id}`,
+          method: "POST",
+          headers: token ? { authorization: `${token}` } : {},
+          body: {
+            jobDescription,
+            payPerHour,
+            issue,
+            location,
+            startDate,
+          },
+        };
+      },
+    }),
+
     updateJob: builder.mutation<JobsData, { id: string; updatedJob: Partial<JobsPostData> }>({
       query: ({ id, updatedJob }) => ({
         url: `publication/${id}`,
@@ -79,4 +119,6 @@ export const {
   useGetAllPublicationQuery,
   useUpdateJobMutation,
   useDeleteJobMutation,
+  usePostListMeMutation,
+  usePostInvitationMutation,
 } = jobsApi;

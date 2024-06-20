@@ -8,8 +8,9 @@ import { UserData } from "@/types/userTypes";
 import SendMessageModal from "../Modals/SendMessageModal";
 import { useSelector } from "react-redux";
 import { selectUserDetail } from "@/lib/features/slices/userSlice";
-import Toastify from 'toastify-js'
-
+import Toastify from "toastify-js";
+import InvitationModal from "../Modals/InvitationModal";
+import { usePostInvitationMutation } from "@/lib/services/jobsApi";
 
 const UsersCards = () => {
   const [page, setPage] = useState(1);
@@ -18,9 +19,12 @@ const UsersCards = () => {
     isLoading: isPaginatedUsersLoading,
     isFetching,
   } = useListUsersQuery(page);
+  const [formErrors, setFormErrors] = useState<string[]>([]);
   const [showDescription, setShowDescription] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [invitationModal, setInvitationModal] = useState(false);
+  const [postInvitation] = usePostInvitationMutation();
 
   const userDetail = useSelector(selectUserDetail);
 
@@ -35,21 +39,30 @@ const UsersCards = () => {
 
   const totalPages = Math.ceil((paginatedUsersResponse?.count ?? 0) / 10);
 
+  const handleInvitationModal = (user: UserData) => {
+    setSelectedUser(user);
+    setInvitationModal(true);
+  };
+
+  const handleCloseInvitationModal = () => {
+    setInvitationModal(false);
+    setSelectedUser(null);
+  };
+
   const handleOpenModal = (user: UserData) => {
     if (!userDetail) {
       // Crear una instancia de notificación
-      const myToast =   Toastify({
-        text: 'You must be logged in to send a message',
-        className: 'toastify',
-        position: 'left',
-        gravity: 'bottom',
+      const myToast = Toastify({
+        text: "You must be logged in to send a message",
+        className: "toastify",
+        position: "left",
+        gravity: "bottom",
         duration: 999999999, // Duración muy grande para simular permanencia en pantalla
-        close: true
-      })
+        close: true,
+      });
 
       // Mostrar la notificación
-      myToast.showToast() 
-  
+      myToast.showToast();
     } else {
       setSelectedUser(user);
       setShowModal(true);
@@ -61,8 +74,49 @@ const UsersCards = () => {
     setSelectedUser(null);
   };
 
-
-
+  const handleInvitationSubmit = async (formData: {
+    jobDescription: string;
+    payPerHour: number;
+    issue: string;
+    location: string;
+    startDate: string;
+  }) => {
+    try {
+      if (!selectedUser) {
+        throw new Error("No user selected");
+      }
+      const response = await postInvitation({
+        id: selectedUser.id,
+        jobDescription: formData.jobDescription,
+        payPerHour: formData.payPerHour,
+        issue: formData.issue,
+        location: formData.location,
+        startDate: formData.startDate,
+      }).unwrap();
+      console.log("Invitation sent successfully:", response);
+      Toastify({
+        text: "Invitation sent successfully",
+        className: "toastify",
+        position: "left",
+        gravity: "bottom",
+        duration: 3000,
+        close: true,
+      }).showToast();
+      handleCloseInvitationModal();
+    } catch (error: any) {
+      console.error("Failed to send invitation:", error);
+      const errorMessages = error.data?.message || ["Failed to send invitation"];
+      setFormErrors(errorMessages);
+      Toastify({
+        text: "Failed to send invitation",
+        className: "toastify",
+        position: "left",
+        gravity: "bottom",
+        duration: 3000,
+        close: true,
+      }).showToast();
+    }
+  };
 
   if (!paginatedUsersResponse?.usersFind || paginatedUsersResponse.usersFind.length === 0) {
     return (
@@ -87,6 +141,7 @@ const UsersCards = () => {
                 {...user}
                 onClick={() => handleDescription(user)}
                 onMessageClick={() => handleOpenModal(user)}
+                onInvitationClick={() => handleInvitationModal(user)}
               />
             </div>
           ))}
@@ -144,6 +199,24 @@ const UsersCards = () => {
         onRequestClose={handleCloseModal}
         selectedUser={selectedUser}
       />
+      <InvitationModal
+        isOpen={invitationModal}
+        onRequestClose={handleCloseInvitationModal}
+        selectedUser={selectedUser}
+        onSubmit={handleInvitationSubmit} // Pasa la función de manejo de la invitación
+        formErrors={[]}
+      />
+
+      {/* Renderiza errores del formulario si existen */}
+      {formErrors.length > 0 && (
+        <div className="error-messages">
+          {formErrors.map((error, index) => (
+            <div key={index} className="error-message">
+              {error}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
