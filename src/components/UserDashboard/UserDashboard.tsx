@@ -10,7 +10,7 @@ const UserDashboard = () => {
   const params = useSearchParams();
   const prefferedTab = params.get("tab");
   console.log(prefferedTab, "esto es prefferedtab");
-  const [selectedOption, setSelectedOption] = useState(prefferedTab || "My Info");
+  const [selectedOption, setSelectedOption] = useState(prefferedTab || "my-info");
   const [selectedNotificationType, setSelectedNotificationType] = useState<string | null>(null);
 
   const handleOptionClick = (option: string, notificationType?: string) => {
