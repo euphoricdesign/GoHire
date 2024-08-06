@@ -12,7 +12,7 @@ const JobInfo = ({ selectedJob }: { selectedJob: JobsData }) => {
   }
 
   return (
-    <div className="h-full w-full mt-24 mb-[170px]">
+    <div className="h-full w-full mt-[120px] mb-[170px]">
       <div className="flex flex-col mx-5 my-3 border border-gray-300 rounded-3xl h-[90%] overflow-y-auto">
         <div>
             {error || !data && <div className='text-[#05264E]'>User not found</div>}

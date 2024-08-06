@@ -13,7 +13,7 @@ const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
   if (text?.length <= maxLength) {
     return text;
   }
-  return text?.slice(0, maxLength) + "...";
+  return text !== undefined ? text?.slice(0, maxLength) + "..." : "No description yet"
 };
 
 const UserCard = ({
@@ -46,6 +46,7 @@ const UserCard = ({
   };
 
   const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
+  console.log(truncatedDescription)
 
   return (
     <div

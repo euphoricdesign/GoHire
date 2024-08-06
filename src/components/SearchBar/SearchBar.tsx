@@ -5,6 +5,7 @@ import { GoPencil } from "react-icons/go";
 import { useGetAllPublicationQuery } from "@/lib/services/jobsApi";
 import { JobsData } from "@/types/jobsTypes";
 import Link from "next/link";
+import image from '../../../public/add-image.svg'
 
 const SearchBar = () => {
   const { data, isLoading } = useGetAllPublicationQuery(null);
@@ -29,7 +30,7 @@ const SearchBar = () => {
         <a href={`/jobs/${job.id}`} className="block shrink-0">
           <img
             alt=""
-            src={job.imgUrl}
+            src={job.imgUrl ?  job.imgUrl : image}
             className="w-14 h-14 rounded-lg object-cover cursor-pointer"
           />
         </a>
