@@ -114,7 +114,7 @@ const AdminDashboard = () => {
                     <div>
                       <div className="flex items-center">
                         <h2 className="text-[32px] font-bold text-[#05264E]">
-                          Admin Name
+                          Jose María
                         </h2>
                       </div>
                     </div>

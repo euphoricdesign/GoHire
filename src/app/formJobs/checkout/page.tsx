@@ -47,7 +47,7 @@ const Checkout: React.FC = () => {
         <>
             {
                 data && item ? (
-                    <div className='mt-[100px] px-[124px] gap-[200px] flex justify-between'>
+                    <div className='my-[100px] px-[124px] gap-[200px] flex justify-between'>
                         <div className='w-full rounded h-[174px] border border-[#0612241a]'>
                             <table className='w-full bg-white  '>
                                 <thead className='flex flex-col'>

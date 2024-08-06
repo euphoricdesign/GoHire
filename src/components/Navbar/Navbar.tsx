@@ -200,7 +200,7 @@ const Navbar: React.FC = () => {
             </div>
             {showModal && (
               <div
-                className="absolute top-[3.5rem] w-[16rem] bg-white gap-4 right-[125px] p-5 h-[22rem] rounded shadow-md"
+                className="absolute top-[3.5rem] w-[16rem] bg-white gap-4 right-[170px] p-5 h-[22rem] rounded shadow-md"
                 ref={modalRef}>
                 <div>
                   <ul className="flex flex-col gap-3">
@@ -214,7 +214,7 @@ const Navbar: React.FC = () => {
                     </li>
                     <li className="flex flex-col items-center">
                       <h5 className="text-base font-medium text-[#05264E]">{user.name}</h5>
-                      <span className="text-[#66789C]">Freelancer</span>
+                      <span className="text-[#66789C]">{role === 'USER' ? "Freelancer" : "Manager" }</span>
                     </li>
 
                     <li className="border-2 border-[#d9d9d9] mb-[10px] rounded-[10rem] flex gap-[1px]">
