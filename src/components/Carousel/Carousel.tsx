@@ -20,7 +20,7 @@ const Carousel = () => {
   const FEATURED_POST = process.env.FEATURED_POST
 
   const fetchData = async () => {
-    const response = await fetch("gohire-back-production.up.railway.app/publication/premium")
+    const response = await fetch("https://gohire-back-production.up.railway.app/publication/premium")
     const data: DataElement[] = await response.json()
     setData(data)
   }

@@ -15,7 +15,7 @@ const UserManagement = () => {
   const MySwal = withReactContent(Swal);
 
   const handleDelete = async (id: any) => {
-    await fetch(`gohire-back-production.up.railway.app/users/${id}`, {
+    await fetch(`https://gohire-back-production.up.railway.app/users/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const UserManagement = () => {
   };
 
   const handleUnblock = async (id: any) => {
-    await fetch(`gohire-back-production.up.railway.app/users/${id}`, {
+    await fetch(`https://gohire-back-production.up.railway.app/users/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
