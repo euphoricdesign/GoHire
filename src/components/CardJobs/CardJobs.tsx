@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import { JobsData } from "@/types/jobsTypes";
 import { useGetCategoryQuery } from "@/lib/services/jobsApi";
 import { useGetUserMeQuery } from "@/lib/services/userApi";
+import { TruncateTextParams } from "../userCard/userCard";
+
+const truncateText = ({ text, maxLength }: TruncateTextParams): string => {
+  if (text?.length <= maxLength) {
+    return text;
+  }
+  return text !== undefined ? text?.slice(0, maxLength) + "..." : "No description yet"
+};
 
 const CardJobs = ({
   title,
@@ -100,7 +108,7 @@ const CardJobs = ({
         onClick={onClick}
         className="relative block overflow-hidden rounded-lg border border-gray-100 h-full cursor-pointer">
         <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
-        <div className="sm:flex sm:flex-col sm:justify-between sm:gap-4 px-4 pt-4">
+        <div className="sm:flex sm:flex-col sm:justify-between sm:gap-4 px-4 py-4">
           <div className="flex items-center justify-between">
             {isEditing ? (
               <input
@@ -156,7 +164,7 @@ const CardJobs = ({
                 className="text-gray-900 min-h-16"
               />
             ) : (
-              <h3 className="text-gray-900 min-h-16">{description}</h3>
+              <h3 className="text-gray-900 min-h-16">{truncateText({ text: description, maxLength: 100 })}</h3>
             )}
           </div>
         </div>

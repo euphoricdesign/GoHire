@@ -4,7 +4,7 @@ import Image from "next/image";
 import { GoHeartFill } from "react-icons/go";
 import { UserData } from "@/types/userTypes";
 
-interface TruncateTextParams {
+export interface TruncateTextParams {
   text: string;
   maxLength: number;
 }
@@ -46,7 +46,6 @@ const UserCard = ({
   };
 
   const truncatedDescription = truncateText({ text: bio, maxLength: 100 });
-  console.log(truncatedDescription)
 
   return (
     <div
