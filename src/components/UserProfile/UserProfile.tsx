@@ -98,16 +98,16 @@ const UserProfile = () => {
   return (
     <div className="h-full w-full">
       <div className="flex flex-col border rounded-3xl">
-        <div className="border-b border-b-gray-300 rounded-t-3xl">
-          <div className="flex items-center">
-            <div className="relative w-auto mx-[1.5rem] border border-gray-300 rounded-full">
+        <div className="border-b border-b-gray-300 rounded-t-3xl p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-center">
+            <div className="relative  mb-4 sm:mb-0 sm:mr-6 border border-gray-300 rounded-full">
               {user?.imgPictureUrl && (
                 <Image
                   className="rounded-full"
                   src={user.imgPictureUrl}
-                  alt={""}
-                  width={96}
-                  height={96}
+                  alt=""
+                  width={100}
+                  height={1}
                 />
               )}
               <HiOutlinePencilSquare
@@ -115,11 +115,11 @@ const UserProfile = () => {
                 onClick={() => openModal("profileImg")}
               />
             </div>
-            <div className="w-full p-5">
-              <div className="flex justify-between">
+            <div className="w-full text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start">
                 <div>
-                  <div className="flex items-center">
-                    <h2 className="text-[32px] font-bold text-[#05264E]">
+                  <div className="flex items-center justify-center sm:justify-start">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[#05264E]">
                       {user?.name} {user?.lastName}
                     </h2>
                     <div>
@@ -128,10 +128,10 @@ const UserProfile = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center justify-center sm:justify-start mb-3">
                     <div className="flex items-center">
                       <IoLocationOutline />
-                      <h2 className="text-xl text-[#05264E]">
+                      <h2 className="text-lg sm:text-xl text-[#05264E]">
                         {user?.city}, {user?.country}
                       </h2>
                     </div>

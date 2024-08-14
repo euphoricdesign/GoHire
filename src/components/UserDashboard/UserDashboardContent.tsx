@@ -47,48 +47,24 @@ const UserDashboardContent = () => {
   }
 
   return (
-    <div className="px-[124px] mt-[100px] mb-[180px] justify-start gap-[80px] flex relative">
-      <div className="relative float-left w-[20%]">
-        <div className="text-3xl font-bold text-[#05264E]">User Settings</div>
-        <div className="flex flex-col mt-10 font-bold">
-          <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "my-info" && "text-[#3C65F5]"
-            }`}
-            onClick={() => handleOptionClick("my-info")}>
-            My Info
-          </div>
-          <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "messages" && "text-[#3C65F5]"
-            }`}
-            onClick={() => handleOptionClick("messages")}>
-            Messages
-          </div>
-          <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "publications" && "text-[#3C65F5]"
-            }`}
-            onClick={() => handleOptionClick("publications")}>
-            Publications
-          </div>
-          <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "notifications" && "text-[#3C65F5]"
-            }`}
-            onClick={() => handleOptionClick("notifications")}>
-            Notifications
-          </div>
-          <div
-            className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] ${
-              selectedOption === "my-invitations" && "text-[#3C65F5]"
-            }`}
-            onClick={() => handleOptionClick("my-invitations")}>
-            My Invitations
-          </div>
+    <div className="px-[30px] sm:px-6 md:px-[124px] mt-[100px] sm:mt-12 md:mt-[100px] mb-8 sm:mb-12 md:mb-16 flex flex-col md:flex-row justify-start md:gap-[80px] mobile:gap-0 relative">
+      <div className="w-full md:w-1/4 mb-8 md:mb-0">
+        <div className="text-2xl sm:text-3xl font-bold text-[#05264E]">User Settings</div>
+        <div className="flex flex-row md:flex-col mt-4 md:mt-10 font-bold overflow-x-auto md:overflow-x-visible">
+          {/* Opciones de menú */}
+          {["my-info", "messages", "publications", "notifications", "my-invitations"].map((option) => (
+            <div
+              key={option}
+              className={`cursor-pointer border-l pb-2 pt-2 pl-4 text-[#05264E] whitespace-nowrap md:whitespace-normal ${
+                selectedOption === option ? "text-[#3C65F5]" : ""
+              }`}
+              onClick={() => handleOptionClick(option)}>
+              {option.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="relative float-right w-[70%]">{content}</div>
+      <div className="w-full md:w-3/4">{content}</div>
     </div>
   );
 };

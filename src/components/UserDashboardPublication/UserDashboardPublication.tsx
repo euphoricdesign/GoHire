@@ -132,12 +132,12 @@ const UserDashboardPublication = () => {
   }
 
   return (
-    <div>
+    <div className="p-4">
       {user && userDetail && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredJobsByUser && filteredJobsByUser.length > 0 ? (
             filteredJobsByUser.map((job) => (
-              <div key={job.id} className="">
+              <div key={job.id} className="w-full">
                 <CardJobs
                   key={job.id}
                   {...job}
@@ -149,9 +149,9 @@ const UserDashboardPublication = () => {
               </div>
             ))
           ) : (
-            <div>
-              <h2 className="font-bold text-2xl py-2">Your Publications:</h2>
-              <div>You don't have publications</div>
+            <div className="col-span-full">
+              <h2 className="font-bold text-xl sm:text-2xl py-2">Your Publications:</h2>
+              <div className="text-lg">You don't have publications</div>
             </div>
           )}
         </div>
