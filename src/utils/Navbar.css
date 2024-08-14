@@ -109,7 +109,7 @@
   }
 
   #check:checked ~ .navbar {
-    height: 17.7rem;
+    height: 24rem;
   }
 
   .navbar a {

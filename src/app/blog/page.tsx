@@ -2,12 +2,12 @@ import React from 'react'
 
 const BlogPage = () => {
   return (
-    <div className="px-[124px] mb-[100px]">
+    <div className="mobile:px-[30px] desktop:px-[124px] mb-[100px]">
         <h1 className="text-4xl font-bold text-[#05264E] mt-[100px]">Blog</h1>
         <p className="text-[#05264E] mt-[1.3rem] text-[1.25rem]">Get the latest news, updates and tips</p>
 
         <div className="flex flex-wrap mt-[40px] justify-between">
-        <div className="w-[32.333333%]">
+        <div className="mobile:w-full desktop:w-[32.333333%] mobile:mb-8 desktop:mb-0">
             <div className="bg-gray-200 h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
             <div className="bg-bgBlog1 bg-center bg-no-repeat h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
                 <div className="bg-grayBg absolute bottom-0 top-[10%] w-full z-[2]">
@@ -19,7 +19,7 @@ const BlogPage = () => {
             </div>
             </div>
         </div>
-        <div className="w-[32.333333%]">
+        <div className="mobile:w-full desktop:w-[32.333333%] mobile:mb-8 desktop:mb-0">
             <div className="bg-violet-200 h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
             <div className="bg-bgBlog2 bg-center bg-no-repeat h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
                 <div className="bg-grayBg absolute bottom-0 top-[10%] w-full z-[2]">
@@ -31,7 +31,7 @@ const BlogPage = () => {
             </div>
             </div>
         </div>
-        <div className="w-[32.333333%]">
+        <div className="mobile:w-full desktop:w-[32.333333%] mobile:mb-8 desktop:mb-0">
             <div className="bg-violet-200 h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
             <div className="bg-bgBlog3 bg-center bg-no-repeat h-[550px] bg-cover w-full relative inline-block rounded-[16px] overflow-hidden">
                 <div className="bg-grayBg absolute bottom-0 top-[10%] w-full z-[2]">

@@ -119,7 +119,7 @@ const CardJobs = ({
                 className="text-lg font-bold text-[#05264E] sm:text-xl w-[160px]"
               />
             ) : (
-              <h3 className="text-lg font-bold text-[#05264E] sm:text-xl">{title}</h3>
+              <h3 className="text-lg font-bold text-[#05264E] sm:text-xl mobile:w-[200px] md:w-[270px] ">{title}</h3>
             )}
             {isEditable ? (
               <div className="flex gap-2">
