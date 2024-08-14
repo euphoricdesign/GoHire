@@ -17,7 +17,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({
   return (
     <>
       {showModal && (
-        <div className="absolute top-[3.5rem] w-[16rem] bg-white gap-4 right-[125px] px-1 h-[22rem] rounded shadow-md">
+        <div className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[50px] desktop:right-[125px] px-1 h-[22rem] rounded shadow-md">
           <div className="flex flex-col items-center">
             <h5 className="text-base font-medium text-[#05264E] mt-5">Your Notifications</h5>
             {notifications && notifications.length > 0 ? (
