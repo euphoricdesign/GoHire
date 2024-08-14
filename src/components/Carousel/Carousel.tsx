@@ -91,7 +91,7 @@ const Carousel = () => {
                 >
                   <div className="relative block overflow-hidden h-full cursor-pointer rounded-lg">
                     <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
-                    <div className="sm:flex sm:flex-col sm:justify-between sm:gap-4 px-7 py-5">
+                    <div className="sm:flex sm:flex-col sm:justify-between sm:gap-4 mobile:p-4 md:px-7 md:py-5">
                       <div className="flex items-center justify-between">
                         <h3 className="text-lg font-bold text-black sm:text-xl">{element.title}</h3>
                         <div className="bg-[#3C65F5] text-white text-center text-sm px-2 py-2 rounded-xl hover:opacity-80 transition-all duration-300">

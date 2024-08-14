@@ -47,7 +47,7 @@ const Checkout: React.FC = () => {
         <>
             {
                 data && item ? (
-                    <div className='my-[100px] px-[124px] gap-[200px] flex justify-between'>
+                    <div className='md:h-[392px] my-[100px] mb-[80px] mobile:px-[30px] md:px-[124px] mobile:gap-[80px] md:gap-[200px] flex mobile:flex-col md:flex-row justify-between'>
                         <div className='w-full rounded h-[174px] border border-[#0612241a]'>
                             <table className='w-full bg-white  '>
                                 <thead className='flex flex-col'>
@@ -63,7 +63,7 @@ const Checkout: React.FC = () => {
                                             <Image src={Cards} alt='' className='w-[150px]' />
                                         </td>
                                     </tr>
-                                    <tr className=''>
+                                    <tr className='mobile:border-b mobile:border-b-[#dddddd] md:border-none'>
                                         <td className='p-4 flex items-center gap-2 text-[#05264E]'>
                                             <input type="checkbox" checked={isMercadoPagoChecked} onChange={handleMpChange} />
                                             <Image src={Mp} alt='' className='w-[80px]' />
@@ -73,7 +73,7 @@ const Checkout: React.FC = () => {
                             </table>
                         </div>
                         <div className='border border-[#0612241a] rounded'>
-                            <div className='bg-[#0612240e] text-[#4a4a4a] w-[400px] p-5'>
+                            <div className='bg-[#0612240e] text-[#4a4a4a] mobile:w-full md:w-[400px] p-5'>
                                 {data && data.length > 0 && (
                                     <>
                                       <div className="flex gap-3 w-[60px] items-center mb-[10px]">
@@ -98,7 +98,7 @@ const Checkout: React.FC = () => {
                                 <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Highlighted for <span>{duration}</span></span>
                                 <span className='flex items-center gap-2'><FaCheck className='text-[15px]' /> Urgent hiring label</span>
                             </div>
-                            <div className='bg-white text-[#4a4a4a] w-[400px] p-5'>
+                            <div className='bg-white text-[#4a4a4a] mobile:w-full md:w-[400px] p-5'>
                                 <div className='flex justify-between font-[700] text-[18px]'>
                                     <span>Total</span>
                                     <span>${item.unit_price}</span>
@@ -108,10 +108,12 @@ const Checkout: React.FC = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="w-full flex flex-row gap-2 justify-center items-center mt-[100px] mb-[60px]">
-                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
-                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
-                        <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+                    <div className='h-[470px]'>
+                        <div className="w-full flex flex-row gap-2 justify-center items-center mt-[100px] mb-[60px]">
+                            <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce"></div>
+                            <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.3s]"></div>
+                            <div className="w-4 h-4 rounded-full bg-[#3C65F5] animate-bounce [animation-delay:-.5s]"></div>
+                        </div>
                     </div>
                 )
             }

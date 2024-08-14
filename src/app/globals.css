@@ -26,6 +26,10 @@ textarea:focus {
   outline: none  
 }
 
+select {
+  background-color: white;
+}
+
 select option:checked {
     background-color: #3C65F5; /* Violeta */
     color: #fff; /* Texto blanco */
