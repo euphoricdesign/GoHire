@@ -56,13 +56,24 @@ const Carousel = () => {
     fetchData()
   }, [])
 
+
   return (
     <div className="mb-[100px] relative">
       <Swiper
         modules={[Autoplay, Navigation]}
         className="swiper-container"
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        }}
         autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
         onSlideChange={() => console.log("slide change")}
         navigation={{
@@ -74,7 +85,10 @@ const Carousel = () => {
           namesArray.map(obj => (
             <>
               {data && data.map((element: DataElement, index: number) => (
-                <SwiperSlide key={index} className="bg-[ghostwhite] rounded-lg border border-gray-100 h-full">
+                <SwiperSlide 
+                  key={index} 
+                  className="bg-[ghostwhite] rounded-lg border border-gray-100 h-full w-full"
+                >
                   <div className="relative block overflow-hidden h-full cursor-pointer rounded-lg">
                     <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
                     <div className="sm:flex sm:flex-col sm:justify-between sm:gap-4 px-7 py-5">
