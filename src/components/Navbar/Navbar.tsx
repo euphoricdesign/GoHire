@@ -46,6 +46,7 @@ const Navbar: React.FC = () => {
 
   const { data, isFetching } = useGetUserMeQuery(null);
   const role = useSelector((state: RootState) => state.user.userDetail?.role)
+  console.log(role)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -220,7 +221,7 @@ const Navbar: React.FC = () => {
             </div>
             {showModal && (
               <div
-                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[96px] desktop:right-[170px] p-5 h-[22rem] rounded shadow-md"
+                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[96px] desktop:right-[170px] p-5 h-[20rem] rounded shadow-md"
                 ref={modalRef}>
                 <div>
                   <ul className="flex flex-col gap-3">
@@ -234,7 +235,7 @@ const Navbar: React.FC = () => {
                     </li>
                     <li className="flex flex-col items-center">
                       <h5 className="text-base font-medium text-[#05264E]">{user.name}</h5>
-                      <span className="text-[#66789C]">{role === 'USER' ? "Freelancer" : "Manager" }</span>
+                      {/* <span className="text-[#66789C]">{role === 'U' ? "Freelancer" : "Manager" }</span> */}
                     </li>
 
                     <li className="border-2 border-[#d9d9d9] mb-[10px] rounded-[10rem] flex gap-[1px]">
@@ -275,7 +276,7 @@ const Navbar: React.FC = () => {
             )}
             {notificationsModal && (
               <div
-                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[50px] desktop:right-[125px] px-1 h-[22rem] rounded shadow-md"
+                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[50px] desktop:right-[125px] px-1 min-h-[20rem] rounded shadow-md"
                 ref={modalRef}>
                 <div className="flex flex-col items-center">
                   <h5 className="text-base font-medium text-[#05264E] mt-5">Your Notifications</h5>
