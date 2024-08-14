@@ -24,7 +24,9 @@ import { useGetNotificationsMeQuery } from "@/lib/services/userApi";
 import { useGetUserMeQuery } from "@/lib/services/userApi";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
-interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+
+
+export interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   style?: React.CSSProperties & { "--i"?: number };
 }
 
@@ -127,6 +129,11 @@ const Navbar: React.FC = () => {
     }
   };
 
+  const styles = {
+    "--i": 5,
+    "display": (user && window.innerWidth < 780 ? "block" : "none")
+  }
+
   return (
     <header
       className={`header py-4 xl:px-[124px] md:px-[60px] mobile:px-[30px] ${
@@ -152,15 +159,28 @@ const Navbar: React.FC = () => {
           <a className="text-sm" href="/users" style={{ "--i": 1 } as AnchorProps}>
             Talents
           </a>
-          <a className="text-sm" href="/jobs" style={{ "--i": 3 } as AnchorProps}>
+          <a className="text-sm" href="/jobs" style={{ "--i": 2 } as AnchorProps}>
             Jobs
           </a>
-          <a className="text-sm" href="/blog" style={{ "--i": 2 } as AnchorProps}>
+          <a className="text-sm" href="/blog" style={{ "--i": 3 } as AnchorProps}>
             Blog
           </a>
-          <a className="text-sm" href="/contact" style={{ "--i": 3 } as AnchorProps}>
+          <a className="text-sm" href="/contact" style={{ "--i": 4 } as AnchorProps}>
             Contact
           </a>
+          <a className={`${ user ? "md:hidden mobile:block" : "hidden"}`} href="/dashboard" style={styles as AnchorProps}>
+            Dashboard
+          </a>
+          <div className="flex justify-center md:hidden" style={{ "--i": 6 } as AnchorProps}>
+            { user ? <LogOutButton /> : <LoginButton />}
+          </div>
+          <div className="md:hidden flex justify-center my-[20px]" style={{ "--i": 7 } as AnchorProps}>
+            <button
+              className="mt-0 mb-5 text-sm border-none w-28 p-2.5 h-10 rounded text-white font-medium bg-[#3C65F5] cursor-pointer transition-opacity duration-300 ease-in-out opacity-100 hover:opacity-80 md:mb-0"
+              onClick={handlePostAJob}>
+              Post a job
+            </button>
+          </div>
         </nav>
       </div>
       <div className="flex items-center gap-3 text-sm">
@@ -184,7 +204,7 @@ const Navbar: React.FC = () => {
         )}
         {user && (
           <div>
-            <div className="flex items-center">
+            <div className="md:flex items-center mobile:hidden ">
               <Image
                 onClick={handleShowModal}
                 className="w-[40px] cursor-pointer border border-gray-300 rounded-full"
@@ -200,7 +220,7 @@ const Navbar: React.FC = () => {
             </div>
             {showModal && (
               <div
-                className="absolute top-[3.5rem] w-[16rem] bg-white gap-4 right-[170px] p-5 h-[22rem] rounded shadow-md"
+                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[96px] desktop:right-[170px] p-5 h-[22rem] rounded shadow-md"
                 ref={modalRef}>
                 <div>
                   <ul className="flex flex-col gap-3">
@@ -255,7 +275,7 @@ const Navbar: React.FC = () => {
             )}
             {notificationsModal && (
               <div
-                className="absolute top-[3.5rem] w-[16rem] bg-white gap-4 right-[125px] px-1 h-[22rem] rounded shadow-md"
+                className="absolute md:top-[3.8rem] desktop:top-[3.5rem] w-[16rem] bg-white gap-4 md:right-[50px] desktop:right-[125px] px-1 h-[22rem] rounded shadow-md"
                 ref={modalRef}>
                 <div className="flex flex-col items-center">
                   <h5 className="text-base font-medium text-[#05264E] mt-5">Your Notifications</h5>
